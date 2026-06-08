@@ -1,0 +1,25 @@
+name: CofC Seat Watcher
+
+on:
+  schedule:
+    # Every 5 minutes (GitHub's minimum; runs are best-effort and may be delayed).
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {}   # lets you run it manually from the Actions tab
+
+# Avoid overlapping runs piling up.
+concurrency:
+  group: seat-watch
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for open seats
+        env:
+          TERM_CODE: "202710"      # 202710 = Fall 2026
+          SUBJECT: "MATH"
+          COURSE: "104"
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}   # set in repo Settings > Secrets
+        run: bash cloud/check_seats.sh
