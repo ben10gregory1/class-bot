@@ -1,0 +1,24 @@
+{
+  "term": "202710",
+  "poll_seconds": 300,
+  "watch": [
+    {
+      "label": "MATH 104",
+      "subject": "MATH",
+      "course": "104",
+      "crns": []
+    }
+  ],
+  "notify": {
+    "ntfy": {
+      "enabled": true,
+      "topic": "CHANGE-ME-to-something-secret"
+    },
+    "email": {
+      "enabled": false,
+      "to": "ben10gregory1@gmail.com",
+      "from": "your.gmail@gmail.com",
+      "app_password": ""
+    }
+  }
+}

@@ -66,6 +66,41 @@ Files: `cloud/check_seats.sh` + `.github/workflows/watch.yml`. Checks every ~5 m
 **Turn the cloud watcher off:** in the repo, Actions tab > "CofC Seat Watcher" > "..." > **Disable workflow** (or just delete the repo).
 Note: GitHub auto-pauses scheduled workflows after 60 days of repo inactivity.
 
+---
+
+## Multi-course version (any Banner school) - Python discovery + watch
+
+`Watch-Seats.ps1` / `cloud/check_seats.sh` are hard-coded to one subject/course
+at CofC. `discover.py` + `watch.py` generalize that to **any Banner 9
+self-service school** and any number of subjects/courses/CRNs at once. Stdlib
+Python only - no `pip install` needed.
+
+```bash
+export BANNER=ssb.cofc.edu          # host from your existing bot (no scheme/path)
+python discover.py --dump-vocab     # writes vocab.json - real partOfTerm/subject/campus codes
+python discover.py --term 202710    # writes candidates.csv + raw_sections.json for that term
+# open candidates.csv, pick the sections/CRNs you care about, edit config.json
+python watch.py --loop 300          # poll every 300s, alert on new openings
+```
+
+- `discover.py --dump-vocab` calls Banner's `classSearch/get_*` lookups
+  (subject, partOfTerm, campus, instructionalMethod, attribute) plus
+  `getTerms`, so you can confirm the real code for e.g. "Full Term" or find
+  the term code for the semester you want before searching.
+- `discover.py --term <code>` (optionally with `--subject`/`--course` to
+  narrow it) pages through Banner's public search results and writes:
+  - `candidates.csv` - one row per section (subject, course, CRN, title,
+    seats, instructor, ...) to skim in a spreadsheet
+  - `raw_sections.json` - the full unmodified API response, if you need more
+    fields than the CSV keeps
+- `config.json` is where you tell `watch.py` what to watch - term, one or
+  more `{subject, course, crns}` groups (empty `crns` = watch every section
+  of that subject/course), and how to alert (ntfy topic and/or Gmail app
+  password, same as `Watch-Seats.ps1`).
+- `watch.py` with no `--loop` does a single pass and exits - drop it in a
+  cron job or GitHub Actions workflow (like `cloud/check_seats.sh`) instead
+  of `--loop` if you'd rather not leave a process running.
+
 ## Turn the LOCAL watcher off
 
 ```powershell

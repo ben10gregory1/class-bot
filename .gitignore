@@ -2,3 +2,9 @@ watch.log
 err.txt
 *.cookies.txt
 cofc_*cookies*.txt
+
+# discover.py output - regenerate any time with `python discover.py ...`
+vocab.json
+candidates.csv
+raw_sections.json
+__pycache__/
