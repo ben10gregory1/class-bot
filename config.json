@@ -3,6 +3,6 @@
   "ntfyTopic": "unused-see-secret",
   "watch": [
     { "label": "MATH 104", "subject": "MATH", "courseNumber": "104" },
-    { "label": "fall async targets", "crns": ["14019", "11473", "11487", "13284", "12337", "11510"] }
+    { "label": "fall async targets", "crns": ["14019", "11473", "11487", "13284", "12337", "11510", "11221"] }
   ]
 }
