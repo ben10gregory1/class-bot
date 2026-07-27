@@ -13,6 +13,15 @@ import argparse, csv, json, re, sys
 
 POT_LABEL = {"1": "Full Term", "2": "Express I", "3": "Express II", "9": "9 (unlabeled)"}
 
+# Hardcoded for now - swap in a real registered-CRNs source once one exists.
+REGISTERED_CRNS = {
+    "13463": "WGST 200-12",
+    "11221": "FINC 120-01",
+    "14114": "GEOL 240-01",
+    "11541": "PALM 118-02",
+    "11088": "COMM 215-04 (pending)",
+}
+
 
 def load_attrs(raw_path):
     try:
@@ -122,11 +131,73 @@ HEADER = ("| CRN | Course | Title | Cr | Part | Modality | Seats | Instructor | 
 SEP = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
+def suggest_swaps(scored, registered=REGISTERED_CRNS):
+    """For each registered CRN, find a higher-scored open section filling the same req."""
+    by_crn = {r["crn"]: r for r in scored}
+    rows = []
+    for crn, label in registered.items():
+        cur = by_crn.get(crn)
+        if cur is None:
+            rows.append({"crn": crn, "label": label, "status": "not found in this term's data"})
+            continue
+        req = cur.get("req")
+        if not req:
+            rows.append({"crn": crn, "label": label, "cur_score": cur["composite"],
+                         "status": "no req assigned - nothing to swap toward"})
+            continue
+        candidates = [
+            r for r in scored
+            if r["crn"] != crn
+            and r.get("req") == req
+            and r["bucket"] != "avoid"
+            and (to_float(r.get("seats")) or 0) > 0
+            and r["composite"] > cur["composite"]
+        ]
+        if not candidates:
+            rows.append({"crn": crn, "label": label, "cur_score": cur["composite"], "req": req,
+                         "status": "no higher-scored open alternative found"})
+            continue
+        best = max(candidates, key=lambda r: r["composite"])
+        rows.append({
+            "crn": crn, "label": label, "cur_score": cur["composite"],
+            "sug_crn": best["crn"], "sug_course": best["course"], "sug_score": best["composite"],
+            "improvement": round(best["composite"] - cur["composite"], 2),
+            "req": req, "seats": best["seats"], "status": "suggested swap",
+        })
+    return rows
+
+
+def write_swap_suggestions(rows, out_path):
+    out = ["# Swap suggestions — registered CRNs vs. higher-scored open alternatives\n"]
+    suggested = [r for r in rows if r["status"] == "suggested swap"]
+    other = [r for r in rows if r["status"] != "suggested swap"]
+
+    out.append(f"{len(suggested)} suggested swap(s) out of {len(rows)} registered CRNs checked.\n")
+    if suggested:
+        out.append("| Current CRN | Current Course | Current Score | Suggested CRN | Suggested Course | "
+                    "Suggested Score | Improvement | Req | Seats |")
+        out.append("|---|---|---|---|---|---|---|---|---|")
+        for r in suggested:
+            out.append(f"| {r['crn']} | {r['label']} | {r['cur_score']} | {r['sug_crn']} | "
+                       f"{r['sug_course']} | {r['sug_score']} | +{r['improvement']} | {r['req']} | {r['seats']} |")
+        out.append("")
+
+    if other:
+        out.append("## No swap suggested\n")
+        out.append("| CRN | Course | Current Score | Req | Status |")
+        out.append("|---|---|---|---|---|")
+        for r in other:
+            out.append(f"| {r['crn']} | {r['label']} | {r.get('cur_score','')} | {r.get('req','')} | {r['status']} |")
+
+    open(out_path, "w", encoding="utf-8").write("\n".join(out) + "\n")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--in", dest="infile", default="discovery/enriched_candidates.csv")
     p.add_argument("--raw", default="discovery/raw_sections.json")
     p.add_argument("--out", default="discovery/ranked_candidates.md")
+    p.add_argument("--swaps-out", default="discovery/swap_suggestions.md")
     a = p.parse_args()
 
     attrs_by_crn = load_attrs(a.raw)
@@ -184,6 +255,15 @@ def main():
         print("\nAVOID:")
         for r in avoid:
             print(f"  {r['crn']}  {r['course']:14s}  {r['prof']:25s} retake={r['rmp_retake_pct']} n={r['rmp_count']}")
+
+    swap_rows = suggest_swaps(scored)
+    write_swap_suggestions(swap_rows, a.swaps_out)
+    n_sug = sum(1 for r in swap_rows if r["status"] == "suggested swap")
+    print(f"\nswap_suggestions: {n_sug}/{len(swap_rows)} registered CRNs have a suggested swap -> {a.swaps_out}")
+    for r in swap_rows:
+        if r["status"] == "suggested swap":
+            print(f"  {r['crn']} ({r['label']}, {r['cur_score']}) -> {r['sug_crn']} {r['sug_course']} "
+                  f"({r['sug_score']}, +{r['improvement']}) [{r['req']}]")
 
 
 if __name__ == "__main__":
