@@ -23,6 +23,9 @@ concurrency:
   group: seat-watch
   cancel-in-progress: false
 
+permissions:
+  contents: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -41,3 +44,12 @@ jobs:
           AD_HOC_CRNS: ${{ github.event.inputs.crns }}
           AD_HOC_ASYNC_ONLY: ${{ github.event.inputs.async_only }}
         run: python watch.py
+      - name: Commit state.json if changed
+        run: |
+          if ! git diff --quiet -- state.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add state.json
+            git commit -m "state: update seat tracking [skip ci]"
+            git push
+          fi
