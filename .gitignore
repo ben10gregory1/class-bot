@@ -3,3 +3,5 @@ err.txt
 *.cookies.txt
 cofc_*cookies*.txt
 discovery/
+__pycache__/
+*.log
