@@ -2,3 +2,4 @@ watch.log
 err.txt
 *.cookies.txt
 cofc_*cookies*.txt
+discovery/
