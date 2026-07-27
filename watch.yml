@@ -2,25 +2,23 @@ name: CofC Seat Watcher
 
 on:
   schedule:
-    # Every 5 minutes (GitHub's minimum; runs are best-effort and may be delayed).
     - cron: "*/5 * * * *"
   workflow_dispatch:
     inputs:
       subject:
-        description: "Subject code, e.g. BIOL (leave blank for scheduled-only run)"
+        description: "Subject code, e.g. BIOL"
         required: false
       course_number:
-        description: "Course number, e.g. 111 (leave blank to match any in subject)"
+        description: "Course number, e.g. 111"
         required: false
       crns:
-        description: "Specific CRNs, comma-separated (overrides subject/course)"
+        description: "Specific CRNs, comma-separated"
         required: false
       async_only:
         description: "Only online-async sections?"
         required: false
         default: "false"
 
-# Avoid overlapping runs piling up.
 concurrency:
   group: seat-watch
   cancel-in-progress: false
@@ -35,15 +33,9 @@ jobs:
           python-version: "3.12"
       - name: Install deps
         run: pip install requests
-      - name: Restore state
-        uses: actions/cache@v4
-        with:
-          path: state.json
-          key: seat-state-${{ github.run_id }}
-          restore-keys: seat-state-
       - name: Check for open seats
         env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}   # set in repo Settings > Secrets
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           AD_HOC_SUBJECT: ${{ github.event.inputs.subject }}
           AD_HOC_COURSE: ${{ github.event.inputs.course_number }}
           AD_HOC_CRNS: ${{ github.event.inputs.crns }}
