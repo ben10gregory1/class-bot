@@ -2,6 +2,6 @@
   "term": "202710",
   "ntfyTopic": "unused-see-secret",
   "watch": [
-    { "label": "fall async targets", "crns": ["14019", "11473", "11487", "13284", "12337"] }
+    { "label": "fall async targets", "crns": ["13284", "12337"] }
   ]
 }
