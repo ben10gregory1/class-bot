@@ -24,7 +24,7 @@ filter, or both:
 ```json
 {
   "term": "202710",
-  "ntfyTopic": "unused-see-secret",
+  "ntfyTopic": "[YOUR_NTFY_TOPIC]",
   "watch": [
     { "label": "fall async targets", "crns": ["13284", "12337"] }
   ]
