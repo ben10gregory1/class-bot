@@ -1,75 +1,80 @@
-# CofC Open-Seat Watcher
+# class-bot — CofC open-seat watcher + swap ranker
 
-Polls College of Charleston's **public** Banner "Browse Classes" API and alerts you
-the instant any watched section opens up. No MyPortal login, no Duo.
+Two tools against College of Charleston's **public** Banner "Browse Classes" API,
+no MyPortal login, no Duo:
 
-Currently configured for: **MATH 104, Fall 2026 (term 202710)**, all sections.
+1. **Seat watcher** — polls specific CRNs every 5 minutes via GitHub Actions, pushes an
+   ntfy phone alert the instant a watched section opens up. Alert-only — it never
+   registers for you.
+2. **Discovery/ranking pipeline** — run by hand when you want fresh recommendations.
+   Pulls every async/online section for the term, scores it against your remaining
+   degree requirements + RateMyProfessors data, and suggests swaps for your currently
+   registered courses.
 
-## Setup (one time)
+Currently configured for term **202710** (Fall 2026). See `CLAUDE.md` for the
+file-by-file map and `discovery/CONTEXT.md` for pipeline internals.
 
-1. **Pick your alert method.** Default is **ntfy** (free phone push, no signup):
-   - Install the **ntfy** app (App Store / Google Play).
-   - Open `Watch-Seats.ps1`, set `$NtfyTopic` to your own hard-to-guess name,
-     e.g. `cofc-ben-math104-9x2k`.
-   - In the ntfy app, tap **+** and **Subscribe** to that exact topic name.
-   - (Anyone who knows the topic name can read it, so make it unguessable.)
+## Seat watcher
 
-   Prefer email instead? Set `$UseNtfy = $false`, `$UseEmail = $true`, and fill in
-   `$EmailFrom` + a Gmail **App Password** (Google Account → Security → App passwords).
+**Files:** `watch.py`, `config.json`, `state.json`, `.github/workflows/watch.yml`.
 
-## Run it
+`config.json` holds the watch list — each target is a CRN list, or a subject/course
+filter, or both:
 
-```powershell
-cd C:\Users\ben10\cofc-seat-bot
-powershell -ExecutionPolicy Bypass -File .\Watch-Seats.ps1
+```json
+{
+  "term": "202710",
+  "ntfyTopic": "unused-see-secret",
+  "watch": [
+    { "label": "fall async targets", "crns": ["13284", "12337"] }
+  ]
+}
 ```
 
-Leave the window open. It checks every 60s and pushes the moment a seat frees up.
-Stop with **Ctrl+C**.
+The repo is **public**, so the real ntfy topic never lives in `config.json` — it's set
+as the `NTFY_TOPIC` repository secret (Settings → Secrets and variables → Actions) and
+overrides whatever's in the config at runtime.
 
-## Watch a different class
+`state.json` tracks the last-seen open/closed status per CRN so you only get alerted on
+a **closed → open** transition, not every pass. The workflow commits it back to the repo
+automatically when it changes (`state: update seat tracking [skip ci]`).
 
-Edit the CONFIG block at the top of `Watch-Seats.ps1`:
-- `$Subject` / `$CourseNum` — e.g. `"BIOL"` / `"111"`
-- `$WatchCRNs` — leave empty for all sections, or list specific CRNs
-- `$Term` — `202710` Fall 2026, `202630` Summer 2026
-- `$PollSeconds` — how often to check (keep >= 30 to be polite to the server)
+**Setup:**
+1. Install the **ntfy** app (App Store / Google Play), subscribe to your topic.
+2. Add the `NTFY_TOPIC` repo secret with that topic name.
+3. Edit `config.json`'s `watch[]` to your target CRNs/courses, push.
+4. Actions tab → enable workflows → **Run workflow** to test immediately (or wait for
+   the next 5-minute tick).
 
-## Notes
-- Uses only the public course-search endpoint — the same data anyone can browse at
-  https://ssb.cofc.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=search
-- It **alerts** you; it does **not** auto-register. When you get the ping, jump into
-  MyPortal and grab the seat fast.
-- Alerts once per opening. If a section closes and reopens later, you'll be alerted again.
+**Ad-hoc check** without editing `config.json`: Actions tab → "CofC Seat Watcher" →
+**Run workflow**, fill in the `subject` / `course_number` / `crns` / `async_only` inputs.
 
----
+**Turn it off:** Actions tab → "CofC Seat Watcher" → **...** → **Disable workflow**.
+GitHub also auto-pauses scheduled workflows after 60 days of repo inactivity.
 
-## Cloud version (runs 24/7 even with your PC OFF) - GitHub Actions
+## Discovery/ranking pipeline
 
-Files: `cloud/check_seats.sh` + `.github/workflows/watch.yml`. Checks every ~5 min
-(GitHub's minimum; schedules are best-effort and can be delayed a few minutes).
+**Files:** `discover.py`, `enrich.py`, `rank.py`, outputs under `discovery/`.
 
-**One-time setup:**
-1. Create a **public** repo on github.com (public = unlimited free Actions minutes;
-    a private repo would exhaust the monthly free minutes in days). Do NOT initialize it with a README.
-2. In that repo: **Settings > Secrets and variables > Actions > New repository secret**
-   - Name: `NTFY_TOPIC`   Value: `cofc-ben-math104-9x2`
-3. Push this folder:
-   ```powershell
-   cd C:\Users\ben10\cofc-seat-bot
-   git remote add origin https://github.com/<YOUR-USERNAME>/cofc-seat-bot.git
-   git push -u origin main
-   ```
-   (First push opens a browser to log into GitHub.)
-4. Open the repo's **Actions** tab, enable workflows, and click **Run workflow** to test now.
-
-**Turn the cloud watcher off:** in the repo, Actions tab > "CofC Seat Watcher" > "..." > **Disable workflow** (or just delete the repo).
-Note: GitHub auto-pauses scheduled workflows after 60 days of repo inactivity.
-
-## Turn the LOCAL watcher off
-
-```powershell
-Disable-ScheduledTask  -TaskName "CofC Seat Watcher"   # pause (re-enable with Enable-ScheduledTask)
-Unregister-ScheduledTask -TaskName "CofC Seat Watcher" -Confirm:$false   # remove entirely
+```bash
+pip install -r requirements.txt
+python discover.py --term 202710          # -> discovery/candidates.csv, raw_sections.json
+python enrich.py                          # -> discovery/enriched_candidates.csv (RMP data)
+python rank.py                            # -> discovery/ranked_candidates.md, swap_suggestions.md
 ```
-It uses no AI/tokens - it's just web requests - so it's free to leave running.
+
+Registered CRNs to compare swaps against are hardcoded in `rank.py` (`REGISTERED_CRNS`)
+— update that dict by hand when your schedule changes. Full scoring formula and known
+data-quality caveats are in `discovery/CONTEXT.md`.
+
+## Local development
+
+Run `python watch.py` for a single pass, or `python watch.py --loop 60` to poll locally
+every 60s without GitHub Actions. Set `BANNER` env var if the Banner host ever changes;
+set `CONFIG_URL` to load `config.json` from a raw GitHub URL instead of the local file.
+
+## Legacy files
+
+`Watch-Seats.ps1` and `cloud/check_seats.sh` are an earlier PowerShell/bash implementation
+of the same watcher, superseded by `watch.py` + `watch.yml`. Left in the repo but unused
+— don't extend them.

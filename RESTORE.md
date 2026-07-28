@@ -2,22 +2,41 @@
 
 Term: **202710**. Regenerate anytime: `python rank.py` (ranking), `discover.py --term 202710` (fresh section pull).
 
+## Registered (rank.py REGISTERED_CRNS)
+
+| CRN | Course |
+|---|---|
+| 13463 | WGST 200-12 |
+| 11221 | FINC 120-01 |
+| 14114 | GEOL 240-01 |
+| 11541 | PALM 118-02 |
+| 11088 | COMM 215-04 (pending) |
+
 ## Watch list (config.json)
 
 ntfy topic: `unused-see-secret`
 
-| Label | CRNs |
+| CRN | Course |
 |---|---|
-| fall async targets | 13284, 12337 |
+| 13284 | ACCT 204 |
+| 12337 | ECON 200 |
 
 ## Tracked seat status (state.json)
 
-| CRN | Open | Seats |
-|---|---|---|
-| 13284 | false | 0 |
-| 12337 | false | 0 |
+| CRN | Course | Open | Seats |
+|---|---|---|---|
+| 13284 | ACCT 204 | false | 0 |
+| 12337 | ECON 200 | false | 0 |
 
 Both watched CRNs currently closed, 0 seats. Watcher will ntfy-alert on change.
+
+## Pending decisions
+
+- **Drop WGST 200-12 (13463), register RELS 105-01 (10323)** — swap suggested, +2.64 score,
+  Humanities req, 12 seats open at last rank.py run.
+- **COMM 215-04 (11088) confirmation** — still marked pending, not locked in.
+- **Need 3 more credits** — schedule short by 3 credits; watch list (ACCT 204 / ECON 200) is
+  the current search for that gap.
 
 ## Current swap recommendations (discovery/swap_suggestions.md)
 
