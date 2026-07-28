@@ -5,7 +5,7 @@
 
   Quick start:
     1. Edit the CONFIG block below (at minimum, set $NtfyTopic to your own
-       secret-ish name, e.g. "cofc-ben-math104-9x2").
+       secret-ish name, e.g. "[YOUR_NTFY_TOPIC]").
     2. Install the "ntfy" app on your phone (App Store / Play Store), open it,
        and Subscribe to that exact topic name.
     3. Run:  powershell -ExecutionPolicy Bypass -File .\Watch-Seats.ps1
@@ -22,7 +22,7 @@ $RenotifyEvery = 0               # 0 = alert once per opening; or minutes to re-
 
 # --- Notification methods (turn on as many as you like) ---
 $UseNtfy    = $true
-$NtfyTopic  = "cofc-ben-math104-9x2"   # <-- subscribe to this in the ntfy app
+$NtfyTopic  = "[YOUR_NTFY_TOPIC]"   # <-- subscribe to this in the ntfy app
 
 $UseEmail   = $false
 $EmailTo    = "ben10gregory1@gmail.com"
