@@ -29,27 +29,47 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      AD_HOC_SUBJECT: ${{ github.event.inputs.subject }}
+      AD_HOC_COURSE: ${{ github.event.inputs.course_number }}
+      AD_HOC_CRNS: ${{ github.event.inputs.crns }}
+      AD_HOC_ASYNC_ONLY: ${{ github.event.inputs.async_only }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+
       - name: Install deps
         run: pip install requests
-      - name: Check for open seats
-        env:
-          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
-          AD_HOC_SUBJECT: ${{ github.event.inputs.subject }}
-          AD_HOC_COURSE: ${{ github.event.inputs.course_number }}
-          AD_HOC_CRNS: ${{ github.event.inputs.crns }}
-          AD_HOC_ASYNC_ONLY: ${{ github.event.inputs.async_only }}
+
+      # Scheduled: poll 5x across ~4 min so real interval is ~50s, not 15+ min
+      - name: Poll loop (scheduled)
+        if: github.event_name == 'schedule'
+        run: |
+          for i in 1 2 3 4 5; do
+            echo "--- pass $i ---"
+            python watch.py || echo "pass $i failed, continuing"
+            [ "$i" -lt 5 ] && sleep 50
+          done
+
+      # Manual: single shot, ad-hoc inputs
+      - name: Check once (manual)
+        if: github.event_name == 'workflow_dispatch'
         run: python watch.py
+
       - name: Commit state.json if changed
+        if: always()
         run: |
           if [ -n "$(git status --porcelain -- state.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add state.json
             git commit -m "state: update seat tracking [skip ci]"
+            git pull --rebase --autostash
             git push
           fi
