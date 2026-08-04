@@ -115,6 +115,10 @@ def one_pass(cfg, st):
 
 
 def main():
+    # fail fast, before any scanning: a zero-hit run with the secret missing
+    # would otherwise report "healthy" while silently having no delivery path
+    if not os.environ.get("NTFY_TOPIC"):
+        sys.exit("FATAL: NTFY_TOPIC unset. Refusing to run blind.")
     p = argparse.ArgumentParser()
     p.add_argument("--loop", type=int, default=0)
     a = p.parse_args()
