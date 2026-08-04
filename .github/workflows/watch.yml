@@ -54,7 +54,7 @@ jobs:
           for i in 1 2 3 4 5; do
             echo "--- pass $i ---"
             python watch.py || echo "pass $i failed, continuing"
-            [ "$i" -lt 5 ] && sleep 50
+            if [ "$i" -lt 5 ]; then sleep 50; fi
           done
 
       # Manual: single shot, ad-hoc inputs
