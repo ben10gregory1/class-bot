@@ -48,8 +48,10 @@ def matches(sec, t):
 
 
 def notify(cfg, title, body, url):
-    # Secret env var wins (repo is public, don't put the real topic in config.json)
-    topic = os.environ.get("NTFY_TOPIC") or cfg.get("ntfyTopic")
+    # env only, no fallback: a silent no-op alert path is worse than a loud crash
+    topic = os.environ.get("NTFY_TOPIC")
+    if not topic:
+        sys.exit("FATAL: NTFY_TOPIC unset. Refusing to run blind.")
     try:
         requests.post(f"https://ntfy.sh/{topic}", data=body.encode(),
                       headers={"Title": title, "Priority": "urgent",
