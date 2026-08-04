@@ -53,6 +53,22 @@ def parse_course(course):
     return m.group(1), int(m.group(2))
 
 
+def load_priority():
+    try:
+        cfg = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        sys.exit(f"FATAL: config.json not found at {CONFIG_PATH}")
+    except json.JSONDecodeError as e:
+        sys.exit(f"FATAL: config.json malformed: {e}")
+    pr = cfg.get("priority") or {}
+    chain = {parse_course(c) for c in pr.get("chain", [])}
+    chain.discard(("", 0))
+    return chain, float(pr.get("bonus", 0) or 0)
+
+
+PRIORITY_CHAIN, PRIORITY_BONUS = load_priority()
+
+
 def req_hit(subj, num, title, attrs):
     if any("Humanities" in a for a in attrs):
         return "Humanities"
@@ -101,7 +117,8 @@ def score_row(r, attrs_by_crn):
     req_val = 3 if req else 0
     seats_val = seats_bonus(r.get("seats"))
     mod_val = modality_bonus(r.get("mode"), r.get("part"))
-    bonus_total = req_val + seats_val + mod_val
+    chain_val = PRIORITY_BONUS if (subj, num) in PRIORITY_CHAIN else 0
+    bonus_total = req_val + seats_val + mod_val + chain_val
 
     rating = to_float(r.get("rmp_rating"))
     difficulty = to_float(r.get("rmp_difficulty"))

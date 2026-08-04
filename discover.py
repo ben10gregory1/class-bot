@@ -4,12 +4,14 @@
 # Set BANNER env var to your working host (copy from existing bot).
 
 import argparse, csv, json, os, re, sys, time
+from pathlib import Path
 import requests
 
 BASE = os.environ.get("BANNER", "https://ssb.cofc.edu")
 SSB = f"{BASE}/StudentRegistrationSsb/ssb"
 UA = {"User-Agent": "Mozilla/5.0"}
 RMP_SCHOOL = "254"  # College of Charleston
+CONFIG_PATH = Path(__file__).parent / "config.json"
 
 
 def session(term):
@@ -102,17 +104,87 @@ def rmp(name, cache={}):
     return res
 
 
+def load_chain():
+    try:
+        cfg = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        sys.exit(f"FATAL: config.json not found at {CONFIG_PATH}")
+    except json.JSONDecodeError as e:
+        sys.exit(f"FATAL: config.json malformed: {e}")
+    pr = cfg.get("priority") or {}
+    chain = pr.get("chain") or []
+    if not chain:
+        sys.exit("FATAL: config.json['priority']['chain'] missing or empty.")
+    out = set()
+    for c in chain:
+        m = re.match(r"^\s*([A-Z]+)\s+(\d+)", c)
+        if m:
+            out.add((m.group(1), m.group(2)))
+    return out
+
+
+def chain_report(s, term, out_path="discovery/prereq-chain.md"):
+    """Every section (any modality, any seat count) of the priority-chain
+    courses, so nothing is silently filtered out ahead of a manual decision."""
+    chain = load_chain()
+    raw = fetch_all(s, term)
+    rows = []
+    for sec in raw:
+        key = (sec.get("subject"), sec.get("courseNumber"))
+        if key not in chain:
+            continue
+        mode = classify(sec)
+        part = sec.get("partOfTerm")
+        express2_inperson = part == "3" and mode == "INPERSON"
+        rows.append({
+            "course": f'{sec.get("subject")} {sec.get("courseNumber")}-{sec.get("sequenceNumber")}',
+            "crn": sec.get("courseReferenceNumber"),
+            "seats": sec.get("seatsAvailable"),
+            "mode": mode,
+            "part": POT_LABEL.get(str(part), part),
+            "meets": "; ".join(f"{d} {b}-{e}" for d, b, e in meets(sec)) or "-",
+            "async_flag": mode == "ASYNC",
+            "express2_inperson_flag": express2_inperson,
+        })
+    rows.sort(key=lambda r: (r["course"], r["crn"]))
+
+    os.makedirs(os.path.dirname(out_path), exist_ok=True) if os.path.dirname(out_path) else None
+    out = [f"# Prereq-chain sections — term {term}\n",
+           f"All sections of {', '.join(sorted(f'{s} {n}' for s, n in chain))}, "
+           "any modality, any seat count. ASYNC / Express-II-in-person flagged "
+           "separately (Wilmington through Sept 30 rules out sync in-person before Oct 7).\n"]
+    out.append("| Course | CRN | Seats | Modality | Part | Meets | ASYNC | Express II in-person |")
+    out.append("|---|---|---|---|---|---|---|---|")
+    for r in rows:
+        out.append(f"| {r['course']} | {r['crn']} | {r['seats']} | {r['mode']} | {r['part']} | "
+                   f"{r['meets']} | {'yes' if r['async_flag'] else ''} | "
+                   f"{'yes' if r['express2_inperson_flag'] else ''} |")
+    open(out_path, "w", encoding="utf-8").write("\n".join(out) + "\n")
+    print(f"{len(rows)} chain sections -> {out_path}")
+    return rows
+
+
+POT_LABEL = {"1": "Full Term", "2": "Express I", "3": "Express II", "9": "9 (unlabeled)"}
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--term", default="202710")
     p.add_argument("--out", default="candidates.csv")
     p.add_argument("--no-rmp", action="store_true")
     p.add_argument("--dump-vocab", action="store_true")
+    p.add_argument("--chain-report", action="store_true",
+                    help="report ALL sections of config.json priority.chain courses, "
+                         "regardless of seats/modality, to discovery/prereq-chain.md")
     a = p.parse_args()
 
     s = session(a.term)
     if a.dump_vocab:
         print(json.dumps(vocab(s, a.term), indent=2))
+        return
+
+    if a.chain_report:
+        chain_report(s, a.term)
         return
 
     raw = fetch_all(s, a.term)
