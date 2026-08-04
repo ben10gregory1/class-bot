@@ -1,14 +1,14 @@
 {
   "term": "202710",
-  "ntfyTopic": "unused-see-secret",
   "watch": [
     { "label": "fall async targets", "crns": ["13284", "12337"] }
   ],
   "registered": {
     "11221": "FINC 120-01",
-    "14114": "GEOL 240-01",
-    "11541": "PALM 118-02",
+    "11088": "COMM 215-04",
     "10323": "RELS 105-01",
-    "13931": "SOCY 105-01"
+    "13931": "SOCY 105-01",
+    "11541": "PALM 118-02",
+    "14114": "GEOL 240-01"
   }
 }
