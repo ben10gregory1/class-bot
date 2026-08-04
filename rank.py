@@ -10,17 +10,29 @@
 # 10 (3+2.5+1.5=7 base, +3+2+1 bonuses=13). Not clamped; ranking is relative.
 
 import argparse, csv, json, re, sys
+from pathlib import Path
 
 POT_LABEL = {"1": "Full Term", "2": "Express I", "3": "Express II", "9": "9 (unlabeled)"}
 
-# Hardcoded for now - swap in a real registered-CRNs source once one exists.
-REGISTERED_CRNS = {
-    "13463": "WGST 200-12",
-    "11221": "FINC 120-01",
-    "14114": "GEOL 240-01",
-    "11541": "PALM 118-02",
-    "11088": "COMM 215-04 (pending)",
-}
+CONFIG_PATH = Path(__file__).parent / "config.json"
+
+
+def load_registered():
+    try:
+        cfg = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        sys.exit(f"FATAL: config.json not found at {CONFIG_PATH}")
+    except json.JSONDecodeError as e:
+        sys.exit(f"FATAL: config.json malformed: {e}")
+    reg = cfg.get("registered")
+    if not isinstance(reg, dict) or not reg:
+        sys.exit("FATAL: config.json['registered'] missing or empty. "
+                 "Refusing to rank against an empty schedule.")
+    return {str(k): v for k, v in reg.items()}
+
+
+REGISTERED = load_registered()
+REGISTERED_CRNS = set(REGISTERED.keys())
 
 
 def load_attrs(raw_path):
@@ -131,7 +143,7 @@ HEADER = ("| CRN | Course | Title | Cr | Part | Modality | Seats | Instructor | 
 SEP = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 
 
-def suggest_swaps(scored, registered=REGISTERED_CRNS):
+def suggest_swaps(scored, registered=REGISTERED):
     """For each registered CRN, find a higher-scored open section filling the same req."""
     by_crn = {r["crn"]: r for r in scored}
     rows = []
