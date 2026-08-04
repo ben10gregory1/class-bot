@@ -9,14 +9,27 @@ enrich.py                   ->  discovery/enriched_candidates.csv
 rank.py                     ->  discovery/ranked_candidates.md, discovery/swap_suggestions.md
 ```
 
+**Path gotcha (unfixed):** `discover.py`'s `--out` default is `candidates.csv` (repo root),
+and `raw_sections.json` is hardcoded to write to the root too — neither defaults into
+`discovery/`, despite `enrich.py`/`rank.py` defaulting to read from there. Pass
+`--out discovery/candidates.csv` explicitly and move `raw_sections.json` into `discovery/`
+after running, or the next stage silently reads stale data instead of your fresh pull.
+
 ## discover.py
 
-Scrapes CofC Banner (`ssb.cofc.edu`) for term 202710, all 2970 sections. Classifies each
+Scrapes CofC Banner (`ssb.cofc.edu`) for term 202710, all ~3033 sections. Classifies each
 as ASYNC / SYNC_ONLINE / INPERSON via `classify()` (online + no scheduled meeting = ASYNC).
-Filters output to ASYNC + SYNC_ONLINE only (303 of 2970) — **in-person sections never
-enter the pipeline**, even highly-rated ones. `raw_sections.json` is the full unfiltered
+Default mode filters output to ASYNC + SYNC_ONLINE only — **in-person sections never enter
+the ranking pipeline**, even highly-rated ones. `raw_sections.json` is the full unfiltered
 dump, cached so later stages can re-derive things (e.g. `sectionAttributes` for req
 matching in `rank.py`) without re-hitting Banner.
+
+**`--chain-report` mode** (added 2026-08-04) bypasses the ASYNC/SYNC_ONLINE filter entirely:
+reports every section — any modality, any seat count, including closed and in-person — for
+whatever courses are listed in `config.json` `priority.chain`. Writes
+`discovery/prereq-chain.md`, flags ASYNC and Express-II-in-person separately. This exists
+because the normal pipeline would silently drop prereq-gate sections that are in-person or
+currently closed, which is exactly the data you need to see for a gate course, not filter out.
 
 ## enrich.py
 
@@ -53,18 +66,26 @@ Req matching (`req_hit()`) uses `sectionAttributes` from `raw_sections.json` (Hu
 Social Science tags) plus hardcoded subject rules: MATH or PHIL-with-"logic" → Math/Logic,
 LATN 201+ → Foreign Lang, ACCT/ECON/FINC 100-299 → Finance core.
 
+**Priority-chain bonus** (added 2026-08-04): `+priority.bonus` (currently 6.0, from
+`config.json`) on top of the composite for any row whose subject+number matches
+`priority.chain` — the FINC 303 prereq gate courses. Dominates the ~13-point-max formula
+on purpose, so gate courses surface at the top of the `ranked` bucket regardless of RMP
+signal. See `CLAUDE.md` "Degree chain" section for the actual prereq structure.
+
 Rows with `retake_pct == 0` and `numRatings > 20` are bucketed `avoid` regardless of
 composite score (surfaced separately, never suggested as a swap).
 
-`suggest_swaps()` runs automatically at the end of `rank.py` — for each CRN in the
-hardcoded `REGISTERED_CRNS` dict, finds the highest-composite open (`seats > 0`) section
-sharing the same `req` tag, and writes `discovery/swap_suggestions.md`. Update
-`REGISTERED_CRNS` by hand when the actual schedule changes; there's no live source for it.
+`suggest_swaps()` runs automatically at the end of `rank.py` — for each CRN in
+`config.json` `registered{}` (no longer hardcoded — `rank.py` reads it via `load_registered()`,
+fails loud with `sys.exit` if the file is missing/malformed or the dict is empty), finds the
+highest-composite open (`seats > 0`) section sharing the same `req` tag, and writes
+`discovery/swap_suggestions.md`. Update `config.json` `registered{}` by hand when the actual
+schedule changes; there's no live registration API.
 
 ## Output files
 
 `discovery/` is gitignored by default (`.gitignore` has `discovery/`) — most files here
-are regenerated scratch output. `ranked_candidates.md` and this `CONTEXT.md` are
-force-added exceptions (`git add -f`) since they're worth keeping in history. Everything
-else (`candidates.csv`, `enriched_candidates.csv`, `raw_sections.json`, `swap_suggestions.md`,
-`shortlist.md`, `open-now.md`, etc.) is local-only unless force-added.
+are regenerated scratch output. `ranked_candidates.md`, `prereq-chain.md`, and this
+`CONTEXT.md` are force-added exceptions (`git add -f`) since they're worth keeping in
+history. Everything else (`candidates.csv`, `enriched_candidates.csv`, `raw_sections.json`,
+`swap_suggestions.md`, `shortlist.md`, `open-now.md`, etc.) is local-only unless force-added.
