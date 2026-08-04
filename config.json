@@ -1,7 +1,8 @@
 {
   "term": "202710",
   "watch": [
-    { "label": "fall async targets", "crns": ["13284", "12337"] }
+    { "label": "fall async targets", "crns": ["13284", "12337"] },
+    { "label": "E2E TEST - remove after alert confirmed", "crns": ["10679"] }
   ],
   "registered": {
     "11221": "FINC 120-01",
