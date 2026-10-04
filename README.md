@@ -70,11 +70,6 @@ data-quality caveats are in `discovery/CONTEXT.md`.
 ## Local development
 
 Run `python watch.py` for a single pass, or `python watch.py --loop 60` to poll locally
-every 60s without GitHub Actions. Set `BANNER` env var if the Banner host ever changes;
+every 60s without GitHub Actions. Don't leave a local loop running alongside the Actions
+workflow: separate `state.json` copies mean every opening alerts twice. Set `BANNER` env var if the Banner host ever changes;
 set `CONFIG_URL` to load `config.json` from a raw GitHub URL instead of the local file.
-
-## Legacy files
-
-`Watch-Seats.ps1` and `cloud/check_seats.sh` are an earlier PowerShell/bash implementation
-of the same watcher, superseded by `watch.py` + `watch.yml`. Left in the repo but unused
-— don't extend them.

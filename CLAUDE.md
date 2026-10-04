@@ -12,7 +12,7 @@ in MyPortal/Banner.
 
 | Concern | Files |
 |---|---|
-| Seat watcher | `watch.py`, `config.json` (watch targets + priority chain), `state.json` (last-seen open/closed per CRN, committed by the workflow, auto-prunes CRNs dropped from `watch[]`) |
+| Seat watcher | `watch.py`, `config.json` (watch targets + priority chain), `state.json` (last-seen open/closed per CRN, committed by the workflow; does NOT prune CRNs dropped from `watch[]`, stale keys are ignored) |
 | Discovery/ranking pipeline (run manually, not scheduled) | `discover.py` → `enrich.py` → `rank.py`, outputs in `discovery/` (see `discovery/CONTEXT.md`) |
 | Prereq-chain report (run manually) | `discover.py --chain-report` → `discovery/prereq-chain.md`, ALL sections of `config.json` `priority.chain` courses regardless of seats/modality |
 | Scheduling | `.github/workflows/watch.yml` — GitHub Actions cron, `*/5 * * * *`. See "Cron cadence" below — the declared interval is not what actually happens. `workflow_dispatch` (manual/ad-hoc) is a single shot. |
@@ -20,9 +20,9 @@ in MyPortal/Banner.
 
 ## Known-wrong
 
-`README.md` used to describe an old PowerShell system (`Watch-Seats.ps1`, `cloud/check_seats.sh`).
-The live system is Python + GitHub Actions (`watch.py` + `watch.yml`). Those two legacy files
-are still in the repo but unused — don't extend them, extend `watch.py`.
+The old PowerShell system (`Watch-Seats.ps1`, `cloud/check_seats.sh`, the `~/cofc-seat-bot`
+folder and its "CofC Seat Watcher" Windows scheduled task) was deleted 2026-10-04. Old ntfy
+topic strings remain in git history (public repo); that topic is unused.
 
 ## Cron cadence (observed 2026-08-02 → 08-04, unresolved)
 
@@ -52,9 +52,6 @@ SHA, so a run queued behind another loaded old `state.json` and re-alerted. Now 
 Known gap, unfixed: `watch.py` records a CRN as open even if the ntfy POST failed, so a failed
 alert is not retried.
 
-**Legacy task:** Windows scheduled task "CofC Seat Watcher" (at logon, runs the dead
-`C:\Users\ben10\cofc-seat-bot\Watch-Seats.ps1` with an old hardcoded topic) was still firing as
-of Oct 1. Not part of this system.
 
 ## Point sampling (inherent — do not "fix")
 
@@ -67,8 +64,8 @@ with the cadence problem, the real miss window right now is closer to hours than
 
 - Absent → open counts as a new-open and fires an alert (not just closed → open with prior
   state). A CRN newly added to `watch[]` that's already open alerts on its first observed run.
-- A CRN removed from `watch[]` is auto-pruned from `state.json` on the next run — no manual
-  cleanup needed, no stale-key leak.
+- Correction 2026-10-04: CRNs removed from `watch[]` are NOT pruned. `watch.py` has no prune
+  code; stale keys stay in `state.json` and are ignored. Harmless unless a CRN is re-added later.
 - Full chain confirmed working end to end: fetch → diff → `notify()` → ntfy.sh (200) → phone.
 
 ## bash -e in GitHub Actions loops (fixed, commit b962b18)
@@ -113,8 +110,8 @@ sections as of 2026-08-04 (previously only 2 of 6 — ACCT 204 / ECON 200).
   again inside `notify()` as a redundant guard.
 - `state.json`: per-CRN `{open, seats}`, auto-committed by the workflow on change
   (`state: update seat tracking [skip ci]`), rebased with `git pull --rebase --autostash`
-  before push so concurrent/overlapping runs don't fight over it. Auto-prunes CRNs no longer
-  in `watch[]`.
+  before push (`-X theirs`, 3 retries since 2026-10-04). Does not prune CRNs dropped from
+  `watch[]`.
 - `rank.py` fails loud (`sys.exit`) on missing/malformed `config.json` or an empty
   `registered{}` — never silently defaults to an empty schedule.
 
