@@ -1,5 +1,11 @@
 name: CofC Seat Watcher
 
+# Cadence model (proposed):
+#   - Primary:  external cron (cron-job.org or Cloudflare Worker) POSTs a
+#               workflow_dispatch every 5 min with NO inputs -> one pass of
+#               the normal watch[] list. Dispatch runs start in ~2-11s.
+#   - Fallback: GitHub schedule below. Throttled to every ~1.5-7h on this
+#               repo, but costs nothing and covers an external-cron outage.
 on:
   schedule:
     - cron: "*/5 * * * *"
@@ -19,6 +25,10 @@ on:
         required: false
         default: "false"
 
+# Serializes runs so only one ever reads/writes state.json at a time.
+# Extra triggers that arrive while one run is going sit as "pending"; a newer
+# pending run may replace an older one (shows as "cancelled" in the UI --
+# harmless, the newer one still runs).
 concurrency:
   group: seat-watch
   cancel-in-progress: false
@@ -37,7 +47,13 @@ jobs:
       AD_HOC_CRNS: ${{ github.event.inputs.crns }}
       AD_HOC_ASYNC_ONLY: ${{ github.event.inputs.async_only }}
     steps:
+      # DEDUPE FIX: check out the branch TIP at job start, not github.sha.
+      # Default checkout uses the SHA from trigger time. A run that was
+      # queued behind another run would otherwise load the pre-commit
+      # state.json, see closed->open again, and send a second alert.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - uses: actions/setup-python@v5
         with:
@@ -47,7 +63,8 @@ jobs:
       - name: Install deps
         run: pip install requests
 
-      # Scheduled: poll 5x across ~4 min so real interval is ~50s, not 15+ min
+      # Scheduled (fallback): 5 passes ~50s apart. This only tightens sampling
+      # inside the run; the gap between scheduled runs is still hours.
       - name: Poll loop (scheduled)
         if: github.event_name == 'schedule'
         run: |
@@ -57,19 +74,31 @@ jobs:
             if [ "$i" -lt 5 ]; then sleep 50; fi
           done
 
-      # Manual: single shot, ad-hoc inputs
-      - name: Check once (manual)
+      # Dispatch: external 5-min cron (no inputs -> normal watch[] only) or a
+      # manual ad-hoc run (inputs -> watch[] + one extra target). One pass.
+      - name: Check once (dispatch)
         if: github.event_name == 'workflow_dispatch'
         run: python watch.py
 
       - name: Commit state.json if changed
         if: always()
         run: |
-          if [ -n "$(git status --porcelain -- state.json)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add state.json
-            git commit -m "state: update seat tracking [skip ci]"
-            git pull --rebase --autostash
-            git push
+          if [ -z "$(git status --porcelain -- state.json)" ]; then
+            echo "state.json unchanged"; exit 0
           fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          git commit -m "state: update seat tracking [skip ci]"
+          # -X theirs: during a rebase "theirs" = this run's commit, i.e. the
+          # state we just observed wins over an older one. Retry covers a race
+          # with a manual push.
+          for attempt in 1 2 3; do
+            if git pull --rebase -X theirs --autostash && git push; then
+              exit 0
+            fi
+            echo "push attempt $attempt failed, retrying"
+            sleep 5
+          done
+          echo "push failed 3x -- next run may re-alert for this change"
+          exit 1

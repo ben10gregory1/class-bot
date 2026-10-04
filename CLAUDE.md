@@ -35,6 +35,27 @@ retired** — that described the intra-run loop, not the interval between schedu
 is what actually determines how long a seat can sit open before the bot notices. Workaround
 when you need a check now: `gh workflow run watch.yml` (manual dispatch, single shot).
 
+**Update 2026-10-04 (measured via `gh api`):** scheduled gaps Sep 11→Oct 4 were 95–410 min,
+plus an 8-day total outage (Sep 24 → Oct 2, workflow likely auto-disabled then re-enabled —
+cause unconfirmed; bot `[skip ci]` commits probably don't count as repo activity for GitHub's
+60-day inactivity disable, so a human push resets the clock). `workflow_dispatch` runs start
+2–11 s after creation (n=12). Empty dispatch inputs are safe: `env_target()` returns None →
+normal `watch[]`, one pass. **Fix path:** external cron (cron-job.org or a Cloudflare Worker)
+POSTs `workflow_dispatch` every 5 min with a fine-grained PAT (class-bot only, Actions
+read/write). GitHub schedule stays as fallback. "Leave the laptop on" does nothing by itself —
+Actions doesn't run on the laptop; a laptop-side trigger dies on Modern Standby sleep.
+Never run `watch.py` on the laptop alongside Actions — separate state = double alerts.
+
+**Stale-checkout dedupe (fixed 2026-10-04):** `actions/checkout` defaulted to the trigger-time
+SHA, so a run queued behind another loaded old `state.json` and re-alerted. Now checks out
+`ref: github.ref_name` (branch tip) and pushes with `git pull --rebase -X theirs` + 3 retries.
+Known gap, unfixed: `watch.py` records a CRN as open even if the ntfy POST failed, so a failed
+alert is not retried.
+
+**Legacy task:** Windows scheduled task "CofC Seat Watcher" (at logon, runs the dead
+`C:\Users\ben10\cofc-seat-bot\Watch-Seats.ps1` with an old hardcoded topic) was still firing as
+of Oct 1. Not part of this system.
+
 ## Point sampling (inherent — do not "fix")
 
 Separate from the cadence problem above. Detection is a state-to-state diff between polls.
