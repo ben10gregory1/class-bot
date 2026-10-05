@@ -2,69 +2,105 @@
 
 Term: **202710**. Regenerate anytime: `python rank.py` (ranking), `discover.py --term 202710` (fresh section pull).
 
-## Registered (rank.py REGISTERED_CRNS)
+## Registered — current (15 cr, updated 2026-10-04)
 
-| CRN | Course |
+| CRN | Course | Cr | Mode | Part of term |
+|---|---|---|---|---|
+| 11221 | FINC 120-01 | 3 | In person MW 1900-2145 | Express II (10/05 – ~12/05, end date TBC) |
+| 11088 | COMM 215-04 | 3 | Online async | Full term |
+| 10323 | RELS 105-01 | 3 | Online async (Banner lists MWF 0900-0950; no live meetings per user) | Full term |
+| 13931 | SOCY 105-01 | 3 | Online async | Express II |
+| 12871 | PRST 336-01 | 3 | Online sync Thu 1800-2045 | Express II |
+
+PALM 118 dropped for PRST 336 (commit d48e221). GEOL 240 (14114) dropped 2026-10-04.
+Live Banner shows GEOL 240 = 2 cr (not 1 as in old express2-all.md).
+
+All three prior open decisions resolved: RELS 105 replaced WGST 200, COMM 215 override went
+through, SOCY 105 landed over the COMM 215 alt. Now 15 cr (2026-10-04) — no credit gap
+remains. Only RELS 105 + SOCY 105 hit a named gen-ed requirement; the other 10 cr is pure
+122-count filler, zero major progress this term.
+
+## Watch list (config.json) — full FINC 303 gate chain, all 6 courses
+
+| Group | CRNs |
 |---|---|
-| 13463 | WGST 200-12 |
-| 11221 | FINC 120-01 |
-| 14114 | GEOL 240-01 |
-| 11541 | PALM 118-02 |
-| 11088 | COMM 215-04 (pending) |
+| fall async targets | 13284 (ACCT 204), 12337 (ECON 200) |
+| prereq chain - ACCT 203 | 13 sections |
+| prereq chain - ECON 201 | 7 sections |
+| prereq chain - MATH 104 | 27 sections |
+| prereq chain - MATH 250 | 8 sections |
 
-## Watch list (config.json)
-
-ntfy topic: `unused-see-secret`
-
-| CRN | Course |
-|---|---|
-| 13284 | ACCT 204 |
-| 12337 | ECON 200 |
-
-## Tracked seat status (state.json)
-
-| CRN | Course | Open | Seats |
-|---|---|---|---|
-| 13284 | ACCT 204 | false | 0 |
-| 12337 | ECON 200 | false | 0 |
-
-Both watched CRNs currently closed, 0 seats. Watcher will ntfy-alert on change.
+`priority.chain` = ACCT 203, ACCT 204, ECON 200, ECON 201, MATH 104, MATH 250 (bonus 6.0) — gates
+FINC 303. ntfy topic: Windows user env var + `NTFY_TOPIC` GH secret only, never in repo.
 
 ## Pending decisions
 
-- **Drop WGST 200-12 (13463), register RELS 105-01 (10323)** — swap suggested, +2.64 score,
-  Humanities req, 12 seats open at last rank.py run.
-- **COMM 215-04 (11088) confirmation** — still marked pending, not locked in.
-- **Need 3 more credits** — schedule short by 3 credits; watch list (ACCT 204 / ECON 200) is
-  the current search for that gap.
+**2026-08-21 — last day before schedule cements.** `state.json` shows MATH 250 (Statistics —
+FINC 303 gate course + major Statistics req + counts toward gen-ed Math Path B) has real open
+seats right now, while ACCT 203/204, ECON 200/201, MATH 104 are all full/closed. Current Fall
+2026 schedule (16 cr) has zero gate-chain courses — this is the only chain course open today.
 
-## Current swap recommendations (discovery/swap_suggestions.md)
+Conflict-free candidates against current schedule:
+| CRN | Section | Meets | Seats |
+|---|---|---|---|
+| 11050 | MATH 250-07 | MWF 0800-0850 | 13 |
+| 11432 | MATH 250-02 | TT 0925-1040 | 6 |
 
-2 of 5 registered CRNs have a higher-scored open alternative:
+(11561 MATH 250-05 conflicts with RELS 105 MWF 0900-0950; 11051 MATH 250-08 conflicts with
+PALM 118 TT 1230-1530 — both ruled out.)
 
-| Current CRN | Current Course | Score | → | Suggested CRN | Suggested Course | Score | Δ | Req | Seats |
-|---|---|---|---|---|---|---|---|---|---|
-| 13463 | WGST 200-12 | 6.98 | → | 10323 | RELS 105-01 | 9.62 | +2.64 | Humanities | 12 |
-| 11088 | COMM 215-04 (pending) | 10.08 | → | 13931 | SOCY 105-01 | 10.46 | +0.38 | Social Science | 17 |
+Adding either brings the term to 19 cr — above the usual 12-18 cr band, likely needs an
+overload/advisor override. Suggestion only, not actioned — alert-only rule, human registers.
+Top pick: **11050** (most seat cushion, no conflict). Still watching in case seats close before
+EOD.
 
-No swap found (not in this term's data): 11221 FINC 120-01, 14114 GEOL 240-01, 11541 PALM 118-02.
+**Update 2026-08-21, same day — virtual constraint changes everything.** Ben is virtual until
+end of Sept 2026 — only ASYNC / Express II sections are usable; the MATH 250 pick above is
+INPERSON, dead. Live-checked (bypassed stale `state.json`, hit Banner directly) all ASYNC gate
+CRNs plus the MUSC 222 backup from the swap report:
 
-## Ranked candidates (discovery/ranked_candidates.md)
+| CRN | Course | Method | Seats (live) |
+|---|---|---|---|
+| 13284 | ACCT 204-09 | Async | -2 |
+| 12337 | ECON 200-15 | Async | -3 |
+| 11510 | ECON 201-02 | Async | 0 |
+| 13465 | MATH 104-09 | Async | 0 |
+| 13575 | MUSC 222-06 | Async | 0 (was 18 in Aug 4 snapshot — closed since, discovery data is stale, don't trust it for same-day decisions) |
 
-303 sections scored (217 ranked w/ RMP data, 4 avoid-flagged, 82 unranked no RMP).
-Composite formula: `retake%/100*3.0 + rating/5*2.5 + (5-difficulty)/5*1.5 + req(+3) + seats(+1 >10 / +2 >25) + modality(+1 ASYNC or Express II in-person)`. Uncapped, max ~13.
+No Express II sections exist for any gate-chain course this term. **Nothing open to swap into
+right now.** No gate-chain course has more than one ASYNC section, so once these close there's
+no backup modality — only fix is wait for churn.
 
-Top 5:
-| CRN | Course | Modality | Seats | Score |
-|---|---|---|---|---|
-| 13733 | THTR 176-01 Theatre Appreciation | ASYNC (Express II) | 0 | 10.58 |
-| 13931 | SOCY 105-01 Sociology of Sport | ASYNC (Express II) | 17 | 10.46 |
-| 13734 | THTR 176-09 Theatre Appreciation | ASYNC (Full Term) | 0 | 10.38 |
-| 13659 | ARTH 103-01 Asian Art and Architecture | ASYNC (Full Term) | 0 | 10.34 |
-| 13353 | ARTM 225-03 The Art of Creativity | ASYNC (Full Term) | -1 | 10.3 |
+**Separate finding, higher priority:** checked live modality on all 6 *currently registered*
+CRNs, not just the gate chain. Three have real in-person meeting times, which conflicts with
+being virtual through Sept 30:
+| CRN | Course | Meets |
+|---|---|---|
+| 11541 | PALM 118 Beginning Sailing | TR 1230-1530, on-water |
+| 14114 | GEOL 240 | F 1400-1700 |
+| 11221 | FINC 120 | MW 1900-2145 |
 
-Full table: `discovery/ranked_candidates.md`. Related outputs in `discovery/`: `shortlist.md` (min-workload, no fixed meetings, 8 candidates, exam-proctoring unconfirmed), `open-now.md`, `inperson-swap-check.md`, `req-matched-sections.md`, raw data in `raw_sections.json` / `candidates.csv` / `enriched_candidates.csv` / `vocab.json`.
+(COMM 215 / RELS 105 / SOCY 105 confirmed Online-Async, fine as-is.) **PALM 118 is the clear
+sub-out candidate** — zero req value, 2 cr, physically can't be done remote (sailing). GEOL 240 /
+FINC 120 flagged too but worth checking with the depts first (Banner doesn't mark them async but
+they might run hybrid/recorded). No open async/Express II replacement exists yet for any of
+these — watch list will need to catch it when one opens.
+
+## Degree audit snapshot (Class Path.md, 2026-08-04)
+
+BS Finance, Catalog 2025-2026, Sophomore, 3.493 GPA, 46/122 cr (earned+in-progress), 76
+remaining. Major GPA 0.000 — zero business credits taken yet. **Spring 2027 is the real
+unlock**: ACCT 203, ECON 200, ECON 201, MATH 104/116, BLAW 205 have no business prereqs and
+open every downstream chain — these are what the current watch list is scouting seats for.
+
+## Ranked candidates (discovery/ranked_candidates.md) — stale, pre-finalization
+
+Last run scored 303 sections against the *old* (unresolved) registered set. Re-run `rank.py`
+before trusting swap suggestions again — current `registered{}` in config.json has moved on
+from what that run used.
 
 ## Source discovery run (discovery/discover_report_202710.txt)
 
-2970 total sections. ASYNC 237 / SYNC_ONLINE 66 / INPERSON 2667. Express II (short part-of-term, 10/07–12/08) = 74 sections, 44 ASYNC. 5 sections on unknown partOfTerm code 9 — flagged, not guessed.
+2970 total sections. ASYNC 237 / SYNC_ONLINE 66 / INPERSON 2667. Express II (short part-of-term,
+10/07–12/08) = 74 sections, 44 ASYNC. 5 sections on unknown partOfTerm code 9 — flagged, not
+guessed.
