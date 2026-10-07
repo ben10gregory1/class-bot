@@ -5,3 +5,5 @@ cofc_*cookies*.txt
 discovery/
 __pycache__/
 *.log
+/FRICTION.md
+/candidates.csv
