@@ -20,84 +20,47 @@ through, SOCY 105 landed over the COMM 215 alt. Now 15 cr (2026-10-04) — no cr
 remains. Only RELS 105 + SOCY 105 hit a named gen-ed requirement; the other 10 cr is pure
 122-count filler, zero major progress this term.
 
-## Watch list (config.json) — full FINC 303 gate chain, all 6 courses
+## Watch list (config.json) — Fall Express II targets (retargeted 2026-10-04, c3c2c0e)
+
+Full-term Fall add window closed in August. Express II drop/add closes **10/09** — after that
+this watch list has nothing actionable left for Fall and should be retargeted (Spring 2027).
 
 | Group | CRNs |
 |---|---|
-| fall async targets | 13284 (ACCT 204), 12337 (ECON 200) |
-| prereq chain - ACCT 203 | 13 sections |
-| prereq chain - ECON 201 | 7 sections |
-| prereq chain - MATH 104 | 27 sections |
-| prereq chain - MATH 250 | 8 sections |
+| express2 - MGMT 301 (major core) | 13195 |
+| express2 - POLI 101 (Founding Docs) | 11474, 11664 |
+| express2 - Humanities (non-RELS) | 13733, 14647, 14046, 14077, 14436, 13454, 13728, 13610, 13612 |
 
-`priority.chain` = ACCT 203, ACCT 204, ECON 200, ECON 201, MATH 104, MATH 250 (bonus 6.0) — gates
-FINC 303. ntfy topic: Windows user env var + `NTFY_TOPIC` GH secret only, never in repo.
+`priority.chain` (rank.py bonus 6.0, unchanged) = ACCT 203, ACCT 204, ECON 200, ECON 201,
+MATH 104, MATH 250 — gates FINC 303. These are no longer in `watch[]`; no gate-chain course had
+an Express II section this term. ntfy topic: Windows user env var + `NTFY_TOPIC` GH secret only,
+never in repo.
+
+Watcher health (2026-10-06): last 8 scheduled runs all succeeded; real gaps ~4–7 h between runs
+(GitHub throttling, see CLAUDE.md "Cron cadence"). `gh workflow run watch.yml` for an on-demand check.
 
 ## Pending decisions
 
-**2026-08-21 — last day before schedule cements.** `state.json` shows MATH 250 (Statistics —
-FINC 303 gate course + major Statistics req + counts toward gen-ed Math Path B) has real open
-seats right now, while ACCT 203/204, ECON 200/201, MATH 104 are all full/closed. Current Fall
-2026 schedule (16 cr) has zero gate-chain courses — this is the only chain course open today.
-
-Conflict-free candidates against current schedule:
-| CRN | Section | Meets | Seats |
-|---|---|---|---|
-| 11050 | MATH 250-07 | MWF 0800-0850 | 13 |
-| 11432 | MATH 250-02 | TT 0925-1040 | 6 |
-
-(11561 MATH 250-05 conflicts with RELS 105 MWF 0900-0950; 11051 MATH 250-08 conflicts with
-PALM 118 TT 1230-1530 — both ruled out.)
-
-Adding either brings the term to 19 cr — above the usual 12-18 cr band, likely needs an
-overload/advisor override. Suggestion only, not actioned — alert-only rule, human registers.
-Top pick: **11050** (most seat cushion, no conflict). Still watching in case seats close before
-EOD.
-
-**Update 2026-08-21, same day — virtual constraint changes everything.** Ben is virtual until
-end of Sept 2026 — only ASYNC / Express II sections are usable; the MATH 250 pick above is
-INPERSON, dead. Live-checked (bypassed stale `state.json`, hit Banner directly) all ASYNC gate
-CRNs plus the MUSC 222 backup from the swap report:
-
-| CRN | Course | Method | Seats (live) |
-|---|---|---|---|
-| 13284 | ACCT 204-09 | Async | -2 |
-| 12337 | ECON 200-15 | Async | -3 |
-| 11510 | ECON 201-02 | Async | 0 |
-| 13465 | MATH 104-09 | Async | 0 |
-| 13575 | MUSC 222-06 | Async | 0 (was 18 in Aug 4 snapshot — closed since, discovery data is stale, don't trust it for same-day decisions) |
-
-No Express II sections exist for any gate-chain course this term. **Nothing open to swap into
-right now.** No gate-chain course has more than one ASYNC section, so once these close there's
-no backup modality — only fix is wait for churn.
-
-**Separate finding, higher priority:** checked live modality on all 6 *currently registered*
-CRNs, not just the gate chain. Three have real in-person meeting times, which conflicts with
-being virtual through Sept 30:
-| CRN | Course | Meets |
-|---|---|---|
-| 11541 | PALM 118 Beginning Sailing | TR 1230-1530, on-water |
-| 14114 | GEOL 240 | F 1400-1700 |
-| 11221 | FINC 120 | MW 1900-2145 |
-
-(COMM 215 / RELS 105 / SOCY 105 confirmed Online-Async, fine as-is.) **PALM 118 is the clear
-sub-out candidate** — zero req value, 2 cr, physically can't be done remote (sailing). GEOL 240 /
-FINC 120 flagged too but worth checking with the depts first (Banner doesn't mark them async but
-they might run hybrid/recorded). No open async/Express II replacement exists yet for any of
-these — watch list will need to catch it when one opens.
+- **By 10/09 (Express II drop/add close):** any swap into the watch targets above. Alert-only —
+  a hit means go register manually in Banner.
+- **After 10/09:** retarget `watch[]` to Spring 2027 — the real unlock (see degree audit below).
+- Superseded and closed (kept in git history, pre-d48e221): the 2026-08-21 MATH 250 add idea and
+  the virtual-through-September in-person conflicts (PALM 118 / GEOL 240 / FINC 120). PALM 118 and
+  GEOL 240 were dropped; FINC 120 is attended in person now that Ben is back in Charleston.
 
 ## Degree audit snapshot (Class Path.md, 2026-08-04)
 
 BS Finance, Catalog 2025-2026, Sophomore, 3.493 GPA, 46/122 cr (earned+in-progress), 76
 remaining. Major GPA 0.000 — zero business credits taken yet. **Spring 2027 is the real
 unlock**: ACCT 203, ECON 200, ECON 201, MATH 104/116, BLAW 205 have no business prereqs and
-open every downstream chain — these are what the current watch list is scouting seats for.
+open every downstream chain — retarget `watch[]` to these after Express II drop/add closes 10/09.
 
-## Ranked candidates (discovery/ranked_candidates.md) — stale, pre-finalization
+## Ranked candidates (discovery/ranked_candidates.md)
 
-Last run scored 303 sections against the *old* (unresolved) registered set. Re-run `rank.py`
-before trusting swap suggestions again — current `registered{}` in config.json has moved on
-from what that run used.
+Regenerated locally 2026-10-04 (348 sections scored, 251 ranked) against the current 15 cr
+`registered{}`; last committed version is the 2026-07-27 run. Top of list is gate-chain sections
+(MATH 104/250, ACCT 204) via the 6.0 chain bonus — all full or non-Express II, so not actionable
+for Fall.
 
 ## Source discovery run (discovery/discover_report_202710.txt)
 
