@@ -85,7 +85,7 @@ schedule changes; there's no live registration API.
 ## Output files
 
 `discovery/` is gitignored by default (`.gitignore` has `discovery/`) — most files here
-are regenerated scratch output. `ranked_candidates.md`, `prereq-chain.md`, and this
-`CONTEXT.md` are force-added exceptions (`git add -f`) since they're worth keeping in
-history. Everything else (`candidates.csv`, `enriched_candidates.csv`, `raw_sections.json`,
+are regenerated scratch output. `prereq-chain.md` and this `CONTEXT.md` are force-added
+exceptions (`git add -f`) since they're worth keeping in history. `ranked_candidates.md`
+was untracked 2026-10-08 (regenerated on every rank.py run, too noisy). Everything else (`candidates.csv`, `enriched_candidates.csv`, `raw_sections.json`,
 `swap_suggestions.md`, `shortlist.md`, `open-now.md`, etc.) is local-only unless force-added.
