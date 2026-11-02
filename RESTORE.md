@@ -1,6 +1,7 @@
 # RESTORE — class-bot state snapshot
 
-Term: **202710**. Regenerate anytime: `python rank.py` (ranking), `discover.py --term 202710` (fresh section pull).
+Watch term: **202720** (Spring 2027, since 2026-11-02). Current registration below is still Fall (202710).
+Regenerate anytime: `python rank.py` (ranking), `discover.py --term 202720` (fresh section pull; `--term` still defaults to 202710).
 
 ## Registered — current (15 cr, updated 2026-10-04)
 
@@ -20,30 +21,32 @@ through, SOCY 105 landed over the COMM 215 alt. Now 15 cr (2026-10-04) — no cr
 remains. Only RELS 105 + SOCY 105 hit a named gen-ed requirement; the other 10 cr is pure
 122-count filler, zero major progress this term.
 
-## Watch list (config.json) — Fall Express II targets (retargeted 2026-10-04, c3c2c0e)
+## Watch list (config.json) — Spring 2027 plan (retargeted 2026-11-02)
 
-Full-term Fall add window closed in August. Express II drop/add closes **10/09** — after that
-this watch list has nothing actionable left for Fall and should be retargeted (Spring 2027).
+Ben's picked Spring sections, 15 cr, not confirmed registered. Alerts fire on absent/closed ->
+open only: no alert when a section fills, and none for a section that stays open.
 
-| Group | CRNs |
-|---|---|
-| express2 - MGMT 301 (major core) | 13195 |
-| express2 - POLI 101 (Founding Docs) | 11474, 11664 |
-| express2 - Humanities (non-RELS) | 13733, 14647, 14046, 14077, 14436, 13454, 13728, 13610, 13612 |
+| CRN | Course | Time | Prof |
+|---|---|---|---|
+| 20002 | ACCT 203-05 | TR 1215-1330 | Saboe |
+| 20995 | MATH 104-12 | MWF 1100-1150 | Jin |
+| 20047 | BLAW 205-03 | MWF 1000-1050 | Ansari-Andrews |
+| 20542 | MGMT 301-04 | MW 1730-1845 | Yarborough |
+| 20282 | LATN 102-01 | MWF 1300-1350 | McCune |
 
 `priority.chain` (rank.py bonus 6.0, unchanged) = ACCT 203, ACCT 204, ECON 200, ECON 201,
-MATH 104, MATH 250 — gates FINC 303. These are no longer in `watch[]`; no gate-chain course had
-an Express II section this term. ntfy topic: Windows user env var + `NTFY_TOPIC` GH secret only,
-never in repo.
+MATH 104, MATH 250. Live Banner 2026-11-02: ECON 200 needs 3 cr of completed college math, so
+Ben can't take ECON 200/201 in Spring. FINC 303 lists ACCT 203, ECON 200, MATH 104/107/250 +
+junior standing, not ACCT 204 or ECON 201 as the notes claim. ntfy topic: Windows user env var +
+`NTFY_TOPIC` GH secret only, never in repo.
 
 Watcher health (2026-10-06): last 8 scheduled runs all succeeded; real gaps ~4–7 h between runs
 (GitHub throttling, see CLAUDE.md "Cron cadence"). `gh workflow run watch.yml` for an on-demand check.
 
 ## Pending decisions
 
-- **By 10/09 (Express II drop/add close):** any swap into the watch targets above. Alert-only —
-  a hit means go register manually in Banner.
-- **After 10/09:** retarget `watch[]` to Spring 2027 — the real unlock (see degree audit below).
+- **Now:** register the Spring sections above manually in Banner. Alert-only — the bot never registers.
+- MATH 116 deferred out of the Spring plan to keep 15 cr; still owed for major calc + gen-ed math.
 - Superseded and closed (kept in git history, pre-d48e221): the 2026-08-21 MATH 250 add idea and
   the virtual-through-September in-person conflicts (PALM 118 / GEOL 240 / FINC 120). PALM 118 and
   GEOL 240 were dropped; FINC 120 is attended in person now that Ben is back in Charleston.
@@ -52,8 +55,8 @@ Watcher health (2026-10-06): last 8 scheduled runs all succeeded; real gaps ~4�
 
 BS Finance, Catalog 2025-2026, Sophomore, 3.493 GPA, 46/122 cr (earned+in-progress), 76
 remaining. Major GPA 0.000 — zero business credits taken yet. **Spring 2027 is the real
-unlock**: ACCT 203, ECON 200, ECON 201, MATH 104/116, BLAW 205 have no business prereqs and
-open every downstream chain — retarget `watch[]` to these after Express II drop/add closes 10/09.
+unlock**: the audit-era plan listed ACCT 203, ECON 200, ECON 201, MATH 104/116, BLAW 205 as having
+no prereqs. Wrong for ECON (see watch list note); 45 cr / 77 remaining once PALM/GEOL drops are counted.
 
 ## Ranked candidates (discovery/ranked_candidates.md)
 

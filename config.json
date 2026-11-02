@@ -1,5 +1,5 @@
 {
-  "term": "202710",
+  "term": "202720",
   "priority": {
     "chain": [
       "ACCT 203",
@@ -13,30 +13,33 @@
   },
   "watch": [
     {
-      "label": "express2 - MGMT 301 (major core)",
+      "label": "spring plan - ACCT 203 Saboe",
       "crns": [
-        "13195"
+        "20002"
       ]
     },
     {
-      "label": "express2 - POLI 101 (Founding Docs)",
+      "label": "spring plan - MATH 104 Jin",
       "crns": [
-        "11474",
-        "11664"
+        "20995"
       ]
     },
     {
-      "label": "express2 - Humanities (non-RELS)",
+      "label": "spring plan - BLAW 205 Ansari-Andrews",
       "crns": [
-        "13733",
-        "14647",
-        "14046",
-        "14077",
-        "14436",
-        "13454",
-        "13728",
-        "13610",
-        "13612"
+        "20047"
+      ]
+    },
+    {
+      "label": "spring plan - MGMT 301 Yarborough",
+      "crns": [
+        "20542"
+      ]
+    },
+    {
+      "label": "spring plan - LATN 102 McCune",
+      "crns": [
+        "20282"
       ]
     }
   ],

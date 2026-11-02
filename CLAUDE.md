@@ -1,6 +1,6 @@
 # class-bot
 
-CofC (College of Charleston) course registration assistant, term **202710** (Fall 2026).
+CofC (College of Charleston) course registration assistant, watching term **202720** (Spring 2027) since 2026-11-02.
 Two jobs: (1) watch specific CRNs for open seats and push an alert, (2) rank open
 async/Express-II sections against remaining degree reqs to suggest better swaps.
 
