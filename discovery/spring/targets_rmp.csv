@@ -1,0 +1,340 @@
+crn,subj,num,course,title,cr,part,mode,meets,prof,seats,cap,attrs,rmp_rating,rmp_difficulty,rmp_retake_pct,rmp_count,rmp_tags,rmp_flag
+21492,ACCT,203,ACCT 203-01,Financial Accounting,3,Full Term,INPERSON,MWF 1200-1250,Kyle Sopp,82,90,,1.4,4.8,12,24,,ok
+21273,ACCT,203,ACCT 203-02,Financial Accounting,3,Full Term,INPERSON,TT 1800-1915,Susan Baker,39,40,,4.4,2.9,100,13,,ok
+20001,ACCT,203,ACCT 203-04,Financial Accounting,3,Full Term,INPERSON,TT 1050-1205,David Kuczkir,0,40,,4.7,2.8,94.1176,17,,ok
+20002,ACCT,203,ACCT 203-05,Financial Accounting,3,Full Term,INPERSON,TT 1215-1330,Karrie Saboe,6,35,,3.9,3.3,70.2703,36,,ok
+20003,ACCT,203,ACCT 203-06,Financial Accounting,3,Full Term,INPERSON,TT 1050-1205,R. Roy Martin,66,90,,4.8,2.8,80,4,,low_data
+20004,ACCT,203,ACCT 203-07,Financial Accounting,3,Full Term,INPERSON,TT 1340-1455,Robert Hogan,37,40,,3.6,3.8,80,16,,ok
+20598,ACCT,203,ACCT 203-08,Financial Accounting,3,Full Term,INPERSON,TT 1600-1715,John Ratliff,38,40,,4.2,3,92.8571,75,,ok
+20819,ACCT,203,ACCT 203-10,Financial Accounting,3,Full Term,INPERSON,TT 1600-1715,Karrie Saboe,36,38,,3.9,3.3,70.2703,36,,ok
+21629,ACCT,203,ACCT 203-11,Financial Accounting,3,Full Term,INPERSON,MWF 1100-1150,Judith Hermis,16,40,,3.3,2.5,-1,4,,low_data
+22200,ACCT,203,ACCT 203-12,Financial Accounting,3,Full Term,INPERSON,MWF 1300-1350,Judith Hermis,32,40,,3.3,2.5,-1,4,,low_data
+22201,ACCT,203,ACCT 203-13,Financial Accounting,3,Full Term,INPERSON,MW 1400-1515,Billy VanDenburgh,66,70,,4,3.6,81.8182,23,,ok
+22202,ACCT,203,ACCT 203-14,Financial Accounting,3,Full Term,INPERSON,MW 1525-1640,Steve Celona,39,40,,1,5,0,2,,low_data
+22550,ACCT,203,ACCT 203-15,Financial Accounting,3,Full Term,INPERSON,MW 1730-1845,Kimberly Tribou,30,40,,5,2.7,100,3,,low_data
+20599,ACCT,204,ACCT 204-01,Managerial Accounting,3,Full Term,INPERSON,TT 0925-1040,David Kuczkir,0,35,Sustainability-Inclusive,4.7,2.8,94.1176,17,,ok
+20950,ACCT,204,ACCT 204-02,Managerial Accounting,3,Full Term,INPERSON,TT 1050-1205,Jennifer Burbage,0,40,Sustainability-Inclusive,4.4,2.8,88.5714,50,,ok
+20005,ACCT,204,ACCT 204-03,Managerial Accounting,3,Full Term,INPERSON,MWF 1100-1150,Kyle Sopp,31,40,Sustainability-Inclusive,1.4,4.8,12,24,,ok
+20006,ACCT,204,ACCT 204-04,Managerial Accounting,3,Full Term,INPERSON,MWF 1300-1350,Kyle Sopp,36,38,Sustainability-Inclusive,1.4,4.8,12,24,,ok
+20007,ACCT,204,ACCT 204-05,Managerial Accounting,3,Full Term,INPERSON,MW 1400-1515,Judith Hermis,48,70,Sustainability-Inclusive,3.3,2.5,-1,4,,low_data
+21084,ACCT,204,ACCT 204-07,Managerial Accounting,3,Full Term,INPERSON,TT 1215-1330,David Kuczkir,0,40,Sustainability-Inclusive,4.7,2.8,94.1176,17,,ok
+21891,ACCT,204,ACCT 204-08,Managerial Accounting,3,Full Term,INPERSON,TT 1340-1455,Jennifer Burbage,0,40,Sustainability-Inclusive,4.4,2.8,88.5714,50,,ok
+22552,ACCT,204,ACCT 204-09,Managerial Accounting,3,Full Term,INPERSON,TT 1730-1845,John Ratliff,38,40,Sustainability-Inclusive,4.2,3,92.8571,75,,ok
+23258,ACCT,204,ACCT 204-11,Managerial Accounting,3,Full Term,ASYNC,,Mike Braswell,13,40,Face-to-Face &amp; Online Class | Sustainability-Inclusive,3.9,3.3,60,16,,ok
+21730,AAST,100,AAST 100-02,Intro to African Amer Studies,3,Full Term,INPERSON,TT 1340-1455,Alison Kibbe,32,35,Humanities-6hr max per Acronym | MUGC - US,2.8,3.8,50,5,,ok
+21731,AAST,100,AAST 100-03,Intro to African Amer Studies,3,Full Term,INPERSON,MWF 1000-1050,Kameelah Martin,30,35,Humanities-6hr max per Acronym | MUGC - US,3.8,3.3,50,4,,low_data
+23455,AAST,100,AAST 100-04,Intro to African Amer Studies,3,Full Term,ASYNC,,Michael Owens,0,35,Humanities-6hr max per Acronym | MUGC - US,3.7,3,73.6842,37,,ok
+23560,AAST,100,AAST 100-05,Intro to African Amer Studies,3,Full Term,ASYNC,,Michael Owens,19,35,Humanities-6hr max per Acronym | MUGC - US,3.7,3,73.6842,37,,ok
+23273,ARST,100,ARST 100-01,Intro Arab &amp; Islamic World Stu,3,Full Term,INPERSON,MWF 1000-1050,Garrett Davidson,22,25,Humanities-6hr max per Acronym | MUGC - Global,3.9,2.4,66.6667,9,,ok
+22170,ARST,240,ARST 240-01,Understanding Iran,3,Full Term,INPERSON,MWF 1200-1250,Garrett Davidson,7,10,Humanities-6hr max per Acronym | Special Topics,3.9,2.4,66.6667,9,,ok
+21858,ARTH,101,ARTH 101-01,Hist of Art: Prehist to Mediev,3,Full Term,ASYNC,,Jessica Streit,16,70,Humanities-6hr max per Acronym,4.6,2.7,91.6667,29,,ok
+21859,ARTH,101,ARTH 101-02,Hist of Art: Prehist to Mediev,3,Full Term,INPERSON,TT 1215-1330,Tara Prakash,50,60,Humanities-6hr max per Acronym,3.7,3.5,66.6667,15,,ok
+21860,ARTH,101,ARTH 101-04,Hist of Art: Prehist to Mediev,3,Full Term,ASYNC,,Burak Koroglu,33,35,Humanities-6hr max per Acronym,2.7,3.9,36.3636,27,,ok
+21861,ARTH,101,ARTH 101-05,Hist of Art: Prehist to Mediev,3,Full Term,ASYNC,,Burak Koroglu,34,35,Humanities-6hr max per Acronym,2.7,3.9,36.3636,27,,ok
+21862,ARTH,102,ARTH 102-01,Hist of Art: Ren through Moder,3,Full Term,ASYNC,,Rebekah Compton,26,70,Humanities-6hr max per Acronym,4.3,2.5,90,26,,ok
+21863,ARTH,102,ARTH 102-02,Hist of Art: Ren through Moder,3,Full Term,ASYNC,,Brigit Ferguson,32,35,Humanities-6hr max per Acronym,3.4,2.6,53.3333,14,,ok
+21570,ARTH,102,ARTH 102-04,Hist of Art: Ren through Moder,3,Full Term,INPERSON,TT 1340-1455,Brigit Ferguson,68,70,Humanities-6hr max per Acronym,3.4,2.6,53.3333,14,,ok
+21864,ARTH,103,ARTH 103-01,Asian Art and Architecture,3,Full Term,ASYNC,,Jeffrey Youn,27,70,Humanities-6hr max per Acronym,5,2,100,7,,ok
+21865,ARTH,105,ARTH 105-01,Introduction to Architecture,3,Full Term,ASYNC,,Salvatore Dellaria,47,70,Humanities-6hr max per Acronym | Sustainability-Inclusive,3,3.1,62.5,8,,ok
+23538,ARTH,214,ARTH 214-01,Ancient Greek Art,3,Full Term,INPERSON,TT 1340-1455,Tara Prakash,18,35,Humanities-6hr max per Acronym,3.7,3.5,66.6667,15,,ok
+23540,ARTH,243,ARTH 243-01,Art and Architecture of Japan,3,Full Term,INPERSON,TT 1050-1205,Jeffrey Youn,9,25,Humanities-6hr max per Acronym,5,2,100,7,,ok
+23541,ARTH,285,ARTH 285-0,Modern Art,3,Full Term,INPERSON,MWF 1000-1050,Marian Mazzone,23,25,Humanities-6hr max per Acronym,3.4,3.9,28.5714,39,,ok
+23542,ARTH,290,ARTH 290-01,ST: History of Scientific Illustration,3,Full Term,INPERSON,TT 0925-1040,Brigit Ferguson,21,25,Humanities-6hr max per Acronym | Special Topics,3.4,2.6,53.3333,14,,ok
+21275,ARTM,225,ARTM 225-01,The Art of Creativity,3,Full Term,INPERSON,MW 1525-1640,Bex Ferrell,31,40,Humanities-6hr max per Acronym,2.5,2,20,4,,low_data
+21276,ARTM,225,ARTM 225-02,The Art of Creativity,3,Full Term,INPERSON,MW 1400-1515,Maclain Kurza,17,40,Humanities-6hr max per Acronym,,,,,,no_rmp
+21742,ARTM,225,ARTM 225-03,The Art of Creativity,3,Full Term,ASYNC,,Sarah Berry,0,40,Humanities-6hr max per Acronym,2,1,100,1,,low_data
+23664,ARTM,225,ARTM 225-04,The Art of Creativity,3,Full Term,INPERSON,TT 1505-1620,Lori Kornegay,0,0,Humanities-6hr max per Acronym,3.1,3.1,42.8571,7,,ok
+23274,ASST,101,ASST 101-01,Introduction to Asian Studies,3,Full Term,INPERSON,MWF 1300-1350,Piotr Gibas,11,25,Humanities-6hr max per Acronym | MUGC - Global,4,2.9,69.2308,23,,ok
+23337,CHST,240,CHST 240-01, Chinese Food Culture and the Environment,3,Full Term,ASYNC,,Piotr Gibas,21,35,Humanities-6hr max per Acronym | Special Topics,4,2.9,69.2308,23,,ok
+21457,CHST,270,CHST 270-01,Chinese Cinema: Stories Chinese Youth,3,Full Term,INPERSON,MW 1400-1515,Lei Jin,21,25,Humanities-6hr max per Acronym,4.6,2.4,90.9091,23,,ok
+20666,CLAS,101,CLAS 101-01,Introduction to Ancient Greece,3,Full Term,INPERSON,TT 1340-1455,James Newhard,1,17,Humanities-6hr max per Acronym,3.9,3,66.6667,55,,ok
+22066,CLAS,102,CLAS 102-01,Introduction to Ancient Rome,3,Full Term,INPERSON,MWF 1300-1350,James Lohmar,0,17,Humanities-6hr max per Acronym,4.5,2.6,95,37,,ok
+20942,CLAS,103,CLAS 103-01,Classical Mythology,3,Full Term,INPERSON,MWF 1500-1550,James Lohmar,5,15,Humanities-6hr max per Acronym,4.5,2.6,95,37,,ok
+22088,CLAS,103,CLAS 103-02,Classical Mythology,3,Full Term,INPERSON,TT 1340-1455,Jami Craig,5,15,Humanities-6hr max per Acronym,2.9,3.5,47.3684,19,,ok
+22068,CLAS,103,CLAS 103-03,Classical Mythology,3,Full Term,INPERSON,TT 1730-1845,Adam McCune,12,15,Humanities-6hr max per Acronym,0,0,-1,0,,low_data
+21370,CLAS,103,CLAS 103-04,Classical Mythology,3,Full Term,ASYNC,,Megan Alwine,0,25,Humanities-6hr max per Acronym,2.5,3.3,35.7143,16,,ok
+23578,CLAS,103,CLAS 103-05,Classical Mythology,3,Full Term,ASYNC,,Megan Alwine,12,25,Humanities-6hr max per Acronym,2.5,3.3,35.7143,16,,ok
+20789,CLAS,104,CLAS 104-01,Intro to Classical Archaeology,3,Full Term,INPERSON,MWF 1100-1150,Allison Sterrett-Krause,10,15,Humanities-6hr max per Acronym,3.2,3.9,45,31,,ok
+23433,CLAS,215,CLAS 215-01,Slavery &amp; Racism-Greece &amp; Rome,3,Full Term,INPERSON,MWF 0900-0950,Sam Flores,1,15,Humanities-6hr max per Acronym | MUGC - Global,5,2.5,100,4,,low_data
+23583,CLAS,223,CLAS 223-01,Aegean Prehistory,3,Full Term,INPERSON,TT 1050-1205,James Newhard,6,15,Humanities-6hr max per Acronym,3.9,3,66.6667,55,,ok
+23440,CLAS,242,CLAS 242-01,Images of Women in Clas World,3,Full Term,INPERSON,TT 1340-1455,Noelle Zeiner-Carmichael,3,15,Humanities-6hr max per Acronym,4.7,2.4,75,13,,ok
+21170,CLAS,303,CLAS 303-01,Topics in Classical Civilization: The Five &ldquo;Good&rdquo; Emperors,3,Full Term,INPERSON,TT 1215-1330,Jen Gerrish,7,15,Humanities-6hr max per Acronym | Variable Topic,3.6,3.8,63.6364,11,,ok
+20663,DANC,150,DANC 150-02,Dance Appreciation,3,Full Term,INPERSON,MWF 1100-1150,,29,35,Humanities-6hr max per Acronym,,,,,,no_prof
+20664,DANC,150,DANC 150-03,Dance Appreciation,3,Full Term,INPERSON,TT 1215-1330,,30,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22212,DANC,150,DANC 150-05,Dance Appreciation,3,Express I,ASYNC,,,0,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22213,DANC,150,DANC 150-06,Dance Appreciation,3,Express II,ASYNC,,,0,20,Humanities-6hr max per Acronym,,,,,,no_prof
+20947,DANC,150,DANC 150-08,Dance Appreciation,3,Full Term,INPERSON,TT 1050-1205,,31,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22219,DANC,330,DANC 330-01,History of Non-Western Dance,3,Full Term,ASYNC,,,0,34,Humanities-6hr max per Acronym | MUGC - Global,,,,,,no_prof
+20133,DSCI,232,DSCI 232-01,Business Statistics,3,Full Term,INPERSON,MW 1525-1640,George Benson,69,87,Sustainability-Inclusive,1.2,5,4.5455,21,,ok
+23437,DSCI,232,DSCI 232-02,Business Statistics,3,Full Term,INPERSON,MW 1730-1845,Kris Rana,31,37,Sustainability-Inclusive,2.7,3.9,42.8571,13,,ok
+23438,DSCI,232,DSCI 232-03,Business Statistics,3,Full Term,SYNC_ONLINE,W 1600-1845,Chen-Huei Chou,0,20,Face-to-Face &amp; Online Class | Sustainability-Inclusive,3.8,2.9,57.1429,37,,ok
+20135,DSCI,232,DSCI 232-04,Business Statistics,3,Express I,INPERSON,TT 1600-1845,Maryam Mahdikhani,2,39,Sustainability-Inclusive,4.3,3.4,79.1667,23,,ok
+20640,DSCI,232,DSCI 232-05,Business Statistics,3,Full Term,INPERSON,TT 0925-1040,Rafael Teixeira,0,37,Sustainability-Inclusive,4.2,4.3,83.871,31,,ok
+20136,DSCI,232,DSCI 232-06,Business Statistics,3,Full Term,ASYNC,,David Quintanilla,0,39,A-Synchronized Online | Sustainability-Inclusive,2,2.2,33.3333,6,,ok
+21248,DSCI,232,DSCI 232-07,Business Statistics,3,Full Term,INPERSON,TT 1050-1205,Rafael Teixeira,0,37,Sustainability-Inclusive,4.2,4.3,83.871,31,,ok
+21249,DSCI,232,DSCI 232-08,Business Statistics,3,Full Term,INPERSON,MWF 1000-1050,Mohamed Tazkarji,0,39,Sustainability-Inclusive,4.3,2.8,80,14,,ok
+21623,DSCI,232,DSCI 232-09,Business Statistics,3,Full Term,INPERSON,MWF 1100-1150,Mohamed Tazkarji,0,39,Sustainability-Inclusive,4.3,2.8,80,14,,ok
+20691,ECON,200,ECON 200-01,Princ of Microeconomics,3,Full Term,INPERSON,MWF 0900-0950,Calvin Blackwell,51,70,Sustainability-Inclusive | Social Science,3.8,3.3,65.8537,99,,ok
+21762,ECON,200,ECON 200-02,Princ of Microeconomics,3,Full Term,ASYNC,,Leila Rodemann,0,30,A-Synchronized Online | Sustainability-Inclusive | Social Science,1,2,0,2,,low_data
+20788,ECON,200,ECON 200-03,Princ of Microeconomics,3,Full Term,INPERSON,TT 0800-0915,Douglas Walker,86,90,Sustainability-Inclusive | Social Science,2.3,4.1,36.3636,22,,ok
+21269,ECON,200,ECON 200-04,Princ of Microeconomics,3,Full Term,INPERSON,TT 1215-1330,Cameron Tilley,0,38,Sustainability-Inclusive | Social Science,3.6,2.3,57.1429,7,,ok
+20953,ECON,200,ECON 200-05,Princ of Microeconomics,3,Full Term,INPERSON,TT 1340-1455,Cameron Tilley,9,38,Sustainability-Inclusive | Social Science,3.6,2.3,57.1429,7,,ok
+21763,ECON,200,ECON 200-06,Princ of Microeconomics,3,Full Term,INPERSON,TT 0925-1040,Frank Hefner,33,40,Sustainability-Inclusive | Social Science,2.9,3.9,28,68,,ok
+21379,ECON,200,ECON 200-07,Princ of Microeconomics,3,Full Term,INPERSON,TT 1730-1845,Mark Wegryn,2,40,Sustainability-Inclusive | Social Science,4.4,1.9,87.5,8,,ok
+21381,ECON,200,ECON 200-08,Princ of Microeconomics,3,Full Term,INPERSON,TT 1050-1205,Peter Calcagno,21,38,Sustainability-Inclusive | Social Science,3.5,3.4,39.1304,70,,ok
+21615,ECON,201,ECON 201-01,Princ of Macroeconomics,3,Full Term,INPERSON,TT 0925-1040,Jessica Madariaga,17,40,Sustainability-Inclusive | Social Science,3.7,3.9,67.3077,59,,ok
+20832,ECON,201,ECON 201-02,Princ of Macroeconomics,3,Full Term,INPERSON,MWF 1200-1250,Mark Witte,48,90,Sustainability-Inclusive | Social Science,4.1,3.4,78.3784,54,,ok
+20607,ECON,201,ECON 201-03,Princ of Macroeconomics,3,Full Term,INPERSON,MWF 1100-1150,Norman Maynard,54,70,Sustainability-Inclusive | Social Science,3.5,2.9,53.8462,38,,ok
+21760,ECON,201,ECON 201-04,Princ of Macroeconomics,3,Full Term,ASYNC,,Leila Rodemann,0,30,A-Synchronized Online | Sustainability-Inclusive | Social Science,1,2,0,2,,low_data
+21270,ECON,201,ECON 201-05,Princ of Macroeconomics,3,Full Term,INPERSON,MWF 1000-1050,Beatriz Maldonado,38,40,Sustainability-Inclusive | Social Science,2.7,3.9,35,34,,ok
+21271,ECON,201,ECON 201-06,Princ of Macroeconomics,3,Full Term,INPERSON,MW 1600-1715,Mark Wegryn,8,40,Sustainability-Inclusive | Social Science,4.4,1.9,87.5,8,,ok
+21761,ECON,201,ECON 201-07,Princ of Macroeconomics,3,Full Term,INPERSON,MW 1730-1845,Mark Wegryn,27,40,Sustainability-Inclusive | Social Science,4.4,1.9,87.5,8,,ok
+20501,ECON,201,ECON 201-10,Princ of Macroeconomics,3,Full Term,INPERSON,,,0,0,Sustainability-Inclusive | Social Science,,,,,,no_prof
+20153,EDFS,201,EDFS 201-02,Foundations of Education,3,Full Term,INPERSON,MW 1525-1640,Tiffany Harris,52,60,Humanities-6hr max per Acronym | MUGC - US,4.3,1.9,76.4706,16,,ok
+20154,EDFS,201,EDFS 201-03,Foundations of Education,3,Full Term,INPERSON,TT 1215-1330,Brian Lanahan,25,30,Humanities-6hr max per Acronym | MUGC - US,2.5,3.7,26.0274,96,,ok
+21257,EDFS,201,EDFS 201-04,Foundations of Education,3,Full Term,INPERSON,TT 1050-1205,Brian Lanahan,20,30,Humanities-6hr max per Acronym | MUGC - US,2.5,3.7,26.0274,96,,ok
+21258,EDFS,201,EDFS 201-05,Foundations of Education,3,Full Term,INPERSON,TT 1215-1330,Beth Lloyd,10,30,Humanities-6hr max per Acronym | MUGC - US,4.4,3.5,84.2105,30,,ok
+21538,EDFS,302,EDFS 302-01,Disability and Society,3,Full Term,ASYNC,,Michael McMillan,0,25,Humanities-6hr max per Acronym | MUGC - US,0,0,-1,0,,low_data
+22307,EDFS,302,EDFS 302-02,Disability and Society,3,Full Term,INPERSON,TT 1050-1205,Carlos Lavin,25,30,Humanities-6hr max per Acronym | MUGC - US,3.4,1.8,54.5455,11,,ok
+22279,ENGL,190,ENGL 190-01,ST: Living Writers,3,Full Term,INPERSON,TT 1050-1205,Emily Rosko,59,60,Humanities-6hr max per Acronym | Special Topics,4,3,75,6,,ok
+21100,ENGL,192,ENGL 192-01,Appreciation Literature &amp; Film,3,Full Term,INPERSON,MWF 1200-1250,Terence Bowers,25,30,Humanities-6hr max per Acronym,3.5,3.5,38.8889,94,,ok
+21220,ENGL,192,ENGL 192-02,Appreciation Literature &amp; Film,3,Full Term,INPERSON,MWF 1000-1050,Terence Bowers,27,30,Humanities-6hr max per Acronym,3.5,3.5,38.8889,94,,ok
+20169,ENGL,201,ENGL 201-01,British Literature to 1800,3,Full Term,INPERSON,MW 1400-1515,Yunah Kae,28,30,Humanities-6hr max per Acronym,4.3,2.5,100,4,,low_data
+21217,ENGL,202,ENGL 202-01,British Literature since 1800,3,Full Term,INPERSON,TT 1215-1330,Joseph Kelly,17,30,Humanities-6hr max per Acronym,4,3.1,100,65,,ok
+20882,ENGL,207,ENGL 207-01,American Literature to Present,3,Full Term,INPERSON,MWF 1300-1350,Scott Peeples,16,30,Humanities-6hr max per Acronym | MUGC - US,4.4,2.5,95,55,,ok
+23365,ENGL,216,ENGL 216-01,Intro to African American Lit,3,Full Term,INPERSON,MWF 1300-1350,Valerie Frazier,24,28,Humanities-6hr max per Acronym,2.4,3.2,10.5263,79,,ok
+23443,ENGL,233,ENGL 233-01,Surv of Non-Western Literature,3,Full Term,INPERSON,MW 1400-1515,Apala Bhowmick,22,30,Humanities-6hr max per Acronym | MUGC - Global,,,,,,no_rmp
+21396,ENGL,300,ENGL 300-01,ST: Future Perfect Human: Premodern and Postmodern,3,Full Term,INPERSON,TT 1215-1330,Myra Seaman,8,30,Humanities-6hr max per Acronym | Special Topics,4.4,3.2,85.7143,68,,ok
+20986,ENGL,320,ENGL 320-01,Young Adult Literature,3,Full Term,INPERSON,MW 1100-1150,Kathleen Rogers,24,30,Humanities-6hr max per Acronym,4.3,1.9,90.9091,11,,ok
+23384,ENGL,350,ENGL 350-01,Special Topics: Major Authors,3,Full Term,INPERSON,TT 0925-1040,Kenneth Johnson II,19,30,Humanities-6hr max per Acronym | Special Topics,3.4,2.8,54.5455,11,,ok
+23585,ENGL,364,ENGL 364-01,ST: Empire and Medicine in Global Literature,3,Full Term,INPERSON,MW 1600-1715,Apala Bhowmick,23,30,Humanities-6hr max per Acronym | Special Topics,,,,,,no_rmp
+23232,ENGL,375,ENGL 375-01,Studies in Creative Writing,3,Full Term,INPERSON,MW 1600-1715,Areej Quraishi,22,30,Humanities-6hr max per Acronym | Variable Topic,0,0,100,0,,low_data
+21293,ENVT,210,ENVT 210-01,Sustainable Humanities,3,Full Term,INPERSON,TT 0925-1040,Todd LeVasseur,6,25,Humanities-6hr max per Acronym | MUGC - Global,4.4,3.6,85.7143,33,,ok
+23533,ENVT,210,ENVT 210-02,Sustainable Humanities,3,Full Term,INPERSON,TT 1050-1205,Todd LeVasseur,0,25,Humanities-6hr max per Acronym | MUGC - Global,4.4,3.6,85.7143,33,,ok
+23228,FMST,212,FMST 212-01,The Cinema: Hist and Criticism,3,Full Term,INPERSON,TT 1215-1330,John Bruns,25,30,Humanities-6hr max per Acronym,3.4,3.3,52.6316,50,,ok
+23230,FMST,212,FMST 212-02,The Cinema: Hist and Criticism,3,Full Term,INPERSON,TT 1340-1455,John Bruns,21,30,Humanities-6hr max per Acronym,3.4,3.3,52.6316,50,,ok
+23229,FMST,390,FMST 390-01,ST: Alfred Hitchcock,3,Full Term,INPERSON,TT 1050-1205,John Bruns,18,30,Humanities-6hr max per Acronym | Special Topics,3.4,3.3,52.6316,50,,ok
+21514,FRCS,102,FRCS 102-01,Francophone Cultures: Glob Per,3,Full Term,INPERSON,TT 1215-1330,Robert Sapp,23,30,Humanities-6hr max per Acronym | Variable Topic,3.8,3.1,72.7273,39,,ok
+23445,FREN,334,FREN 334-01,Global Perspect/Franc Lit/Film,3,Full Term,INPERSON,TT 0925-1040,Robert Sapp,3,20,Humanities-6hr max per Acronym | MUGC - Global,3.8,3.1,72.7273,39,,ok
+21505,GRMN,490,GRMN 490-01,ST: German Science Fiction,3,Full Term,INPERSON,TT 0925-1040,Joscha Klueppel,11,20,Humanities-6hr max per Acronym | Special Topics,,,,,,no_rmp
+21267,GRST,200,GRST 200-01,ST: Monsters in German Cultures,3,Full Term,INPERSON,MW 1400-1515,Lorna McCarron,19,30,Humanities-6hr max per Acronym | Special Topics,3.7,1.3,66.6667,3,,low_data
+21532,HPCP,101,HPCP 101-01,Intro to Historic Preservation,3,Full Term,INPERSON,MWF 1200-1250,Salvatore Dellaria,29,35,Humanities-6hr max per Acronym | MUGC - US,3,3.1,62.5,8,,ok
+22089,HPCP,101,HPCP 101-02,Intro to Historic Preservation,3,Full Term,INPERSON,TT 1050-1205,Barry Stiefel,28,35,Humanities-6hr max per Acronym | MUGC - US,3,2.3,25,24,,ok
+21533,HPCP,101,HPCP 101-03,Intro to Historic Preservation,3,Full Term,INPERSON,MWF 0900-0950,,31,35,Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+21534,HPCP,101,HPCP 101-04,Intro to Historic Preservation,3,Full Term,INPERSON,MWF 1100-1150,,29,35,Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+21866,HPCP,101,HPCP 101-05,Intro to Historic Preservation,3,Full Term,ASYNC,,Amanda Nestor,0,35,Humanities-6hr max per Acronym | MUGC - US,5,1,100,4,,low_data
+21108,HIST,201,HIST 201-01,United States to 1865,3,Full Term,INPERSON,MWF 1100-1150,Hayden Smith,33,60,Founding Documents Requirement | Humanities-6hr max per Acronym,3.9,2.6,84.8485,37,,ok
+21244,HIST,201,HIST 201-02,United States to 1865,3,Full Term,INPERSON,MW 1400-1515,Sandy Slater,40,60,Founding Documents Requirement | Humanities-6hr max per Acronym,5,3,100,1,,low_data
+20835,HIST,202,HIST 202-01,United States since 1865,3,Full Term,INPERSON,MWF 1200-1250,Hayden Smith,29,60,Founding Documents Requirement | Humanities-6hr max per Acronym,3.9,2.6,84.8485,37,,ok
+23477,HIST,213,HIST 213-02,Amer Jew Hist: Colonial - Pres,3,Full Term,INPERSON,MWF 1000-1050,Max Daniel,4,10,EQ | Founding Documents Requirement | Humanities-6hr max per Acronym,3.2,2.2,60,5,,ok
+21755,HIST,217,HIST 217-01,African Amer Hist since 1865,3,Full Term,INPERSON,TT 1340-1455,Ashley Dennis,22,30,Humanities-6hr max per Acronym | MUGC - US,3.2,3.5,50,13,,ok
+23185,HIST,226,HIST 226-01,American Monsters: The History,3,Full Term,INPERSON,TT 1215-1330,William Poole,0,30,Humanities-6hr max per Acronym | MUGC - US,4.6,1.9,83.3333,11,,ok
+20564,HIST,232,HIST 232-01,Ancient Rome,3,Full Term,INPERSON,TT 0800-0915,Jen Gerrish,13,30,Humanities-6hr max per Acronym,3.6,3.8,63.6364,11,,ok
+21242,HIST,241,HIST 241-01,ST: Modern European History,3,Full Term,INPERSON,MWF 1400-1450,Aaron Stamper,23,30,Humanities-6hr max per Acronym | Special Topics,4,2.4,77.7778,8,,ok
+21752,HIST,241,HIST 241-02,ST: Modern European History,3,Full Term,INPERSON,TT 1215-1330,Elisa Jones,23,30,Humanities-6hr max per Acronym | Special Topics,2.9,3.7,40,15,,ok
+23166,HIST,249,HIST 249-01,Witchcraft/Witch-Hunt in Mod,3,Full Term,INPERSON,TT 1050-1205,Jason Coy,-2,30,Humanities-6hr max per Acronym,4.6,3.1,92.3077,59,,ok
+23474,HIST,259,HIST 259-01,The Holocaust,3,Full Term,INPERSON,TT 0925-1040,Tamar Aizenberg,1,10,Humanities-6hr max per Acronym | MUGC - Global,,,,,,no_rmp
+23650,HIST,261,HIST 261-01,"St: Mod Asia, Afr, or Latn Ame",3,Full Term,INPERSON,MWF 1200-1250,Garrett Davidson,5,10,Humanities-6hr max per Acronym | Special Topics,3.9,2.4,66.6667,9,,ok
+23164,HIST,263,HIST 263-01,Latin America since Independen,3,Full Term,INPERSON,TT 1050-1205,Lisa Covert,13,30,Humanities-6hr max per Acronym | MUGC - Global,3.9,2.9,76.1905,32,,ok
+20798,HIST,270,HIST 270-03,Special Top in Pre-Modern His,3,Full Term,INPERSON,TT 1215-1330,Peter Piccione,27,30,Humanities-6hr max per Acronym | Special Topics,2.5,3.2,26.6667,146,,ok
+21756,HIST,273,HIST 273-01,Modern Africa,3,Full Term,INPERSON,,,0,0,Humanities-6hr max per Acronym,,,,,,no_prof
+21749,HIST,283,HIST 283-01,History of Modern China,3,Full Term,INPERSON,MWF 1300-1350,Amy Gordanier,17,30,Humanities-6hr max per Acronym,3.1,3.1,43.75,32,,ok
+23476,HIST,290,HIST 290-01,Race and the Second World War,3,Full Term,INPERSON,TT 1050-1205,Chad Gibbs,6,10,Humanities-6hr max per Acronym | MUGC - Global,4.8,2.7,88.8889,17,,ok
+21245,HIST,310,HIST 310-01,Special Topics in U.S. History,3,Full Term,INPERSON,TT 1340-1455,Christophe Boucher,16,30,Humanities-6hr max per Acronym | Special Topics,2,4.7,13.0435,28,,ok
+23161,HIST,335,HIST 335-01,Crusades,3,Full Term,INPERSON,MWF 1000-1050,Phyllis Jestice,1,30,Humanities-6hr max per Acronym,3.5,3.3,60,10,,ok
+23658,HIST,370,HIST 370-01,Spec Top in Pre-Modern History,3,Full Term,INPERSON,TT 1215-1330,Jen Gerrish,0,5,Humanities-6hr max per Acronym | Special Topics,3.6,3.8,63.6364,11,,ok
+23574,HONS,173,HONS 173-01,Intro to International Studies,3,Full Term,INPERSON,TT 0925-1040,Gareth Smail,0,19,Humanities-6hr max per Acronym | MUGC - Global,4.3,2.2,80,10,,ok
+23568,HONS,281,HONS 281-01,"HONS AAST 100
+",3,Full Term,INPERSON,TT 1340-1455,Antron Mahoney,9,18,Humanities-6hr max per Acronym | Special Topics,3.9,2.7,80,10,,ok
+23567,HONS,281,HONS 281-02,"Facts and Fiction in Film
+",3,Full Term,INPERSON,TT 1340-1455,Ezra Cappell,3,18,Humanities-6hr max per Acronym | Special Topics,3.7,4.1,63.6364,12,,ok
+21796,HONS,391,HONS 391-01,"Conceptualizations of Childhood
+",3,Full Term,INPERSON,MWF 0800-0850,Bryan Ganaway,0,16,Humanities-6hr max per Acronym | Special Topics,4.7,2.6,100,44,,ok
+21797,HONS,391,HONS 391-02,"School Textbooks and Botany &ndash; Teaching racial ways of seeing the world via plants&nbsp;
+",3,Full Term,INPERSON,W 1600-1845,Mindy Hong,0,16,Humanities-6hr max per Acronym | Special Topics,2.5,3.5,0,2,,low_data
+20262,INTL,100,INTL 100-01,Intro to International Studies,3,Full Term,INPERSON,MWF 1000-1050,Malte Pehl,24,35,Humanities-6hr max per Acronym | MUGC - Global,3.7,2.4,53.8462,27,,ok
+21309,INTL,100,INTL 100-02,Intro to International Studies,3,Full Term,INPERSON,MWF 1100-1150,Malte Pehl,27,35,Humanities-6hr max per Acronym | MUGC - Global,3.7,2.4,53.8462,27,,ok
+23577,INTL,100,INTL 100-03,Intro to International Studies,3,Express I,SYNC_ONLINE,MW 1600-1715,Max Kovalov,67,70,Humanities-6hr max per Acronym | MUGC - Global | Face-to-Face &amp; Online Class,3.3,3.8,58.8235,16,,ok
+20461,INTL,100,INTL 100-04,Intro to International Studies,3,Full Term,INPERSON,MW 1400-1515,Blake Scott,20,35,Humanities-6hr max per Acronym | MUGC - Global | Sustainability-Inclusive,4.9,2.5,96.875,31,,ok
+20496,INTL,100,INTL 100-05,Intro to International Studies,3,Full Term,INPERSON,MW 1525-1640,Blake Scott,33,35,Humanities-6hr max per Acronym | MUGC - Global | Sustainability-Inclusive,4.9,2.5,96.875,31,,ok
+21447,INTL,100,INTL 100-08,Intro to International Studies,3,Full Term,INPERSON,TT 0925-1040,Vish Sakthivel,21,35,Humanities-6hr max per Acronym | MUGC - Global,4.4,2.8,87.5,16,,ok
+23517,INTL,100,INTL 100-09,Intro to International Studies,3,Full Term,INPERSON,TT 1050-1205,Vish Sakthivel,16,35,Humanities-6hr max per Acronym | MUGC - Global,4.4,2.8,87.5,16,,ok
+23518,INTL,100,INTL 100-10,Intro to International Studies,3,Full Term,INPERSON,TT 1340-1455,Gareth Smail,24,35,Humanities-6hr max per Acronym | MUGC - Global,4.3,2.2,80,10,,ok
+23519,INTL,100,INTL 100-11,Intro to International Studies,3,Full Term,INPERSON,TT 1505-1620,Summer Coish,34,35,Humanities-6hr max per Acronym | MUGC - Global,1.5,4.5,0,2,,low_data
+23520,INTL,100,INTL 100-12,Intro to International Studies,3,Full Term,ASYNC,,Tatiana Rabinovich,0,35,A-Synchronized Online | Humanities-6hr max per Acronym | MUGC - Global,5,1,-1,2,,low_data
+23227,LTIT,250,LTIT 250-02,"ST: Wilderness and Ecology in Modern Italian Narrative
+",3,Full Term,INPERSON,TT 1215-1330,Massimo Maggiari,22,25,Humanities-6hr max per Acronym | Special Topics,3.2,2.8,100,36,,ok
+23226,LTIT,370,LTIT 370-01,"ST: New Italian Cinema
+",3,Full Term,INPERSON,TT 1340-1455,Giovanna DeLuca,13,20,Humanities-6hr max per Acronym,3,3.3,44.4444,9,,ok
+23277,LTJP,390,LTJP 390-01,&#39;Japanese Short Stories&#39;,3,Full Term,INPERSON,TT 0925-1040,Yoshiki Chikuma,13,20,Humanities-6hr max per Acronym | Special Topics,4,3,54.5455,43,,ok
+23660,JWST,201,JWST 201-01,ST: The Hebrew Bible: History and Interpretation,3,Full Term,INPERSON,MW 1400-1515,John Huddlestun,9,10,Humanities-6hr max per Acronym | Variable Topic,3.7,3.4,51.8519,73,,ok
+23157,JWST,230,JWST 230-01,&quot;The Holocaust&quot;,3,Full Term,INPERSON,TT 0925-1040,Tamar Aizenberg,22,30,Humanities-6hr max per Acronym | MUGC - Global,,,,,,no_rmp
+23254,JWST,242,JWST 242-01,Race and the Second World War,3,Full Term,INPERSON,TT 1050-1205,Chad Gibbs,25,30,Humanities-6hr max per Acronym | MUGC - Global,4.8,2.7,88.8889,17,,ok
+23120,JWST,245,JWST 245-01,Intro Jewish Film &amp; Culture,3,Express II,ASYNC,,Ezra Cappell,31,40,EQ | Humanities-6hr max per Acronym,3.7,4.1,63.6364,12,,ok
+21527,JWST,260,JWST 260-01,Amer Jew Hist: Colonial - Pres,3,Full Term,INPERSON,MWF 1000-1050,Max Daniel,23,30,EQ | Founding Documents Requirement | Humanities-6hr max per Acronym,3.2,2.2,60,5,,ok
+21444,JWST,300,JWST 300-01,ST: Oral History &amp; Storytelling,3,Full Term,INPERSON,TT 1340-1455,Chad Gibbs,39,40,Humanities-6hr max per Acronym | Special Topics,4.8,2.7,88.8889,17,,ok
+23158,JWST,300,JWST 300-02,ST: A Legal History of Israel,3,Full Term,INPERSON,MW 1400-1515,Marisa Natale,20,20,Humanities-6hr max per Acronym | Special Topics,,,,,,no_rmp
+23194,JWST,330,JWST 330-01,Representations of the Holocaust,3,Full Term,INPERSON,TT 1505-1620,Ezra Cappell,19,20,Humanities-6hr max per Acronym,3.7,4.1,63.6364,12,,ok
+20282,LATN,102,LATN 102-01,Elementary Latin,3,Full Term,INPERSON,MWF 1300-1350,Blanche McCune,17,25,,4.8,3.4,81.8182,11,,ok
+20885,LATN,102,LATN 102-02,Elementary Latin,3,Full Term,INPERSON,TT 1050-1205,Noelle Zeiner-Carmichael,19,25,,4.7,2.4,75,13,,ok
+23412,LATN,102,LATN 102-03,Elementary Latin,3,Full Term,INPERSON,MWF 1200-1250,Richard Gilder,20,25,,3.7,4.3,62.963,27,,ok
+20283,LATN,201,LATN 201-01,Intermediate Latin,3,Full Term,INPERSON,TT 0925-1040,Noelle Zeiner-Carmichael,17,25,,4.7,2.4,75,13,,ok
+20284,LATN,202,LATN 202-01,Intermediate Latin,3,Full Term,INPERSON,TT 0925-1040,Jen Gerrish,4,25,,3.6,3.8,63.6364,11,,ok
+20285,LATN,202,LATN 202-02,Intermediate Latin,3,Full Term,INPERSON,MWF 1000-1050,Richard Gilder,19,25,,3.7,4.3,62.963,27,,ok
+20960,LATN,390,LATN 390-01,ST: Horace&rsquo;s Odes,3,Full Term,INPERSON,MWF 1000-1050,Blanche McCune,7,20,Humanities-6hr max per Acronym | Special Topics,4.8,3.4,81.8182,11,,ok
+22161,LACS,101,LACS 101-01,Intro Latin Am &amp; Caribbean Stu,3,Full Term,INPERSON,MWF 1100-1150,Sharonah Fredrick,25,35,Humanities-6hr max per Acronym | MUGC - Global,3.8,2.9,64,24,,ok
+20787,LACS,101,LACS 101-02,Intro Latin Am &amp; Caribbean Stu,3,Full Term,ASYNC,,Sarah Owens,0,35,A-Synchronized Online | Humanities-6hr max per Acronym | MUGC - Global,3,3,66.6667,2,,low_data
+23262,LACS,101,LACS 101-03,Intro Latin Am &amp; Caribbean Stu,3,Full Term,INPERSON,TT 0925-1040,Krys Ayub-Unzon,32,35,Humanities-6hr max per Acronym | MUGC - Global,,,,,,no_rmp
+21815,MATH,104,MATH 104-01,Elementary Statistics,3,Full Term,INPERSON,MWF 1300-1350,Kevin Lancaster,17,35,,1,4.8,0,4,,low_data
+21814,MATH,104,MATH 104-02,Elementary Statistics,3,Full Term,INPERSON,MWF 1200-1250,Kevin Lancaster,6,22,,1,4.8,0,4,,low_data
+21494,MATH,104,MATH 104-03,Elementary Statistics,3,Full Term,INPERSON,MWF 1300-1350,Vinny Paris,6,22,,2.6,3.9,25,36,,ok
+21816,MATH,104,MATH 104-04,Elementary Statistics,3,Full Term,SYNC_ONLINE,T 1300-1500; TT 1340-1455; T 1340-1455; T 1340-1455; T 1340-1455,David Flenner,5,22,Face-to-Face &amp; Online Class,4.9,2.2,92.8571,27,,ok
+20604,MATH,104,MATH 104-05,Elementary Statistics,3,Full Term,INPERSON,TT 0925-1040,Shixuan Wang,12,22,,4.4,2.9,87.5,8,,ok
+21817,MATH,104,MATH 104-06,Elementary Statistics,3,Full Term,INPERSON,TT 1340-1455,Amber Sparks,6,22,,1.9,4.6,20,9,,ok
+21495,MATH,104,MATH 104-07,Elementary Statistics,3,Full Term,INPERSON,TT 1215-1330,Shixuan Wang,6,22,,4.4,2.9,87.5,8,,ok
+20993,MATH,104,MATH 104-08,Elementary Statistics,3,Full Term,INPERSON,TT 0925-1040,Nicholas Davidson,1,55,,4.9,3.4,81.8182,10,,ok
+21928,MATH,104,MATH 104-09,Elementary Statistics,3,Full Term,INPERSON,MWF 1500-1550,Kevin Lancaster,21,22,,1,4.8,0,4,,low_data
+20994,MATH,104,MATH 104-10,Elementary Statistics,3,Full Term,INPERSON,MWF 0900-0950,Kevin Lancaster,7,22,,1,4.8,0,4,,low_data
+20250,MATH,104,MATH 104-11,Elementary Statistics,3,Full Term,INPERSON,TT 1050-1205,Amber Sparks,0,0,,1.9,4.6,20,9,,ok
+20995,MATH,104,MATH 104-12,Elementary Statistics,3,Full Term,INPERSON,MWF 1100-1150,Renling Jin,8,45,,4.1,2.4,90.2439,109,,ok
+22650,MATH,104,MATH 104-13,Elementary Statistics,3,Full Term,INPERSON,TT 1215-1330,Amber Sparks,7,22,,1.9,4.6,20,9,,ok
+20251,MATH,104,MATH 104-14,Elementary Statistics,3,Full Term,INPERSON,MWF 1200-1250,Vinny Paris,10,22,,2.6,3.9,25,36,,ok
+23374,MATH,104,MATH 104-15,Elementary Statistics,3,Full Term,INPERSON,MW 1730-1845,Donna Taylor,9,22,,4.5,1.4,100,48,,ok
+23375,MATH,104,MATH 104-16,Elementary Statistics,3,Full Term,INPERSON,MW 1900-2015,Donna Taylor,0,0,,4.5,1.4,100,48,,ok
+23376,MATH,104,MATH 104-17,Elementary Statistics,3,Full Term,INPERSON,TT 1600-1715,Miller Christen,9,22,,5,3,100,1,,low_data
+23377,MATH,104,MATH 104-18,Elementary Statistics,3,Full Term,INPERSON,TT 1730-1845,Miller Christen,0,0,,5,3,100,1,,low_data
+23378,MATH,104,MATH 104-19,Elementary Statistics,3,Full Term,INPERSON,TT 1050-1205,Lauren Tubbs,2,22,,3.9,3.2,75,15,,ok
+23379,MATH,104,MATH 104-20,Elementary Statistics,3,Full Term,INPERSON,TT 1215-1330,Lauren Tubbs,3,22,,3.9,3.2,75,15,,ok
+21821,MATH,250,MATH 250-01,Statistical Methods I,3,Full Term,SYNC_ONLINE,TT 1340-1455; TT 1340-1455; TT 1340-1455; TT 1340-1455; TT 1340-1455; T 1340-1455; T 1340-1455; T 1340-1455; T 1340-1455,Jin-Hong Park,0,40,Face-to-Face &amp; Online Class | Sustainability-Inclusive,4.4,1.9,57.1429,83,,ok
+21052,MATH,250,MATH 250-02,Statistical Methods I,3,Full Term,INPERSON,TT 1505-1620,Bo Kai,5,22,Sustainability-Inclusive,3,3.4,39.2857,39,,ok
+20260,MATH,250,MATH 250-03,Statistical Methods I,3,Full Term,INPERSON,TT 0925-1040,James Young,4,40,Sustainability-Inclusive,3.3,3.6,58.8235,38,,ok
+21010,MATH,250,MATH 250-04,Statistical Methods I,3,Full Term,INPERSON,,,0,0,Sustainability-Inclusive,,,,,,no_prof
+20474,MATH,250,MATH 250-05,Statistical Methods I,3,Full Term,INPERSON,TT 1050-1205,Bo Kai,0,22,Sustainability-Inclusive,3,3.4,39.2857,39,,ok
+20475,MATH,250,MATH 250-06,Statistical Methods I,3,Full Term,INPERSON,MWF 0800-0850,Vinny Paris,9,22,Sustainability-Inclusive,2.6,3.9,25,36,,ok
+20544,MATH,250,MATH 250-08,Statistical Methods I,3,Full Term,INPERSON,MWF 0900-0950,Vinny Paris,0,22,Sustainability-Inclusive,2.6,3.9,25,36,,ok
+21011,MATH,250,MATH 250-10,Statistical Methods I,3,Full Term,INPERSON,,,0,0,Sustainability-Inclusive,,,,,,no_prof
+20860,MEDH,200,MEDH 200-01,Intro to Medical Humanities,3,Full Term,INPERSON,MW 1600-1715,,12,30,Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+23630,MEDH,200,MEDH 200-02,Intro to Medical Humanities,3,Full Term,INPERSON,TT 0925-1040,,14,30,Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+21364,MEDH,200,MEDH 200-03,Intro to Medical Humanities,3,Full Term,INPERSON,TT 1050-1205,,2,30,Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+22091,MUSC,131,MUSC 131-01,Music Appreciation,3,Full Term,ASYNC,,Robert Lewis,17,70,Humanities-6hr max per Acronym,4.1,1.8,69.2308,84,,ok
+20294,MUSC,131,MUSC 131-03,Music Appreciation,3,Full Term,INPERSON,MWF 1100-1150,Edward Hart,46,50,Humanities-6hr max per Acronym,4.5,2.7,100,43,,ok
+22755,MUSC,131,MUSC 131-04,Music Appreciation,3,Express II,ASYNC,,,0,0,Humanities-6hr max per Acronym,,,,,,no_prof
+20295,MUSC,131,MUSC 131-05,Music Appreciation,3,Full Term,INPERSON,TT 1340-1455,Natalia Khoma,26,35,Humanities-6hr max per Acronym,3.8,2.4,91.6667,23,,ok
+22093,MUSC,131,MUSC 131-06,Music Appreciation,3,Full Term,ASYNC,,Tom Hicks,32,40,Humanities-6hr max per Acronym,3.3,3.9,50,102,,ok
+22097,MUSC,131,MUSC 131-07,Music Appreciation,3,Full Term,ASYNC,,Lee-Chin Siow,37,40,Humanities-6hr max per Acronym,2.6,3.1,50,23,,ok
+20296,MUSC,131,MUSC 131-08,Music Appreciation,3,Full Term,INPERSON,TT 1340-1455,Natalia Khoma,34,35,Humanities-6hr max per Acronym,3.8,2.4,91.6667,23,,ok
+22098,MUSC,131,MUSC 131-10,Music Appreciation,3,Full Term,ASYNC,,David Templeton,-2,0,Humanities-6hr max per Acronym,3.1,3.6,0,16,,ok
+20297,MUSC,131,MUSC 131-11,Music Appreciation,3,Full Term,INPERSON,,,0,0,Humanities-6hr max per Acronym,,,,,,no_prof
+22104,MUSC,222,MUSC 222-01,ST: Women in American Popular Music,3,Full Term,ASYNC,,Frank Duvall,8,35,Humanities-6hr max per Acronym | Special Topics,4.3,1.8,89.4737,42,,ok
+22105,MUSC,222,MUSC 222-02,ST: Women in American Popular Music,3,Full Term,ASYNC,,Frank Duvall,28,35,Humanities-6hr max per Acronym | Special Topics,4.3,1.8,89.4737,42,,ok
+22107,MUSC,222,MUSC 222-03,ST: History of Hip-Hop,3,Full Term,ASYNC,,Nathan Michel,23,35,Humanities-6hr max per Acronym | Special Topics,3.8,2.5,69.2308,12,,ok
+22108,MUSC,222,MUSC 222-04,ST: History of Hip-Hop,3,Full Term,ASYNC,,Nathan Michel,34,35,Humanities-6hr max per Acronym | Special Topics,3.8,2.5,69.2308,12,,ok
+22109,MUSC,222,MUSC 222-05,ST: History of Hip-Hop,3,Full Term,ASYNC,,Nathan Michel,34,35,Humanities-6hr max per Acronym | Special Topics,3.8,2.5,69.2308,12,,ok
+21609,MUSC,222,MUSC 222-06,ST: Women in American Popular Music,3,Full Term,ASYNC,,Frank Duvall,28,35,Humanities-6hr max per Acronym | Special Topics,4.3,1.8,89.4737,42,,ok
+22463,MUSC,222,MUSC 222-07,St: Like a Rolling Stone: History of Rock Music,3,Full Term,ASYNC,,Yiorgos Vassilandonakis,25,35,Humanities-6hr max per Acronym | Special Topics,3.8,2.7,28.5714,11,,ok
+22782,MUSC,222,MUSC 222-08,Special Topics for Non-Majors,3,Express II,ASYNC,,,0,0,Humanities-6hr max per Acronym | Special Topics,,,,,,no_prof
+21593,MUSC,223,MUSC 223-01,History of Electronic Music,3,Full Term,INPERSON,TT 1050-1205,Nathan Michel,26,35,Humanities-6hr max per Acronym,3.8,2.5,69.2308,12,,ok
+22110,MUSC,227,MUSC 227-01,Broadway: The Hist of Amer Mus,3,Full Term,INPERSON,MWF 1300-1350,Amanda Castellone,33,40,Humanities-6hr max per Acronym,4.4,1.7,77.7778,12,,ok
+22111,MUSC,232,MUSC 232-01,His of Popular Music in US,3,Full Term,INPERSON,TT 1215-1330,Frank Duvall,58,70,Humanities-6hr max per Acronym,4.3,1.8,89.4737,42,,ok
+22113,MUSC,232,MUSC 232-02,His of Popular Music in US,3,Full Term,ASYNC,,Kim Sauberlich,15,40,Humanities-6hr max per Acronym,2.6,4.1,33.3333,9,,ok
+22114,MUSC,232,MUSC 232-03,His of Popular Music in US,3,Full Term,ASYNC,,Kim Sauberlich,29,40,Humanities-6hr max per Acronym,2.6,4.1,33.3333,9,,ok
+22734,MUSC,232,MUSC 232-04,His of Popular Music in US,3,Express II,ASYNC,,,0,0,Humanities-6hr max per Acronym,,,,,,no_prof
+20274,PHIL,101,PHIL 101-01,Introduction to Philosophy,3,Full Term,INPERSON,TT 1215-1330,Richard Capobianco,17,30,Humanities-6hr max per Acronym,2.5,3,33.3333,2,,low_data
+21382,PHIL,101,PHIL 101-02,Intro to Philosophy,3,Full Term,INPERSON,MWF 1000-1050,Andrew Garnar,22,30,Humanities-6hr max per Acronym,3.3,2.7,55.5556,17,,ok
+23354,PHIL,101,PHIL 101-03,Introduction to Philosophy,3,Full Term,INPERSON,MWF 1200-1250,Todd Grantham,28,35,Humanities-6hr max per Acronym,3.8,3.2,48.5714,66,,ok
+21969,PHIL,101,PHIL 101-04,Introduction to Philosophy,3,Full Term,INPERSON,MWF 1100-1150,Andrew Garnar,24,30,Humanities-6hr max per Acronym,3.3,2.7,55.5556,17,,ok
+21971,PHIL,115,PHIL 115-01,Critical Thinking,3,Full Term,INPERSON,TT 1050-1205,Scott Hemmenway,26,30,Humanities-6hr max per Acronym,3.8,3.6,58.3333,12,,ok
+23356,PHIL,150,PHIL 150-01,"Nature, Technology &amp; Society",3,Full Term,INPERSON,MWF 1300-1350,Andrew Garnar,19,30,Humanities-6hr max per Acronym | Sustainability-Inclusive,3.3,2.7,55.5556,17,,ok
+21255,PHIL,155,PHIL 155-01,Environmental Ethics,3,Full Term,INPERSON,MWF 1000-1050,Nicolas Delon,33,50,Humanities-6hr max per Acronym,5,2.5,75,4,,low_data
+23358,PHIL,165,PHIL 165-01,Philosophy of Sex and Gender,3,Full Term,INPERSON,TT 1340-1455,Sheridan Hough,32,38,Humanities-6hr max per Acronym,3.3,3.9,30.7692,74,,ok
+20958,PHIL,170,PHIL 170-01,Biomedical Ethics,3,Full Term,INPERSON,TT 1215-1330,Jennifer Baker,3,43,Humanities-6hr max per Acronym,4.3,2.8,87.7551,83,,ok
+23360,PHIL,198,PHIL 198-01,ST: AI,3,Full Term,SYNC_ONLINE,TT 0925-1040,Thomas Nadelhoffer,27,35,Humanities-6hr max per Acronym | Synchronized Online Component | Variable Topic,4.5,2.5,92.8571,40,,ok
+20276,PHIL,202,PHIL 202-01,History of Modern Philosophy,3,Full Term,INPERSON,TT 1215-1330,Deborah Boyle,32,38,Humanities-6hr max per Acronym,3.7,3,47.8261,72,,ok
+23687,PHIL,206,PHIL 206-01,Topics in Law and Morality,3,Full Term,INPERSON,MWF 0900-0950,Nicolas Delon,18,25,Humanities-6hr max per Acronym | Variable Topic,5,2.5,75,4,,low_data
+23355,PHIL,208,PHIL 208-01,Knowledge and Reality,3,Full Term,INPERSON,MW 1400-1515,Todd Grantham,31,35,Humanities-6hr max per Acronym,3.8,3.2,48.5714,66,,ok
+21977,PHIL,209,PHIL 209-01,Political Philosophy,3,Full Term,INPERSON,TT 1505-1620,Scott Hemmenway,19,30,Founding Documents Requirement | Humanities-6hr max per Acronym,3.8,3.6,58.3333,12,,ok
+21468,PHIL,220,PHIL 220-01,American Political Thought,3,Full Term,INPERSON,TT 0925-1040,Jennifer Baker,2,18,EQ | Founding Documents Requirement | Humanities-6hr max per Acronym | MUGC - US,4.3,2.8,87.7551,83,,ok
+23363,PHIL,234,PHIL 234-01,Eastern Philosophy,3,Full Term,INPERSON,TT 1340-1455,Christian Coseru,27,35,Humanities-6hr max per Acronym,4.7,2.7,100,6,,ok
+23361,PHIL,255,PHIL 255-01,Philosophy of Religion,3,Full Term,INPERSON,MW 1400-1515,Deborah Boyle,13,18,EQ | Humanities-6hr max per Acronym,3.7,3,47.8261,72,,ok
+21978,PHIL,270,PHIL 270-01,Philosophy of Law,3,Full Term,INPERSON,TT 1340-1455,Thomas Nadelhoffer,-1,60,Founding Documents Requirement | Humanities-6hr max per Acronym,4.5,2.5,92.8571,40,,ok
+23362,PHIL,282,PHIL 282-01,Philosophy and Music,3,Full Term,INPERSON,TT 0925-1040,Jonathan Neufeld,32,38,Humanities-6hr max per Acronym,3.9,1.5,80,6,,ok
+23357,PHIL,298,PHIL 298-01,ST: Philosophy and Technology,3,Full Term,INPERSON,MW 1525-1640,Andrew Garnar,29,30,Humanities-6hr max per Acronym | Special Topics,3.3,2.7,55.5556,17,,ok
+20643,POLI,101,POLI 101-01,American Government,3,Full Term,INPERSON,TT 0925-1040,Claire Wofford,11,32,Founding Documents Requirement | Social Science,4.3,3.1,70.2703,61,,ok
+20600,POLI,101,POLI 101-02,American Government,3,Full Term,ASYNC,,Jordan Ragusa,0,40,Founding Documents Requirement | Social Science,4.6,3.2,90.9091,35,,ok
+21953,POLI,101,POLI 101-03,American Government,3,Full Term,INPERSON,TT 1215-1330,Claire Wofford,25,32,Founding Documents Requirement | Social Science,4.3,3.1,70.2703,61,,ok
+21954,POLI,101,POLI 101-04,American Government,3,Full Term,INPERSON,MW 1400-1515,Jun Li,27,30,Founding Documents Requirement | Social Science,0,0,-1,0,,low_data
+21955,POLI,101,POLI 101-05,American Government,3,Full Term,INPERSON,,Chris Howell,20,40,Founding Documents Requirement | Social Science,3.7,2.6,60,19,,ok
+21012,POLI,101,POLI 101-06,American Government,3,Express I,INPERSON,TT 1600-1845,Michael Ferguson,28,32,Founding Documents Requirement | Social Science,4.8,1.1,100,8,,ok
+21123,POLI,101,POLI 101-08,American Government,3,Express II,INPERSON,TT 1600-1845,Michael Ferguson,32,32,Founding Documents Requirement | Social Science,4.8,1.1,100,8,,ok
+21178,POLI,101,POLI 101-09,FYE: American Government,3,Full Term,INPERSON,MW 1525-1640,Hyokyung Kwak,32,32,Founding Documents Requirement | First Year Experience | Learning Community 4 | Social Science,1.5,3.3,17.3913,23,,ok
+21229,POLI,101,POLI 101-10,American Government,3,Full Term,INPERSON,TT 1215-1330,Chris Howell,59,60,Founding Documents Requirement | Social Science,3.7,2.6,60,19,,ok
+21230,POLI,101,POLI 101-11,American Government,3,Full Term,INPERSON,MWF 1200-1250,Michael Hickman,48,60,Founding Documents Requirement | Social Science,4.5,2.2,76.9231,13,,ok
+21231,POLI,101,POLI 101-12,American Government,3,Full Term,INPERSON,MWF 1300-1350,Michael Hickman,26,32,Founding Documents Requirement | Social Science,4.5,2.2,76.9231,13,,ok
+21232,POLI,101,POLI 101-13,American Government,3,Express I,ASYNC,,Michael Hickman,0,40,A-Synchronized Online | Founding Documents Requirement | Social Science,4.5,2.2,76.9231,13,,ok
+21233,POLI,101,POLI 101-14,American Government,3,Express II,ASYNC,,Michael Hickman,22,40,A-Synchronized Online | Founding Documents Requirement | Social Science,4.5,2.2,76.9231,13,,ok
+21234,POLI,101,POLI 101-15,American Government,3,Express I,ASYNC,,Lynne Ford,24,40,Founding Documents Requirement | Social Science,4.4,3.1,86.6667,54,,ok
+21387,POLI,101,POLI 101-18,American Government,3,Express II,ASYNC,,Lynne Ford,30,40,Founding Documents Requirement | Social Science,4.4,3.1,86.6667,54,,ok
+23657,POLI,101,POLI 101-19,American Government,3,Full Term,INPERSON,,Brian Solski,0,0,Founding Documents Requirement | Social Science,5,1.8,100,8,,ok
+20833,POLI,150,POLI 150-01,Intro to Political Thought,3,Full Term,INPERSON,TT 1215-1330,Claire Curtis,0,30,,4.5,3,86.1111,92,,ok
+20493,POLI,150,POLI 150-02,Intro to Political Thought,3,Full Term,INPERSON,TT 1340-1455,Claire Curtis,15,30,,4.5,3,86.1111,92,,ok
+22248,POLI,280,POLI 280-01,American Political Thought,3,Full Term,INPERSON,TT 0925-1040,Jennifer Baker,0,15,EQ | Founding Documents Requirement | Humanities-6hr max per Acronym | MUGC - US,4.3,2.8,87.7551,83,,ok
+23481,RELS,101,RELS 101-01,"Approaches to Religion: Religion and Transcendence -- Sex, Drugs, and Rock n&rsquo; Roll
+",3,Full Term,INPERSON,MWF 1000-1050,Jeremy Fisher,3,5,Humanities-6hr max per Acronym,3.5,3,62.5,31,,ok
+20556,RELS,101,RELS 101-02,"Approaches to Religion: The &ldquo;Realness&rdquo; of Gods
+",3,Full Term,INPERSON,TT 1050-1205,Lenny Lowe,3,10,Humanities-6hr max per Acronym,5,2.1,96.2963,26,,ok
+22189,RELS,103,RELS 103-01,Death and the Afterlife,3,Full Term,INPERSON,MWF 1000-1050,Stan Ziobro,3,4,Humanities-6hr max per Acronym,5,2,100,1,,low_data
+22194,RELS,103,RELS 103-02,Death and the Afterlife,3,Full Term,INPERSON,MWF 1100-1150,Stan Ziobro,3,13,Humanities-6hr max per Acronym,5,2,100,1,,low_data
+22195,RELS,105,RELS 105-01,Intro to World Religions,3,Full Term,SYNC_ONLINE,MWF 1200-1250,Padraic Fitzgerald,3,9,Humanities-6hr max per Acronym | Sustainability-Inclusive | Synchronized Online Component,4.3,2,85.7143,7,,ok
+22196,RELS,105,RELS 105-02,Intro to World Religions,3,Full Term,SYNC_ONLINE,MWF 1300-1350,Padraic Fitzgerald,3,9,Humanities-6hr max per Acronym | Sustainability-Inclusive | Synchronized Online Component,4.3,2,85.7143,7,,ok
+22197,RELS,106,RELS 106-01,Religion and Violence,3,Full Term,SYNC_ONLINE,MWF 0900-0950,Padraic Fitzgerald,3,4,Humanities-6hr max per Acronym | Synchronized Online Component,4.3,2,85.7143,7,,ok
+22193,RELS,106,RELS 106-02,Religion and Violence,3,Full Term,SYNC_ONLINE,MWF 1000-1050,Padraic Fitzgerald,3,7,Humanities-6hr max per Acronym,4.3,2,85.7143,7,,ok
+23482,RELS,107,RELS 107-01,Religion and Healthcare,3,Full Term,INPERSON,MWF 1200-1250,Jeremy Fisher,3,4,Humanities-6hr max per Acronym,3.5,3,62.5,31,,ok
+23483,RELS,107,RELS 107-02,Religion and Healthcare,3,Full Term,INPERSON,MWF 1300-1350,Jeremy Fisher,3,3,Humanities-6hr max per Acronym,3.5,3,62.5,31,,ok
+23487,RELS,115,RELS 115-01,Religion and Society,3,Full Term,INPERSON,TT 1050-1205,Elijah Siegler,3,7,Humanities-6hr max per Acronym,4,2.5,83.3333,51,,ok
+23486,RELS,201,RELS 201-01,The Hebrew Bible: History and Interpretation,3,Full Term,INPERSON,MW 1400-1515,John Huddlestun,3,9,Humanities-6hr max per Acronym,3.7,3.4,51.8519,73,,ok
+23485,RELS,248,RELS 248-01,Rel Tradtns of China &amp; Japan,3,Full Term,INPERSON,TT 1340-1455,Elijah Siegler,3,4,Humanities-6hr max per Acronym,4,2.5,83.3333,51,,ok
+23523,RELS,255,RELS 255-01,Philosophy of Religion,3,Full Term,INPERSON,MW 1400-1515,Deborah Boyle,5,5,EQ | Humanities-6hr max per Acronym,3.7,3,47.8261,72,,ok
+21806,RUSS,390,RUSS 390-01, ST: Exploring Russian-Speaking Cultures,3,Full Term,SYNC_ONLINE,TT 1215-1330,Irina Erman,19,20,Humanities-6hr max per Acronym | Special Topics | Synchronized Online Component,4.8,3,92.3077,13,,ok
+23366,LTRS,220,LTRS 220-01,20th Century Russian Literature,3,Full Term,SYNC_ONLINE,TT 1505-1620,Irina Erman,21,30,Humanities-6hr max per Acronym | Synchronized Online Component,4.8,3,92.3077,13,,ok
+21805,LTRS,270,LTRS 270-01,Studies in Russian Film,3,Full Term,ASYNC,,Meglena Miltcheva,9,30,A-Synchronized Online | Humanities-6hr max per Acronym,4.9,2.2,96.1538,63,,ok
+20848,SPAN,320,SPAN 320-01,Intro. to Textual Analysis,3,Full Term,INPERSON,MWF 1100-1150,David Dulceany,1,20,Humanities-6hr max per Acronym,5,1.7,100,71,,ok
+20735,SPAN,320,SPAN 320-02,Intro. to Textual Analysis,3,Full Term,INPERSON,MWF 1300-1350,David Dulceany,13,20,Humanities-6hr max per Acronym,5,1.7,100,71,,ok
+23267,SPAN,320,SPAN 320-03,Intro. to Textual Analysis,3,Full Term,INPERSON,TT 1340-1455,Carl Wise,11,20,Humanities-6hr max per Acronym,4.7,2.2,75,24,,ok
+23268,LTSP,252,LTSP 252-01,"ST: Queer, Black, and Nonhuman Narratives of Latin America",3,Full Term,INPERSON,MWF 1200-1250,Christina Garcia,8,20,Humanities-6hr max per Acronym,4.4,2.9,81.25,16,,ok
+22325,TEDU,234,TEDU 234-01,Issues in Education,3,Express II,ASYNC,,Spencer Fraley,1,12,Humanities-6hr max per Acronym,0,0,-1,0,,low_data
+22327,TEDU,234,TEDU 234-02,Issues in Education,3,Express II,ASYNC,,Bridget Miller,2,12,Humanities-6hr max per Acronym,5,2.5,100,6,,ok
+21541,THTR,175,THTR 175-03,Art and Craft of Theatre,3,Full Term,INPERSON,TT 1050-1205,,28,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22251,THTR,175,THTR 175-04,Art and Craft of Theatre,3,Full Term,INPERSON,MWF 1300-1350,,33,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22749,THTR,175,THTR 175-05,Art and Craft of Theatre,3,Full Term,INPERSON,,,0,0,Humanities-6hr max per Acronym,,,,,,no_prof
+22222,THTR,176,THTR 176-01,Theatre Appreciation,3,Full Term,INPERSON,TT 0925-1040,,34,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22224,THTR,176,THTR 176-03,Theatre Appreciation,3,Full Term,INPERSON,MWF 1100-1150,,34,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22225,THTR,176,THTR 176-04,Theatre Appreciation,3,Full Term,SYNC_ONLINE,MWF 1000-1050,,32,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22226,THTR,176,THTR 176-05,Theatre Appreciation,3,Full Term,ASYNC,,,6,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22227,THTR,176,THTR 176-06,Theatre Appreciation,3,Full Term,ASYNC,,,25,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22750,THTR,176,THTR 176-07,Theatre Appreciation,3,Express II,ASYNC,,,10,20,Humanities-6hr max per Acronym,,,,,,no_prof
+22751,THTR,176,THTR 176-08,Theatre Appreciation,3,Express II,ASYNC,,,16,20,Humanities-6hr max per Acronym,,,,,,no_prof
+23083,THTR,176,THTR 176-09,Theatre Appreciation,3,Express II,ASYNC,,,0,0,Humanities-6hr max per Acronym,,,,,,no_prof
+23606,THTR,177,THTR 177-01,Acting for Everybody: Real,3,Full Term,INPERSON,MWF 1100-1150,Peter Spearman,13,20,Humanities-6hr max per Acronym,5,1.9,100,13,,ok
+21064,THTR,177,THTR 177-02,Acting for Everybody: Real,3,Full Term,INPERSON,TT 1340-1455,,15,20,Humanities-6hr max per Acronym,,,,,,no_prof
+21091,THTR,177,THTR 177-03,Acting for Everybody: Real,3,Full Term,INPERSON,TT 1050-1205,,11,20,Humanities-6hr max per Acronym,,,,,,no_prof
+21157,THTR,212,THTR 212-01,History of American Theatre,3,Full Term,INPERSON,TT 0925-1040,,9,35,Founding Documents Requirement | Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+21277,THTR,212,THTR 212-02,History of American Theatre,3,Full Term,INPERSON,TT 1050-1205,,0,35,Founding Documents Requirement | Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+22229,THTR,212,THTR 212-03,History of American Theatre,3,Full Term,INPERSON,MWF 1300-1350,,7,35,Founding Documents Requirement | Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+22241,THTR,218,THTR 218-01,20th Century Fashion,3,Full Term,ASYNC,,,4,35,Humanities-6hr max per Acronym,,,,,,no_prof
+22232,THTR,288,THTR 288-01,Sel Topics I: Lit &amp; Criticism,1,Full Term,SYNC_ONLINE,MW 1700-1815,,29,30,Humanities-6hr max per Acronym | Synchronized Online Component | Variable Topic,,,,,,no_prof
+20873,THTR,311,THTR 311-02,Global Theatre/Modern World,3,Full Term,INPERSON,MWF 1000-1050,,7,35,Humanities-6hr max per Acronym | MUGC - Global,,,,,,no_prof
+22752,THTR,316,THTR 316-02,African American Theatre,3,Express II,SYNC_ONLINE,TT 1050-1205,,31,35,Humanities-6hr max per Acronym | MUGC - US,,,,,,no_prof
+20364,THTR,318,THTR 318-01,History of Fashion and Manners,3,Full Term,INPERSON,TT 1215-1330,,29,35,Humanities-6hr max per Acronym,,,,,,no_prof
+23608,THTR,321,THTR 321-01,Children&#39;s Theatre,3,Full Term,INPERSON,TT 1340-1455,Laura Turner,16,20,Humanities-6hr max per Acronym,4.6,1.5,90,53,,ok
+23613,THTR,387,THTR 387-01,Contemporary Theatre,3,Full Term,INPERSON,MWF 1100-1150,Susan Kattwinkel,0,0,Humanities-6hr max per Acronym,3.1,3.8,40,33,,ok
+21727,WGST,200,WGST 200-01,Intro to Women&#39;s and Gender St,3,Express I,ASYNC,,Malia Womack,0,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,4.7,1.4,93.3333,14,,ok
+20732,WGST,200,WGST 200-02,Intro to Women&#39;s and Gender St,3,Full Term,INPERSON,TT 0925-1040,Cristina Dominguez,29,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,4.3,3.4,73.6842,18,,ok
+21717,WGST,200,WGST 200-03,Intro to Women&#39;s and Gender St,3,Express I,ASYNC,,Kris De Welde,0,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,4.8,3.2,91.6667,12,,ok
+21718,WGST,200,WGST 200-04,Intro to Women&#39;s and Gender St,3,Express II,ASYNC,,Malia Womack,0,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,4.7,1.4,93.3333,14,,ok
+21719,WGST,200,WGST 200-05,Intro to Women&#39;s and Gender St,3,Full Term,ASYNC,,Siiri Warren-Koski,18,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,2,3.9,21.6216,36,,ok
+21720,WGST,200,WGST 200-07,Intro to Women&#39;s and Gender St,3,Full Term,ASYNC,,Siiri Warren-Koski,31,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,2,3.9,21.6216,36,,ok
+21721,WGST,200,WGST 200-08,Intro to Women&#39;s and Gender St,3,Full Term,ASYNC,,Siiri Warren-Koski,34,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,2,3.9,21.6216,36,,ok
+20748,WGST,200,WGST 200-10,Intro to Women&#39;s and Gender St,3,Full Term,INPERSON,MWF 0900-0950,Drisana McDaniel,32,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,3.5,2.9,33.3333,52,,ok
+21722,WGST,200,WGST 200-11,Intro to Women&#39;s and Gender St,3,Full Term,ASYNC,,Siiri Warren-Koski,34,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,2,3.9,21.6216,36,,ok
+23503,WGST,200,WGST 200-15,Intro to Women&#39;s and Gender St,3,Full Term,INPERSON,MWF 1000-1050,Drisana McDaniel,32,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,3.5,2.9,33.3333,52,,ok
+23554,WGST,200,WGST 200-16,Intro to Women&#39;s and Gender St,3,Full Term,INPERSON,MWF 1100-1150,Drisana McDaniel,32,35,Humanities-6hr max per Acronym | MUGC - US | Sustainability-Inclusive,3.5,2.9,33.3333,52,,ok
