@@ -1,0 +1,31 @@
+name: Spring 2027 plan pull
+
+# One-off, read-only planning pull. Runs only on pushes to the
+# spring-2027-plan branch; never touches main, watch.py, or state.json.
+on:
+  push:
+    branches: [spring-2027-plan]
+    paths: [spring_plan.py, .github/workflows/spring-plan.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python spring_plan.py
+      - name: Commit outputs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add discovery/spring
+          git commit -m "spring: section + RMP pull [skip ci]" || exit 0
+          git push
