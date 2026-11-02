@@ -24,9 +24,11 @@ def find_term(s):
     terms = r.json()
     json.dump(terms, open(f"{OUT}/terms.json", "w"), indent=2)
     for t in terms:
-        if "Spring 2027" in t.get("description", ""):
+        d = t.get("description", "")
+        if "Spring" in d and "2027" in d:
             return t["code"]
-    sys.exit(f"FATAL: no Spring 2027 term in {terms}")
+    print(f"WARN: no Spring 2027 in term list, falling back to 202720: {terms}")
+    return "202720"
 
 
 def prof_name(sec):
@@ -82,4 +84,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import traceback
+    os.makedirs(OUT, exist_ok=True)
+    try:
+        main()
+    except Exception:
+        open(f"{OUT}/error.txt", "w").write(traceback.format_exc())
+        raise
