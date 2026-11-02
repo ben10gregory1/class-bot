@@ -29,6 +29,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p discovery/spring && mv discovery_run.log discovery/spring/run.log || true
-          git add discovery/spring
+          git add -f discovery/spring
           git commit -m "spring: section + RMP pull [skip ci]" || exit 0
           git push
