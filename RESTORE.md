@@ -43,9 +43,22 @@ junior standing, not ACCT 204 or ECON 201 as the notes claim. ntfy topic: Window
 Watcher health (2026-10-06): last 8 scheduled runs all succeeded; real gaps ~4–7 h between runs
 (GitHub throttling, see CLAUDE.md "Cron cadence"). `gh workflow run watch.yml` for an on-demand check.
 
+## Fallback ladder (config.json `plans`, added 2026-11-02)
+
+| Course | Plan A | Plan B | Plan C |
+|---|---|---|---|
+| ACCT 203 | 20002 Saboe TR 1215 | 20819 Saboe TR 1600 | 22201 VanDenburgh MW 1400 |
+| MATH 104 | 20995 Jin MWF 1100 | 23378 Tubbs TR 1050 | 20251 Paris MWF 1200 |
+| BLAW 205 | 20047 Ansari-Andrews MWF 1000 | 22203 Smith MW 1525 | 20500 Ansari-Andrews MWF 1200 |
+| MGMT 301 | 20542 Yarborough MW 1730 | 20476 Cook R 1800 | 20741 Pennell M 1800 |
+| LATN 102 | 20282 McCune MWF 1300 | 20885 Zeiner-Carmichael TR 1050 | 23412 Gilder MWF 1200 |
+
+Bench, only to hold 15 cr: POLI 101 21230 Hickman MWF 1200, then 21231, then 21953.
+After registering a section, add its CRN to `plans.registered[]`.
+
 ## Pending decisions
 
-- **Now:** register the Spring sections above manually in Banner. Alert-only — the bot never registers.
+- **Registration window opens 2026-11-06.** Register the Spring sections above manually in Banner then. Alert-only — the bot never registers.
 - MATH 116 deferred out of the Spring plan to keep 15 cr; still owed for major calc + gen-ed math.
 - Superseded and closed (kept in git history, pre-d48e221): the 2026-08-21 MATH 250 add idea and
   the virtual-through-September in-person conflicts (PALM 118 / GEOL 240 / FINC 120). PALM 118 and

@@ -7,6 +7,7 @@
 import argparse, json, os, sys, time
 import requests
 from discover import session, fetch_all, classify, meets
+import plans as plan_rule
 
 STATE = os.environ.get("STATE_FILE", "state.json")
 CONFIG_URL = os.environ.get("CONFIG_URL")
@@ -47,14 +48,14 @@ def matches(sec, t):
     return True
 
 
-def notify(cfg, title, body, url):
+def notify(cfg, title, body, url, priority="urgent"):
     # env only, no fallback: a silent no-op alert path is worse than a loud crash
     topic = os.environ.get("NTFY_TOPIC")
     if not topic:
         sys.exit("FATAL: NTFY_TOPIC unset. Refusing to run blind.")
     try:
         r = requests.post(f"https://ntfy.sh/{topic}", data=body.encode(),
-                          headers={"Title": title, "Priority": "urgent",
+                          headers={"Title": title, "Priority": priority,
                                    "Tags": "school", "Click": url}, timeout=20)
     except Exception as e:
         # type name only: requests error text includes the URL, which holds the topic
@@ -118,29 +119,47 @@ def one_pass(cfg, st):
     if extra:
         cfg = {**cfg, "watch": cfg["watch"] + [extra]}
     s = session(term)
-    secs = fetch_watched(s, term, cfg["watch"])
+    plans = cfg.get("plans")
+    secs = fetch_watched(s, term, cfg["watch"] + (plan_rule.targets(plans) if plans else []))
+    held = set(plans.get("registered", [])) if plans else set()
+    watched = set()
     hits = failed = 0
     for t in cfg["watch"]:
         for sec in secs:
             if not matches(sec, t):
                 continue
             crn = sec.get("courseReferenceNumber")
-            open_now = (sec.get("seatsAvailable") or 0) > 0
-            was_open = st.get(crn, {}).get("open", False)
+            watched.add(crn)
+            seats = sec.get("seatsAvailable")
+            open_now = (seats or 0) > 0
+            prev = st.get(crn, {})
+            was_open = prev.get("open", False)
+            label = f'{sec.get("subject")} {sec.get("courseNumber")}-{sec.get("sequenceNumber")}'
+            prof = ", ".join(f.get("displayName", "") for f in (sec.get("faculty") or []))
+            body = (f'{sec.get("courseTitle")}\nCRN {crn} | {seats} open\n'
+                    f'{prof}\n{classify(sec)} | part {sec.get("partOfTerm")}')
             delivered = True
             if open_now and not was_open:
                 hits += 1
-                label = f'{sec.get("subject")} {sec.get("courseNumber")}-{sec.get("sequenceNumber")}'
-                prof = ", ".join(f.get("displayName", "") for f in (sec.get("faculty") or []))
-                delivered = notify(cfg,
-                                   f'SEAT: {label} ({t.get("label", "watch")})',
-                                   f'{sec.get("courseTitle")}\nCRN {crn} | {sec.get("seatsAvailable")} open\n'
-                                   f'{prof}\n{classify(sec)} | part {sec.get("partOfTerm")}',
+                kind = "LAST SEAT" if seats == 1 else "SEAT"
+                delivered = notify(cfg, f'{kind}: {label} ({t.get("label", "watch")})', body,
                                    reg_url(term, crn))
                 if not delivered:
                     failed += 1
+            elif seats == 1 and prev.get("seats") != 1 and crn not in held and not sec.get("waitCount"):
+                if not notify(cfg, f'LAST SEAT: {label} ({t.get("label", "watch")})', body,
+                              reg_url(term, crn)):
+                    failed += 1
+                    seats = prev.get("seats")  # old count stays, so the next poll retries
             # undelivered alert stays open=False, so the next poll sees closed->open and retries
-            st[crn] = {"open": open_now and delivered, "seats": sec.get("seatsAvailable")}
+            st[crn] = {"open": open_now and delivered, "seats": seats}
+    if plans:
+        def send(title, body, priority):
+            nonlocal failed
+            ok = notify(cfg, title, body, reg_url(term, ""), priority)
+            failed += not ok
+            return ok
+        plan_rule.check(plans, secs, st, send, watched)
     save_state(st)
     print(f"{time.strftime('%H:%M:%S')} scanned {len(secs)} sections, {hits} new openings, {failed} alerts failed")
     return hits

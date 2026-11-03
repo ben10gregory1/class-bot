@@ -60,5 +60,116 @@
     "10323": "RELS 105-01",
     "13931": "SOCY 105-01",
     "12871": "PRST 336-01"
+  },
+  "plans": {
+    "minCredits": 15,
+    "registered": [],
+    "blocked": [],
+    "slots": [
+      {
+        "course": "ACCT 203",
+        "rungs": [
+          {
+            "crn": "20002",
+            "why": "Saboe, RMP 3.9, difficulty 3.3, 70% retake (n=36)"
+          },
+          {
+            "crn": "20819",
+            "why": "Same prof as Plan A, later slot, no clash with the rest of Plan A"
+          },
+          {
+            "crn": "22201",
+            "why": "VanDenburgh, RMP 4.0, difficulty 3.6, 82% retake (n=23), biggest room"
+          }
+        ]
+      },
+      {
+        "course": "MATH 104",
+        "rungs": [
+          {
+            "crn": "20995",
+            "why": "Jin, RMP 4.1, difficulty 2.4, 90% retake (n=109), best-supported rating"
+          },
+          {
+            "crn": "23378",
+            "why": "Tubbs, RMP 3.9, difficulty 3.2, 75% retake (n=15), only other solid rating that fits"
+          },
+          {
+            "crn": "20251",
+            "why": "Paris, no RMP profile, picked for open seats and no Tue/Thu clash"
+          }
+        ]
+      },
+      {
+        "course": "BLAW 205",
+        "rungs": [
+          {
+            "crn": "20047",
+            "why": "Ansari-Andrews, listed on RMP as Suanne Ansari, 4.4, difficulty 2.9, 90% retake (n=31), large room"
+          },
+          {
+            "crn": "22203",
+            "why": "Smith, RMP 5.0, difficulty 1.4, 100% retake, thin (n=8), most seats"
+          },
+          {
+            "crn": "20500",
+            "why": "Same prof as Plan A, midday slot, few seats"
+          }
+        ]
+      },
+      {
+        "course": "MGMT 301",
+        "rungs": [
+          {
+            "crn": "20542",
+            "why": "Yarborough, RMP 5.0, difficulty 1.8, 100% retake (n=16)"
+          },
+          {
+            "crn": "20476",
+            "why": "Cook, RMP 4.9, difficulty 1.4, 100% retake (n=16), one night a week"
+          },
+          {
+            "crn": "20741",
+            "why": "Pennell, RMP 4.9, difficulty 2.7, 100% retake (n=11), one night a week"
+          }
+        ]
+      },
+      {
+        "course": "LATN 102",
+        "rungs": [
+          {
+            "crn": "20282",
+            "why": "McCune, RMP 4.8, difficulty 3.4, 82% retake (n=11)"
+          },
+          {
+            "crn": "20885",
+            "why": "Zeiner-Carmichael, RMP splits her as Zeiner 3.9 (n=54) and Carmichael 4.7 (n=13), pooled about 4.1, difficulty 3.0"
+          },
+          {
+            "crn": "23412",
+            "why": "Gilder, RMP 3.7, difficulty 4.3, 63% retake (n=27), hardest of the three, keeps the MWF block"
+          }
+        ]
+      }
+    ],
+    "bench": [
+      {
+        "course": "POLI 101",
+        "rungs": [
+          {
+            "crn": "21230",
+            "why": "Hickman, RMP 4.5, difficulty 2.2, 77% retake (n=13), fills Founding Docs, keeps 15 cr"
+          },
+          {
+            "crn": "21231",
+            "why": "Same prof, later slot, fills Founding Docs, keeps 15 cr"
+          },
+          {
+            "crn": "21953",
+            "why": "Wofford, RMP 4.3, difficulty 3.1, 70% retake (n=61), fills Founding Docs, keeps 15 cr"
+          }
+        ]
+      }
+    ]
   }
 }

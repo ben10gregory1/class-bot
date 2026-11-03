@@ -5,6 +5,7 @@ import contextlib, io, json, os, tempfile, unittest
 from unittest import mock
 from datetime import datetime, timedelta, timezone
 import requests
+import plans
 import watch
 import watchdog
 
@@ -114,6 +115,160 @@ class WatchTest(unittest.TestCase):
                 watch.notify(CFG, "t", "b", "u")
             with self.assertRaises(SystemExit):
                 watch.main()
+
+
+def psec(crn, seats, course="ACCT 203", days=("monday",), begin="1000", end="1050", wait=0, part="1"):
+    subject, number = course.split()
+    meeting = {"beginTime": begin, "endTime": end, **{d: True for d in days}}
+    return {"courseReferenceNumber": crn, "seatsAvailable": seats, "subject": subject,
+            "courseNumber": number, "sequenceNumber": "01", "courseTitle": course, "faculty": [],
+            "partOfTerm": part, "creditHourLow": 3, "waitCount": wait,
+            "meetingsFaculty": [{"meetingTime": meeting}]}
+
+
+def rungs(*crns):
+    return [{"crn": c, "why": f"why {c}"} for c in crns]
+
+
+PLANS = {"minCredits": 6, "registered": [], "blocked": [],
+         "slots": [{"course": "ACCT 203", "rungs": rungs("A1", "A2", "A3")},
+                   {"course": "MATH 104", "rungs": rungs("M1", "M2", "M3")}],
+         "bench": [{"course": "POLI 101", "rungs": rungs("P1")}]}
+
+
+def pool(**seats):
+    """All sections at distinct times unless a test builds its own."""
+    base = {"A1": 5, "A2": 5, "A3": 5, "M1": 5, "M2": 5, "M3": 5, "P1": 5, **seats}
+    hours = {"A1": "0800", "A2": "0900", "A3": "1000", "M1": "1100", "M2": "1200", "M3": "1300", "P1": "1400"}
+    courses = {"A": "ACCT 203", "M": "MATH 104", "P": "POLI 101"}
+    return [psec(c, n, courses[c[0]], begin=hours[c], end=str(int(hours[c]) + 50).zfill(4))
+            for c, n in base.items()]
+
+
+class ResolveTest(unittest.TestCase):
+    def picks(self, secs, **over):
+        result = plans.resolve({**PLANS, **over}, {s["courseReferenceNumber"]: s for s in secs})
+        return {p["course"]: p["crn"] for p in result["picks"]}, result["credits"]
+
+    def test_all_open_is_plan_a(self):
+        self.assertEqual(self.picks(pool())[0], {"ACCT 203": "A1", "MATH 104": "M1"})
+
+    def test_full_section_falls_to_next_rung(self):
+        self.assertEqual(self.picks(pool(A1=0))[0]["ACCT 203"], "A2")
+        self.assertEqual(self.picks(pool(A1=0, A2=0))[0]["ACCT 203"], "A3")
+
+    def test_negative_seats_are_full(self):
+        self.assertEqual(self.picks(pool(A1=-2))[0]["ACCT 203"], "A2")
+
+    def test_seat_held_by_waitlist_is_not_available(self):
+        secs = [psec("A1", 2, wait=1, begin="0800", end="0850"), psec("A2", 2, begin="0900", end="0950")]
+        self.assertEqual(self.picks(secs)[0]["ACCT 203"], "A2")
+
+    def test_clash_moves_the_lower_priority_course(self):
+        secs = [psec("A1", 5, begin="1000", end="1050"),
+                psec("M1", 5, "MATH 104", begin="1000", end="1050"),
+                psec("M2", 5, "MATH 104", begin="1100", end="1150")]
+        self.assertEqual(self.picks(secs)[0], {"ACCT 203": "A1", "MATH 104": "M2"})
+
+    def test_tue_and_thu_do_not_clash(self):
+        a, b = psec("A1", 5, days=("tuesday",)), psec("M1", 5, "MATH 104", days=("thursday",))
+        self.assertFalse(plans.clash(a, b))
+        self.assertEqual(self.picks([a, b])[1], 6)
+
+    def test_express_terms_do_not_clash(self):
+        self.assertFalse(plans.clash(psec("A1", 5, part="2"), psec("M1", 5, "MATH 104", part="3")))
+
+    def test_slot_out_of_options_uses_bench_to_hold_credit_floor(self):
+        picks, credits = self.picks(pool(M1=0, M2=0, M3=0))
+        self.assertIsNone(picks["MATH 104"])
+        self.assertEqual(picks["POLI 101"], "P1")
+        self.assertEqual(credits, 6)
+
+    def test_bench_stays_off_when_floor_is_met(self):
+        self.assertNotIn("POLI 101", self.picks(pool())[0])
+
+    def test_blocked_window_skips_a_rung(self):
+        blocked = [{"days": "M", "start": "0800", "end": "0850"}]
+        self.assertEqual(self.picks(pool(), blocked=blocked)[0]["ACCT 203"], "A2")
+
+    def test_registered_section_holds_even_at_zero_seats(self):
+        self.assertEqual(self.picks(pool(A1=0), registered=["A1"])[0]["ACCT 203"], "A1")
+
+
+class PlanAlertTest(unittest.TestCase):
+    def setUp(self):
+        self.st, self.sent = {}, []
+
+    def run_check(self, secs, ok=True, cfg=PLANS, watched=()):
+        self.sent.clear()
+        plans.check(cfg, secs, self.st, lambda t, b, p: self.sent.append((t, b, p)) or ok, watched)
+        return [t for t, _, _ in self.sent]
+
+    def test_plan_a_on_first_run_is_quiet(self):
+        self.assertEqual(self.run_check(pool()), [])
+
+    def test_change_alerts_once_and_says_why(self):
+        self.assertEqual(self.run_check(pool(A1=0)), ["PLAN CHANGE: ACCT 203"])
+        self.assertIn("why A2", self.sent[0][1])
+        self.assertEqual(self.run_check(pool(A1=0)), [])
+
+    def test_reopened_plan_a_alerts_back(self):
+        self.run_check(pool(A1=0))
+        self.assertEqual(self.run_check(pool()), ["PLAN CHANGE: ACCT 203"])
+
+    def test_failed_change_alert_retries(self):
+        self.run_check(pool(A1=0), ok=False)
+        self.assertEqual(self.run_check(pool(A1=0)), ["PLAN CHANGE: ACCT 203"])
+        self.assertEqual(self.run_check(pool(A1=0)), [])
+
+    def test_under_floor_is_called_out(self):
+        secs = [s for s in pool(M1=0, M2=0, M3=0) if s["courseReferenceNumber"] != "P1"]
+        self.run_check(secs)
+        self.assertIn("UNDER the 6 cr floor", self.sent[0][1])
+
+    def test_backup_last_seat_flags_once_at_default_priority(self):
+        self.run_check(pool())
+        self.assertEqual(self.run_check(pool(A2=1)), ["LAST SEAT: ACCT 203 CRN A2 (backup)"])
+        self.assertEqual(self.sent[0][2], "default")
+        self.assertEqual(self.run_check(pool(A2=1)), [])
+
+    def test_current_pick_last_seat_is_urgent(self):
+        self.run_check(pool())
+        self.run_check(pool(A1=1))
+        self.assertEqual(self.sent[0][2], "urgent")
+
+    def test_last_seat_fires_again_after_refill(self):
+        self.run_check(pool(A2=1))
+        self.run_check(pool(A2=3))
+        self.assertEqual(self.run_check(pool(A2=1)), ["LAST SEAT: ACCT 203 CRN A2 (backup)"])
+
+    def test_failed_last_seat_retries(self):
+        self.run_check(pool(A2=1), ok=False)
+        self.assertEqual(self.run_check(pool(A2=1)), ["LAST SEAT: ACCT 203 CRN A2 (backup)"])
+
+    def test_registered_and_watched_sections_are_skipped(self):
+        cfg = {**PLANS, "registered": ["A1"]}
+        self.assertEqual(self.run_check(pool(A1=1, M1=1), cfg=cfg, watched={"M1"}), [])
+
+
+class WatchLastSeatTest(WatchTest):
+    def test_drop_to_one_seat_flags_once(self):
+        self.poll([sec("A", 4)], resp(200))
+        post = self.poll([sec("A", 1)], resp(200))
+        self.assertEqual(post.call_count, 1)
+        self.assertIn("LAST SEAT", post.call_args.kwargs["headers"]["Title"])
+        self.assertEqual(self.poll([sec("A", 1)], resp(200)).call_count, 0)
+
+    def test_opening_with_one_seat_is_one_alert_marked_last_seat(self):
+        post = self.poll([sec("A", 1)], resp(200))
+        self.assertEqual(post.call_count, 1)
+        self.assertIn("LAST SEAT", post.call_args.kwargs["headers"]["Title"])
+
+    def test_failed_last_seat_retries_next_poll(self):
+        self.poll([sec("A", 4)], resp(200))
+        self.poll([sec("A", 1)], resp(500))
+        self.assertEqual(self.saved()["A"]["seats"], 4)
+        self.assertEqual(self.poll([sec("A", 1)], resp(200)).call_count, 1)
 
 
 class WatchdogTest(unittest.TestCase):
