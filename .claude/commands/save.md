@@ -1,8 +1,8 @@
 ---
 description: Save current class-bot state to RESTORE.md and push
 ---
-1. Read `config.json` (watch list), `state.json` (seat status), `rank.py`
-   (`REGISTERED_CRNS` — registered courses), and `discovery/swap_suggestions.md`
+1. Read `config.json` (watch list), `state.json` (seat status), `config.json`
+   `registered{}` (registered courses), and `discovery/swap_suggestions.md`
    (current swap recommendations, if present).
 2. Ask the user for anything not derivable from those files: pending decisions
    (drops/adds under consideration, confirmations still needed, credits still needed).

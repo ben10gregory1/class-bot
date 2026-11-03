@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # discover.py - enumerate CofC Banner sections, filter to async / Express II, enrich w/ RMP.
-# Usage: python discover.py --term 202710 --out candidates.csv
+# Usage: python discover.py --term 202720 --out candidates.csv
 # Set BANNER env var to your working host (copy from existing bot).
 
 import argparse, csv, json, os, re, sys, time
@@ -169,7 +169,7 @@ POT_LABEL = {"1": "Full Term", "2": "Express I", "3": "Express II", "9": "9 (unl
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--term", default="202710")
+    p.add_argument("--term", default="202720")
     p.add_argument("--out", default="candidates.csv")
     p.add_argument("--no-rmp", action="store_true")
     p.add_argument("--dump-vocab", action="store_true")

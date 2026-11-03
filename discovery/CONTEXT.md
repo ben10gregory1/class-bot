@@ -4,7 +4,7 @@ Three-stage pipeline, run manually (not scheduled). Order matters — each stage
 the previous stage's output.
 
 ```
-discover.py --term 202710   ->  discovery/candidates.csv, discovery/raw_sections.json
+discover.py --term 202720   ->  discovery/candidates.csv, discovery/raw_sections.json
 enrich.py                   ->  discovery/enriched_candidates.csv
 rank.py                     ->  discovery/ranked_candidates.md, discovery/swap_suggestions.md
 ```
@@ -17,7 +17,7 @@ after running, or the next stage silently reads stale data instead of your fresh
 
 ## discover.py
 
-Scrapes CofC Banner (`ssb.cofc.edu`) for term 202710, all ~3033 sections. Classifies each
+Scrapes CofC Banner (`ssb.cofc.edu`) for the given term (`--term`, default 202720; ~2600-3000 sections). Classifies each
 as ASYNC / SYNC_ONLINE / INPERSON via `classify()` (online + no scheduled meeting = ASYNC).
 Default mode filters output to ASYNC + SYNC_ONLINE only — **in-person sections never enter
 the ranking pipeline**, even highly-rated ones. `raw_sections.json` is the full unfiltered
@@ -39,6 +39,8 @@ Cache is keyed by professor display name — a name collision (two "J. Smith"s) 
 silently merge their ratings.
 
 **Known issues:**
+- `lookup_rmp()` takes the first search hit without checking the name, so a prof with no profile
+  can get someone else's ratings (Shixuan Wang matched Mia Wang, Computer Science, 2026-11-02).
 - `rmp_tags` (`teacherRatingTags`) comes back empty for most profs — this is RMP API
   behavior (tags only populate on a direct node lookup, not the search-result node),
   not a bug. Don't treat empty tags as a failed lookup.

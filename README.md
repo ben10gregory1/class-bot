@@ -3,15 +3,15 @@
 Two tools against College of Charleston's **public** Banner "Browse Classes" API,
 no MyPortal login, no Duo:
 
-1. **Seat watcher** — polls specific CRNs every 5 minutes via GitHub Actions, pushes an
-   ntfy phone alert the instant a watched section opens up. Alert-only — it never
-   registers for you.
+1. **Seat watcher** — polls specific CRNs via GitHub Actions and pushes an ntfy phone alert
+   when a watched section opens up. The schedule says every 5 minutes, but GitHub really runs
+   it hours apart, so alerts can lag. Alert-only — it never registers for you.
 2. **Discovery/ranking pipeline** — run by hand when you want fresh recommendations.
    Pulls every async/online section for the term, scores it against your remaining
    degree requirements + RateMyProfessors data, and suggests swaps for your currently
    registered courses.
 
-Currently configured for term **202710** (Fall 2026). See `CLAUDE.md` for the
+Currently configured for term **202720** (Spring 2027). See `CLAUDE.md` for the
 file-by-file map and `discovery/CONTEXT.md` for pipeline internals.
 
 ## Seat watcher
@@ -23,28 +23,28 @@ filter, or both:
 
 ```json
 {
-  "term": "202710",
-  "ntfyTopic": "[YOUR_NTFY_TOPIC]",
+  "term": "202720",
   "watch": [
-    { "label": "fall async targets", "crns": ["13284", "12337"] }
+    { "label": "spring plan - MATH 104 Jin", "crns": ["20995"] }
   ]
 }
 ```
 
 The repo is **public**, so the real ntfy topic never lives in `config.json` — it's set
-as the `NTFY_TOPIC` repository secret (Settings → Secrets and variables → Actions) and
-overrides whatever's in the config at runtime.
+as the `NTFY_TOPIC` repository secret (Settings → Secrets and variables → Actions).
+`watch.py` exits immediately if it's unset.
 
 `state.json` tracks the last-seen open/closed status per CRN so you only get alerted on
-a **closed → open** transition, not every pass. The workflow commits it back to the repo
+a **closed → open** or first-seen-open transition, not every pass. There is no alert when a
+section fills. The workflow commits it back to the repo
 automatically when it changes (`state: update seat tracking [skip ci]`).
 
 **Setup:**
 1. Install the **ntfy** app (App Store / Google Play), subscribe to your topic.
 2. Add the `NTFY_TOPIC` repo secret with that topic name.
 3. Edit `config.json`'s `watch[]` to your target CRNs/courses, push.
-4. Actions tab → enable workflows → **Run workflow** to test immediately (or wait for
-   the next 5-minute tick).
+4. Actions tab → enable workflows → **Run workflow** to test immediately (scheduled runs can
+   be hours apart).
 
 **Ad-hoc check** without editing `config.json`: Actions tab → "CofC Seat Watcher" →
 **Run workflow**, fill in the `subject` / `course_number` / `crns` / `async_only` inputs.
@@ -58,13 +58,13 @@ GitHub also auto-pauses scheduled workflows after 60 days of repo inactivity.
 
 ```bash
 pip install -r requirements.txt
-python discover.py --term 202710          # -> discovery/candidates.csv, raw_sections.json
+python discover.py --term 202720          # -> discovery/candidates.csv, raw_sections.json
 python enrich.py                          # -> discovery/enriched_candidates.csv (RMP data)
 python rank.py                            # -> discovery/ranked_candidates.md, swap_suggestions.md
 ```
 
-Registered CRNs to compare swaps against are hardcoded in `rank.py` (`REGISTERED_CRNS`)
-— update that dict by hand when your schedule changes. Full scoring formula and known
+Registered CRNs to compare swaps against live in `config.json` (`registered{}`) — update
+that by hand when your schedule changes. Full scoring formula and known
 data-quality caveats are in `discovery/CONTEXT.md`.
 
 ## Local development

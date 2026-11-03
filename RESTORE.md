@@ -1,7 +1,7 @@
 # RESTORE — class-bot state snapshot
 
 Watch term: **202720** (Spring 2027, since 2026-11-02). Current registration below is still Fall (202710).
-Regenerate anytime: `python rank.py` (ranking), `discover.py --term 202720` (fresh section pull; `--term` still defaults to 202710).
+Regenerate anytime: `python rank.py` (ranking), `discover.py` (fresh section pull, `--term` defaults to 202720).
 
 ## Registered — current (15 cr, updated 2026-10-04)
 

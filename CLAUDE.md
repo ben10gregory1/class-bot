@@ -89,13 +89,24 @@ prereq data should never block or crash the watcher).
 
 ## Degree chain — FINC 303 gate (added 2026-08-04)
 
-FINC 303 gates most upper-level FINC and requires: ACCT 203 + ACCT 204 + ECON 200 + ECON 201
-+ (MATH 104 or MATH 250) + junior standing. FINC 315 requires FINC 303. `config.json`
-`priority.chain` lists all 6 courses (both MATH options included since either satisfies the
-requirement); `rank.py` adds `priority.bonus` (currently 6.0) to any candidate matching a
-chain course, which dominates the existing ~13-point-max formula so chain sections surface at
-the top of `ranked_candidates.md` `ranked` bucket. `watch[]` covers all 6 chain courses'
-sections as of 2026-08-04 (previously only 2 of 6 — ACCT 204 / ECON 200).
+Live Banner prereqs, checked 2026-11-02 (the audit-era notes had these wrong):
+
+```
+FINC 303 <- ACCT 203 + ECON 200 + (MATH 104/107/250) + junior standing
+ECON 200 <- 3 cr of completed college math (not concurrent)
+ECON 201 <- ECON 200 + 3 cr of completed college math
+ACCT 204 <- ACCT 203
+FINC 313, FINC 389 <- FINC 303 + junior standing
+FINC 315 <- ACCT 203 + ACCT 204 + ECON 200 + ECON 201 + FINC 303 + (MATH 104/107/250) + junior standing
+FINC 400 <- FINC 303 + (DSCI 232 or MATH 250) + junior standing
+FINC 418 <- FINC 303 + FINC 315 + senior standing
+```
+
+`config.json` `priority.chain` lists ACCT 203, ACCT 204, ECON 200, ECON 201, MATH 104, MATH 250;
+`rank.py` adds `priority.bonus` (currently 6.0) to any candidate matching a chain course, which
+dominates the existing ~13-point-max formula so chain sections surface at the top of
+`ranked_candidates.md` `ranked` bucket. `watch[]` is separate: it holds Ben's Spring picks, not
+the chain.
 
 ## Config / secrets
 
