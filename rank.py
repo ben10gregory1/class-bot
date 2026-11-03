@@ -110,6 +110,21 @@ def to_float(v):
         return None
 
 
+# At this many ratings, RMP and a neutral prof count equally
+RMP_TRUST_RATINGS = 10
+NEUTRAL_RATING, NEUTRAL_DIFFICULTY, NEUTRAL_RETAKE = 3.5, 3.0, 60.0
+
+
+def rmp_score(rating, difficulty, retake, count):
+    """RMP is a few opinions, not a measurement: pull small samples toward a neutral prof."""
+    if retake < 0:  # RMP sends -1 when nobody answered
+        retake = NEUTRAL_RETAKE
+    raw = (retake / 100.0) * 3.0 + (rating / 5.0) * 2.5 + ((5.0 - difficulty) / 5.0) * 1.5
+    neutral = (NEUTRAL_RETAKE / 100.0) * 3.0 + (NEUTRAL_RATING / 5.0) * 2.5 + ((5.0 - NEUTRAL_DIFFICULTY) / 5.0) * 1.5
+    weight = count / (count + RMP_TRUST_RATINGS)
+    return weight * raw + (1 - weight) * neutral
+
+
 def score_row(r, attrs_by_crn):
     subj, num = parse_course(r["course"])
     attrs = attrs_by_crn.get(r["crn"], [])
@@ -134,7 +149,7 @@ def score_row(r, attrs_by_crn):
         composite = bonus_total
         bucket = "unranked"
     else:
-        rmp_part = (retake / 100.0) * 3.0 + (rating / 5.0) * 2.5 + ((5.0 - difficulty) / 5.0) * 1.5
+        rmp_part = rmp_score(rating, difficulty, retake, count)
         composite = rmp_part + bonus_total
         bucket = "avoid" if avoid else "ranked"
 
@@ -243,7 +258,7 @@ def main():
     out.append("# Ranked candidates — discovery/enriched_candidates.csv\n")
     out.append(f"{len(rows)} total sections scored. {len(ranked)} ranked (usable RMP data), "
                f"{len(avoid)} avoid-flagged, {len(unranked)} unranked (no RMP data).\n")
-    out.append("Composite = retake%/100*3.0 + rating/5*2.5 + (5-difficulty)/5*1.5 + req(+3) + "
+    out.append("Composite = (retake%/100*3.0 + rating/5*2.5 + (5-difficulty)/5*1.5, pulled toward neutral when ratings are few) + req(+3) + "
                 "seats(+1 >10/+2 >25) + modality(+1 ASYNC or Express II in-person). "
                 "Literal max ~13, not clamped to 10 - weights alone sum past it.\n")
 

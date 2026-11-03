@@ -3,7 +3,7 @@
 # Usage: python enrich.py [--in discovery/candidates.csv] [--out discovery/enriched_candidates.csv]
 #        [--cache /tmp/rmp_cache.json] [--limit N]
 
-import argparse, csv, json, os, sys, time
+import argparse, csv, json, os, re, sys, time
 import requests
 
 RMP_SCHOOL_ID = "U2Nob29sLTI1NA=="  # base64 "School-254" = College of Charleston
@@ -21,6 +21,14 @@ SEARCH_QUERY = """query($t:String!,$s:ID!){newSearch{teachers(query:{text:$t,sch
 # on a direct node-by-id lookup. Empty tags for a real prof (0 tag submissions) is
 # a legitimate outcome, not a failure - only missing/errored lookups get flagged.
 TAGS_QUERY = """query($id:ID!){ node(id:$id) { ... on Teacher { teacherRatingTags { tagName tagCount } } } }"""
+
+# Nicknames that share no prefix with the formal name. Steve/Steven already match by prefix.
+NICKNAMES = {"bill": "william", "billy": "william", "will": "william", "bob": "robert",
+             "rob": "robert", "bobby": "robert", "dick": "richard", "rick": "richard",
+             "peggy": "margaret", "liz": "elizabeth", "beth": "elizabeth", "betsy": "elizabeth",
+             "jim": "james", "jimmy": "james", "jack": "john", "ted": "edward", "ned": "edward",
+             "chuck": "charles", "kate": "katherine", "katie": "katherine", "kathy": "katherine",
+             "vinny": "vincent", "vince": "vincent", "tony": "anthony", "mike": "michael"}
 
 FIELDS = ["rmp_rating", "rmp_difficulty", "rmp_retake_pct", "rmp_count", "rmp_tags", "rmp_flag"]
 
@@ -42,21 +50,54 @@ def empty_result(flag):
             "rmp_count": None, "rmp_tags": None, "rmp_flag": flag}
 
 
+def name_tokens(name):
+    return [t for t in re.split(r"[^a-z]+", name.lower()) if t]
+
+
+def first_names_match(a, b):
+    a, b = NICKNAMES.get(a, a), NICKNAMES.get(b, b)
+    return a.startswith(b) or b.startswith(a)
+
+
+def same_person(banner_name, first, last):
+    """Banner names the real instructor. RMP search is fuzzy, so a hit must match on name."""
+    words = banner_name.split()
+    if len(words) < 2:
+        return False
+    # A hyphenated Banner name can sit on RMP under either half (Ansari-Andrews is Suanne Ansari)
+    if not set(name_tokens(words[-1])) & set(name_tokens(last)):
+        return False
+    # Skip initials ("R. Roy Martin"), any given name can match
+    given = [t for w in words[:-1] for t in name_tokens(w) if len(t) > 1]
+    return any(first_names_match(g, f) for g in given for f in name_tokens(first))
+
+
+def search_names(name):
+    """Full name first, then each half of a hyphenated last name, which RMP's search can miss."""
+    words = name.split()
+    parts = name_tokens(words[-1]) if "-" in words[-1] else []
+    return [name] + [f"{words[0]} {p}" for p in parts]
+
+
 def lookup_rmp(name, retries=2):
     """Query RMP's GraphQL search for a professor name at CofC. Never raises."""
     for attempt in range(retries):
         try:
-            r = requests.post(RMP_GRAPHQL,
-                               json={"query": SEARCH_QUERY, "variables": {"t": name, "s": RMP_SCHOOL_ID}},
-                               headers={**UA, "Authorization": AUTH}, timeout=20)
-            r.raise_for_status()
-            body = r.json()
-            if body.get("errors"):
-                raise RuntimeError(body["errors"][0].get("message", "graphql error"))
-            edges = body["data"]["newSearch"]["teachers"]["edges"]
-            if not edges:
+            edges = []
+            for query in search_names(name):
+                r = requests.post(RMP_GRAPHQL,
+                                   json={"query": SEARCH_QUERY, "variables": {"t": query, "s": RMP_SCHOOL_ID}},
+                                   headers={**UA, "Authorization": AUTH}, timeout=20)
+                r.raise_for_status()
+                body = r.json()
+                if body.get("errors"):
+                    raise RuntimeError(body["errors"][0].get("message", "graphql error"))
+                edges += body["data"]["newSearch"]["teachers"]["edges"]
+            hits = [e["node"] for e in edges
+                    if same_person(name, e["node"].get("firstName") or "", e["node"].get("lastName") or "")]
+            if not hits:
                 return empty_result("no_rmp")
-            n = edges[0]["node"]
+            n = max(hits, key=lambda h: h.get("numRatings") or 0)
 
             tags = []
             try:

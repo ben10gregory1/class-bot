@@ -39,8 +39,9 @@ Cache is keyed by professor display name — a name collision (two "J. Smith"s) 
 silently merge their ratings.
 
 **Known issues:**
-- `lookup_rmp()` takes the first search hit without checking the name, so a prof with no profile
-  can get someone else's ratings (Shixuan Wang matched Mia Wang, Computer Science, 2026-11-02).
+- Fixed 2026-11-02: `lookup_rmp()` only accepts a hit whose name matches Banner's (`same_person()`),
+  so no match means `no_rmp`, never another prof's ratings. Old caches can still hold bad matches:
+  delete `--cache` before re-running.
 - `rmp_tags` (`teacherRatingTags`) comes back empty for most profs — this is RMP API
   behavior (tags only populate on a direct node lookup, not the search-result node),
   not a bug. Don't treat empty tags as a failed lookup.
@@ -53,9 +54,9 @@ silently merge their ratings.
 Scores every row with usable RMP data (`rmp_flag == ok`):
 
 ```
-composite = retake%/100 * 3.0
-          + rating/5 * 2.5
-          + (5 - difficulty)/5 * 1.5
+composite = rmp_score(), which is
+            retake%/100 * 3.0 + rating/5 * 2.5 + (5 - difficulty)/5 * 1.5,
+            pulled toward a neutral prof (3.5, 3.0, 60%) when ratings are few (10 ratings = half)
           + req_bonus        (+3 if section fills a remaining degree req)
           + seats_bonus      (+1 if seats>10, +2 if seats>25)
           + modality_bonus   (+1 if ASYNC, or INPERSON in Express II / part-of-term 3)
