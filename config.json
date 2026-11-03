@@ -1,5 +1,6 @@
 {
   "term": "202720",
+  "dispatchWatchdog": true,
   "priority": {
     "chain": [
       "ACCT 203",
