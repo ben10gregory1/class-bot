@@ -1,9 +1,9 @@
 name: CofC Seat Watcher
 
-# Cadence model (proposed):
-#   - Primary:  external cron (cron-job.org or Cloudflare Worker) POSTs a
-#               workflow_dispatch every 5 min with NO inputs -> one pass of
-#               the normal watch[] list. Dispatch runs start in ~2-11s.
+# Cadence model:
+#   - Primary:  Cloudflare Worker (cron-worker/) POSTs a workflow_dispatch
+#               every 10 min with NO inputs -> one pass of the normal
+#               watch[] list. Dispatch runs start in ~2-11s.
 #   - Fallback: GitHub schedule below. Throttled to every ~1.5-7h on this
 #               repo, but costs nothing and covers an external-cron outage.
 on:
@@ -35,6 +35,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   check:
@@ -74,11 +75,18 @@ jobs:
             if [ "$i" -lt 5 ]; then sleep 50; fi
           done
 
-      # Dispatch: external 5-min cron (no inputs -> normal watch[] only) or a
+      # Dispatch: external 10-min cron (no inputs -> normal watch[] only) or a
       # manual ad-hoc run (inputs -> watch[] + one extra target). One pass.
       - name: Check once (dispatch)
         if: github.event_name == 'workflow_dispatch'
         run: python watch.py
+
+      # Runs on the GitHub schedule, so it still fires if the Worker or its token dies.
+      - name: Check the Worker is still dispatching
+        if: github.event_name == 'schedule'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python watchdog.py
 
       - name: Commit state.json if changed
         if: always()

@@ -3,8 +3,10 @@
 
 import contextlib, io, json, os, tempfile, unittest
 from unittest import mock
+from datetime import datetime, timedelta, timezone
 import requests
 import watch
+import watchdog
 
 TOPIC = "fake-topic-for-tests"
 CFG = {"term": "202720", "watch": [{"crns": ["A", "B"], "label": "test"}]}
@@ -112,6 +114,91 @@ class WatchTest(unittest.TestCase):
                 watch.notify(CFG, "t", "b", "u")
             with self.assertRaises(SystemExit):
                 watch.main()
+
+
+class WatchdogTest(unittest.TestCase):
+    NOW = datetime(2026, 11, 2, 12, 0, tzinfo=timezone.utc)
+
+    def check(self, minutes_ago):
+        latest = None if minutes_ago is None else self.NOW - timedelta(minutes=minutes_ago)
+        with mock.patch.object(watchdog, "latest_dispatch", return_value=latest):
+            return watchdog.check(self.NOW)
+
+    def test_recent_dispatch_is_quiet(self):
+        self.assertIsNone(self.check(59))
+
+    def test_stale_dispatch_alerts(self):
+        self.assertIn("3.0 h", self.check(180))
+
+    def test_no_dispatch_runs_alerts(self):
+        self.assertIn("No Worker", self.check(None))
+
+    def run_main(self, config, post_effect=None):
+        with tempfile.TemporaryDirectory() as tmp:
+            with open(os.path.join(tmp, "config.json"), "w") as f:
+                json.dump(config, f)
+            cwd = os.getcwd()
+            os.chdir(tmp)
+            self.addCleanup(os.chdir, cwd)
+            err = io.StringIO()
+            with mock.patch.dict(os.environ, {"NTFY_TOPIC": TOPIC}), \
+                    mock.patch.object(watchdog, "latest_dispatch", return_value=None), \
+                    mock.patch.object(watchdog.requests, "post", side_effect=post_effect,
+                                      return_value=resp(200)) as post, \
+                    contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(err):
+                watchdog.main()
+            os.chdir(cwd)
+        return post, err.getvalue()
+
+    def test_off_by_default_sends_nothing(self):
+        post, _ = self.run_main({})
+        self.assertEqual(post.call_count, 0)
+
+    def test_enabled_and_stale_pings(self):
+        post, _ = self.run_main({"dispatchWatchdog": True})
+        self.assertEqual(post.call_count, 1)
+
+    def test_failed_ping_never_raises_or_logs_topic(self):
+        err_obj = requests.ConnectionError(f"Max retries exceeded with url: /{TOPIC}")
+        _, err = self.run_main({"dispatchWatchdog": True}, post_effect=err_obj)
+        self.assertIn("ConnectionError", err)
+        self.assertNotIn(TOPIC, err)
+
+
+class FetchWatchedTest(unittest.TestCase):
+    def fetch(self, targets, results):
+        """results maps subject (None = full scan) to the sections Banner returns."""
+        def fake(s, term, **filters):
+            return results[filters.get("txt_subject")]
+        with mock.patch.object(watch, "fetch_all", side_effect=fake) as fetch, \
+                contextlib.redirect_stderr(io.StringIO()) as err:
+            secs = watch.fetch_watched(None, "202720", targets)
+        return secs, fetch, err.getvalue()
+
+    def test_queries_each_course_once_and_never_full_scans(self):
+        targets = [{"subject": "ACCT", "courseNumber": "203", "crns": ["A"]},
+                   {"subject": "ACCT", "courseNumber": "203", "crns": ["B"]},
+                   {"subject": "MATH", "courseNumber": "104", "crns": ["C"]}]
+        secs, fetch, _ = self.fetch(targets, {"ACCT": [sec("A", 0), sec("B", 0)], "MATH": [sec("C", 0)]})
+        self.assertEqual(fetch.call_count, 2)
+        self.assertEqual(fetch.call_args_list[0].kwargs,
+                         {"txt_subject": "ACCT", "txt_courseNumber": "203"})
+        self.assertEqual(len(secs), 3)
+
+    def test_target_without_subject_full_scans(self):
+        _, fetch, _ = self.fetch([{"crns": ["A"]}], {None: [sec("A", 0)]})
+        self.assertEqual(fetch.call_args.kwargs, {})
+
+    def test_wildcard_subject_full_scans(self):
+        _, fetch, _ = self.fetch([{"subject": "*"}], {None: []})
+        self.assertEqual(fetch.call_args.kwargs, {})
+
+    def test_missing_crn_falls_back_to_full_scan_and_warns(self):
+        targets = [{"subject": "ACCT", "courseNumber": "203", "crns": ["A"]}]
+        secs, fetch, err = self.fetch(targets, {"ACCT": [], None: [sec("A", 1)]})
+        self.assertEqual(fetch.call_count, 2)
+        self.assertEqual(secs[0]["courseReferenceNumber"], "A")
+        self.assertIn("A", err)
 
 
 if __name__ == "__main__":

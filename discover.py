@@ -36,13 +36,15 @@ def vocab(s, term):
     return out
 
 
-def fetch_all(s, term, page=500):
+def fetch_all(s, term, page=500, **filters):
+    # Banner keeps the last search in the session, so reset before each one.
+    s.post(f"{SSB}/classSearch/resetDataForm", timeout=30)
     rows, off, total = [], 0, None
     while total is None or off < total:
         r = s.get(f"{SSB}/searchResults/searchResults",
                   params={"txt_term": term, "pageOffset": off,
                           "pageMaxSize": page, "sortColumn": "subjectDescription",
-                          "sortDirection": "asc"}, timeout=60)
+                          "sortDirection": "asc", **filters}, timeout=60)
         d = r.json()
         total = d.get("totalCount", 0)
         chunk = d.get("data") or []

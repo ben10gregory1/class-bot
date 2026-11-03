@@ -15,7 +15,7 @@ in MyPortal/Banner.
 | Seat watcher | `watch.py`, `config.json` (watch targets + priority chain), `state.json` (last-seen open/closed per CRN, committed by the workflow; does NOT prune CRNs dropped from `watch[]`, stale keys are ignored) |
 | Discovery/ranking pipeline (run manually, not scheduled) | `discover.py` → `enrich.py` → `rank.py`, outputs in `discovery/` (see `discovery/CONTEXT.md`) |
 | Prereq-chain report (run manually) | `discover.py --chain-report` → `discovery/prereq-chain.md`, ALL sections of `config.json` `priority.chain` courses regardless of seats/modality |
-| Scheduling | `.github/workflows/watch.yml` — GitHub Actions cron, `*/5 * * * *`. See "Cron cadence" below — the declared interval is not what actually happens. `workflow_dispatch` (manual/ad-hoc) is a single shot. `cron-worker/` — Cloudflare Worker that dispatches every 5 min (setup in `cron-worker/README.md`). |
+| Scheduling | `.github/workflows/watch.yml` — GitHub Actions cron, `*/5 * * * *`. See "Cron cadence" below — the declared interval is not what actually happens. `workflow_dispatch` (manual/ad-hoc) is a single shot. `cron-worker/` — Cloudflare Worker that dispatches every 10 min (setup in `cron-worker/README.md`). `watchdog.py` — pings ntfy from scheduled runs if dispatches stop. |
 | Session restore | `RESTORE.md` (current state snapshot), `.claude/commands/restore.md`, `.claude/commands/save.md` |
 
 ## Known-wrong
@@ -50,21 +50,24 @@ Never run `watch.py` on the laptop alongside Actions — separate state = double
 `cron-worker/README.md`; check `gh run list --event workflow_dispatch` for real status).
 Scheduled gaps over the last 40 runs: 130–621 min, median 300, so still throttled.
 
-- Trigger: Cloudflare Worker cron `*/5 * * * *` POSTs `workflow_dispatch` with no inputs, one
-  pass per tick. Token is a Wrangler secret (fine-grained, class-bot only, Actions read/write).
-- `watch.yml` needs no change. Dispatch runs take a median 39 s, max 71 s (n=15), so they
-  don't overlap each other at a 5 min spacing.
+- Trigger: Cloudflare Worker cron `*/10 * * * *` POSTs `workflow_dispatch` with no inputs, one
+  pass per tick. Token is a Wrangler secret (fine-grained, class-bot only, Actions read/write,
+  no expiration). 10 min rather than 5 to go easy on Banner; change one line in
+  `cron-worker/wrangler.toml` for a registration crunch.
+- Dispatch runs took a median 39 s, max 71 s (n=15, full-scan era), so they don't overlap.
 - A scheduled run takes ~5.5 min and blocks ticks while it runs. `concurrency: seat-watch`
   holds one pending run, and a newer tick cancels it, so an occasional "cancelled" run is
   expected and harmless. Only one run touches `state.json` at a time.
 - GitHub `schedule:` stays as the fallback: it's free and it's the only thing polling if the
-  Worker or token dies. Nothing alerts on a Worker failure, because that would put
-  `NTFY_TOPIC` in a third place.
-- Usage: 288 dispatches/day ≈ 187 Actions min/day, free on a public repo. On Workers Free
-  that's under 0.3% of 100k requests/day and 1 of 5 cron triggers.
-- Banner load goes up ~13x: each pass scans the whole term (2,584 sections ≈ 6 pages + session
-  setup), from ~24 passes/day to ~312. Point-sampling still applies, the miss window just
-  drops to about 5 min.
+  Worker or token dies. `watchdog.py` runs on scheduled runs and pings ntfy if the newest
+  dispatch is over 60 min old, so `NTFY_TOPIC` stays out of Cloudflare. Off until
+  `config.json` sets `dispatchWatchdog: true`, which is the last step of the Worker setup.
+- Usage: 144 dispatches/day, free on a public repo. On Workers Free that's under 0.3% of 100k
+  requests/day and 1 of 5 cron triggers.
+- Banner load: `fetch_watched()` queries only the courses in `watch[]`, so targets need
+  `subject` + `courseNumber`. A target without a subject (ad-hoc CRNs) forces a full scan, and
+  a watched CRN missing from course results logs a warning and falls back to a full scan.
+  Point-sampling still applies, the miss window just drops to about 10 min.
 
 **Stale-checkout dedupe (fixed 2026-10-04):** `actions/checkout` defaulted to the trigger-time
 SHA, so a run queued behind another loaded old `state.json` and re-alerted. Now checks out

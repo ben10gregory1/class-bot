@@ -10,7 +10,7 @@ preview_urls = false
 
 [triggers]
 # To stop: set crons = [] and redeploy. Removing this block leaves the crons live.
-crons = ["*/5 * * * *"]
+crons = ["*/10 * * * *"]
 
 [vars]
 GITHUB_OWNER = "ben10gregory1"

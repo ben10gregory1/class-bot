@@ -1,6 +1,6 @@
 # cron-worker
 
-Cloudflare Worker that POSTs `workflow_dispatch` for `watch.yml` every 5 minutes, because
+Cloudflare Worker that POSTs `workflow_dispatch` for `watch.yml` every 10 minutes, because
 GitHub's own `schedule:` is throttled to gaps of hours. Each dispatch is one `watch.py` pass.
 No alerts, Banner calls, or state live here. It only pulls the trigger. Fits the Workers Free
 plan.
@@ -14,8 +14,9 @@ Fine-grained tokens → Generate new token:
 - Repository access: **Only select repositories** → `class-bot`
 - Repository permissions: **Actions: Read and write**. Nothing else (Metadata: Read is added
   automatically).
-- Expiration: pick a date and put it on your calendar. An expired token fails every tick, and
-  only the slow GitHub schedule keeps running.
+- Expiration: **No expiration**. Allowed for personal repos, and the narrow scope limits a leak
+  to triggering this one workflow. If the option isn't offered, pick 366 days and add a calendar
+  reminder. An expired token fails every tick, and only the slow GitHub schedule keeps running.
 
 Copy it once. Don't commit it or paste it into chat. The repo is public.
 
@@ -39,14 +40,17 @@ Cron changes can take up to 15 minutes to reach Cloudflare's network.
 npx wrangler@4 tail
 ```
 
-Look for `dispatch ok: HTTP 200` at the next 5-minute mark. Then confirm GitHub saw it:
+Look for `dispatch ok: HTTP 200` at the next 10-minute mark. Then confirm GitHub saw it:
 
 ```powershell
 gh run list --workflow watch.yml --event workflow_dispatch --limit 5
 ```
 
-You should see runs about 5 minutes apart, each around 40 seconds. Past logs are in the
-Cloudflare dashboard under Workers → `class-bot-cron` → Observability (kept 3 days).
+You should see runs about 10 minutes apart. Past logs are in the Cloudflare dashboard under
+Workers → `class-bot-cron` → Observability (kept 3 days).
+
+**Then turn on the watchdog:** set `"dispatchWatchdog": true` in `config.json` and push. Each
+GitHub scheduled run then pings ntfy if the newest dispatch run is over 60 minutes old.
 
 ## Reading failures
 
@@ -58,8 +62,8 @@ Cloudflare dashboard under Workers → `class-bot-cron` → Observability (kept 
 | `HTTP 404` | Wrong repo settings, or token can't see the repo | Check `[vars]` and token repo access |
 | `HTTP 422` | Bad ref, or no `workflow_dispatch` on it | Check `GITHUB_REF` and `watch.yml` |
 
-Nothing pings you when the Worker fails. If alerts feel quiet, run the `gh run list` command
-above and check that the dispatch runs are recent.
+`watchdog.py` pings you when dispatches stop, but only on GitHub's scheduled runs, so the ping
+can lag by hours. A manual `gh workflow run` also counts as a dispatch and can delay it.
 
 ## Turn it off
 

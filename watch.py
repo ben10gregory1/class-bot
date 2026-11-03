@@ -67,7 +67,7 @@ def notify(cfg, title, body, url):
 
 
 def reg_url(term, crn):
-    base = os.environ.get("BANNER", "https://bannerweb.cofc.edu")
+    base = os.environ.get("BANNER", "https://ssb.cofc.edu")
     return f"{base}/StudentRegistrationSsb/ssb/classRegistration/classRegistration"
 
 
@@ -90,13 +90,35 @@ def env_target():
     return t
 
 
+def fetch_watched(s, term, targets):
+    """Fetch only the courses the targets name. A target with no subject needs a full scan."""
+    queries = set()
+    for t in targets:
+        if not t.get("subject") or t["subject"] == "*":
+            return fetch_all(s, term)
+        queries.add((t["subject"], t.get("courseNumber") or ""))
+    secs = []
+    for subject, course in sorted(queries):
+        filters = {"txt_subject": subject}
+        if course:
+            filters["txt_courseNumber"] = course
+        secs += fetch_all(s, term, **filters)
+    # A wrong subject or course in config.json would otherwise stop watching a CRN silently.
+    found = {sec.get("courseReferenceNumber") for sec in secs}
+    missing = sorted({c for t in targets for c in t.get("crns", [])} - found)
+    if missing:
+        print(f"WARNING: CRNs {missing} not in course results, falling back to a full scan", file=sys.stderr)
+        return fetch_all(s, term)
+    return secs
+
+
 def one_pass(cfg, st):
     term = cfg["term"]
     extra = env_target()
     if extra:
         cfg = {**cfg, "watch": cfg["watch"] + [extra]}
     s = session(term)
-    secs = fetch_all(s, term)
+    secs = fetch_watched(s, term, cfg["watch"])
     hits = failed = 0
     for t in cfg["watch"]:
         for sec in secs:
