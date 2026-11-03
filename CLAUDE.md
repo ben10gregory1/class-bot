@@ -13,6 +13,7 @@ in MyPortal/Banner.
 | Concern | Files |
 |---|---|
 | Seat watcher | `watch.py`, `config.json` (watch targets + priority chain), `state.json` (last-seen open/closed per CRN, committed by the workflow; does NOT prune CRNs dropped from `watch[]`, stale keys are ignored) |
+| Plan A/B/C fallbacks + last-seat flag | `plans.py`, `config.json` `plans`. See "Plan A/B/C fallback rule" below |
 | Discovery/ranking pipeline (run manually, not scheduled) | `discover.py` → `enrich.py` → `rank.py`, outputs in `discovery/` (see `discovery/CONTEXT.md`) |
 | Prereq-chain report (run manually) | `discover.py --chain-report` → `discovery/prereq-chain.md`, ALL sections of `config.json` `priority.chain` courses regardless of seats/modality |
 | Scheduling | `.github/workflows/watch.yml` — GitHub Actions cron, `*/5 * * * *`. See "Cron cadence" below — the declared interval is not what actually happens. `workflow_dispatch` (manual/ad-hoc) is a single shot. `cron-worker/` — Cloudflare Worker that dispatches every 10 min (setup in `cron-worker/README.md`). `watchdog.py` — pings ntfy from scheduled runs if dispatches stop. |
@@ -46,8 +47,8 @@ read/write). GitHub schedule stays as fallback. "Leave the laptop on" does nothi
 Actions doesn't run on the laptop; a laptop-side trigger dies on Modern Standby sleep.
 Never run `watch.py` on the laptop alongside Actions — separate state = double alerts.
 
-**Update 2026-11-02, fix built in `cron-worker/`, live only once Ben deploys it** (steps in
-`cron-worker/README.md`; check `gh run list --event workflow_dispatch` for real status).
+**Update 2026-11-02, fix live in `cron-worker/`** (Worker deployed, token set, watchdog on; first
+ticks 01:10 and 01:20 UTC 11-03). Check real status with `gh run list --event workflow_dispatch`.
 Scheduled gaps over the last 40 runs: 130–621 min, median 300, so still throttled.
 
 - Trigger: Cloudflare Worker cron `*/10 * * * *` POSTs `workflow_dispatch` with no inputs, one
@@ -81,6 +82,29 @@ delivered", not purely last-seen status. Failed sends log only the error type or
 because `requests` error text contains the URL and so the topic. Tests: `python -m unittest
 test_watch` (network mocked).
 
+
+## Plan A/B/C fallback rule (added 2026-11-02)
+
+`config.json` `plans` holds a ranked ladder per course. `plans.py` resolves live seats into the
+best conflict-free schedule on every `watch.py` pass. Still alert only.
+
+- Order of preference: most credits, then earlier `slots[]` kept first (ACCT, MATH, BLAW, MGMT,
+  LATN), then closest to Plan A, then most seats.
+- Available means seats > 0 and nobody on the waitlist. Negative seat counts count as full.
+- `bench[]` is used only when the schedule would fall under `minCredits` (15, Meeting Street).
+- `blocked[]` removes sections inside a time window: `{"days": "MW", "start": "1700", "end": "1900"}`.
+  Day codes are M T W R F S U, R is Thursday. `discover.meets()` writes Tue and Thu both as `T`,
+  so conflict checks read Banner's day fields directly.
+- `plans.registered[]`: add a CRN once registered. That course then locks to it and stops alerting.
+  Separate from top-level `registered{}`, which `rank.py` reads and still holds Fall.
+- Alerts: `PLAN CHANGE` when the best schedule changes (also when Plan A reopens), `LAST SEAT` when
+  a section reaches exactly 1. Current picks and `watch[]` are urgent, backups are default priority.
+  Backups don't get SEAT alerts: they aren't in `watch[]`, so they can't fire 10 alerts on first run.
+- State: `state.json` `_plan` holds current picks and backup seat counts. A failed send leaves it
+  unchanged so the next poll retries. `watch.py` also fetches the plan courses, 6 queries per pass.
+- Check it: `python plans.py` (live) or `python plans.py --practice` (simulated fills, sends nothing).
+  Ratings in `why` are RMP as of 2026-11-02 and only a tie-breaker: a few opinions, not data on the
+  class. Thin ones (under 10) are labeled. `enrich.py` now rejects hits that don't match Banner's name.
 
 ## Point sampling (inherent — do not "fix")
 
@@ -148,7 +172,7 @@ the chain.
   never anywhere else — repo is public. `watch.py` hard-fails (`sys.exit`, no echo of the
   value) if `NTFY_TOPIC` is unset — checked at the top of `main()` before any scanning, and
   again inside `notify()` as a redundant guard.
-- `state.json`: per-CRN `{open, seats}`, auto-committed by the workflow on change
+- `state.json`: per-CRN `{open, seats}`, plus `_plan` for the fallback rule, auto-committed by the workflow on change
   (`state: update seat tracking [skip ci]`), rebased with `git pull --rebase --autostash`
   before push (`-X theirs`, 3 retries since 2026-10-04). Does not prune CRNs dropped from
   `watch[]`.
