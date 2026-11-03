@@ -1,0 +1,8 @@
+{
+  "name": "class-bot-cron-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

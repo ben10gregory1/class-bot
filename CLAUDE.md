@@ -15,7 +15,7 @@ in MyPortal/Banner.
 | Seat watcher | `watch.py`, `config.json` (watch targets + priority chain), `state.json` (last-seen open/closed per CRN, committed by the workflow; does NOT prune CRNs dropped from `watch[]`, stale keys are ignored) |
 | Discovery/ranking pipeline (run manually, not scheduled) | `discover.py` → `enrich.py` → `rank.py`, outputs in `discovery/` (see `discovery/CONTEXT.md`) |
 | Prereq-chain report (run manually) | `discover.py --chain-report` → `discovery/prereq-chain.md`, ALL sections of `config.json` `priority.chain` courses regardless of seats/modality |
-| Scheduling | `.github/workflows/watch.yml` — GitHub Actions cron, `*/5 * * * *`. See "Cron cadence" below — the declared interval is not what actually happens. `workflow_dispatch` (manual/ad-hoc) is a single shot. |
+| Scheduling | `.github/workflows/watch.yml` — GitHub Actions cron, `*/5 * * * *`. See "Cron cadence" below — the declared interval is not what actually happens. `workflow_dispatch` (manual/ad-hoc) is a single shot. `cron-worker/` — Cloudflare Worker that dispatches every 5 min (setup in `cron-worker/README.md`). |
 | Session restore | `RESTORE.md` (current state snapshot), `.claude/commands/restore.md`, `.claude/commands/save.md` |
 
 ## Known-wrong
@@ -45,6 +45,26 @@ POSTs `workflow_dispatch` every 5 min with a fine-grained PAT (class-bot only, A
 read/write). GitHub schedule stays as fallback. "Leave the laptop on" does nothing by itself —
 Actions doesn't run on the laptop; a laptop-side trigger dies on Modern Standby sleep.
 Never run `watch.py` on the laptop alongside Actions — separate state = double alerts.
+
+**Update 2026-11-02, fix built in `cron-worker/`, live only once Ben deploys it** (steps in
+`cron-worker/README.md`; check `gh run list --event workflow_dispatch` for real status).
+Scheduled gaps over the last 40 runs: 130–621 min, median 300, so still throttled.
+
+- Trigger: Cloudflare Worker cron `*/5 * * * *` POSTs `workflow_dispatch` with no inputs, one
+  pass per tick. Token is a Wrangler secret (fine-grained, class-bot only, Actions read/write).
+- `watch.yml` needs no change. Dispatch runs take a median 39 s, max 71 s (n=15), so they
+  don't overlap each other at a 5 min spacing.
+- A scheduled run takes ~5.5 min and blocks ticks while it runs. `concurrency: seat-watch`
+  holds one pending run, and a newer tick cancels it, so an occasional "cancelled" run is
+  expected and harmless. Only one run touches `state.json` at a time.
+- GitHub `schedule:` stays as the fallback: it's free and it's the only thing polling if the
+  Worker or token dies. Nothing alerts on a Worker failure, because that would put
+  `NTFY_TOPIC` in a third place.
+- Usage: 288 dispatches/day ≈ 187 Actions min/day, free on a public repo. On Workers Free
+  that's under 0.3% of 100k requests/day and 1 of 5 cron triggers.
+- Banner load goes up ~13x: each pass scans the whole term (2,584 sections ≈ 6 pages + session
+  setup), from ~24 passes/day to ~312. Point-sampling still applies, the miss window just
+  drops to about 5 min.
 
 **Stale-checkout dedupe (fixed 2026-10-04):** `actions/checkout` defaulted to the trigger-time
 SHA, so a run queued behind another loaded old `state.json` and re-alerted. Now checks out

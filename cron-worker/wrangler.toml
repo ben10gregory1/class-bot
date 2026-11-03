@@ -1,0 +1,22 @@
+# Repo is public. Only non-secret settings go here.
+# GITHUB_TOKEN is a Wrangler secret: npx wrangler@4 secret put GITHUB_TOKEN
+name = "class-bot-cron"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+# Cron only. No public URL, so nothing can trigger a dispatch over HTTP.
+workers_dev = false
+preview_urls = false
+
+[triggers]
+# To stop: set crons = [] and redeploy. Removing this block leaves the crons live.
+crons = ["*/5 * * * *"]
+
+[vars]
+GITHUB_OWNER = "ben10gregory1"
+GITHUB_REPO = "class-bot"
+GITHUB_WORKFLOW = "watch.yml"
+GITHUB_REF = "main"
+
+[observability]
+enabled = true

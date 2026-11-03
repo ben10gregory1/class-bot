@@ -46,6 +46,9 @@ automatically when it changes (`state: update seat tracking [skip ci]`).
 4. Actions tab → enable workflows → **Run workflow** to test immediately (scheduled runs can
    be hours apart).
 
+**Faster checks:** GitHub throttles its 5-minute schedule to gaps of hours. To really check
+every 5 minutes, deploy the Cloudflare Worker in [`cron-worker/`](cron-worker/README.md).
+
 **Ad-hoc check** without editing `config.json`: Actions tab → "CofC Seat Watcher" →
 **Run workflow**, fill in the `subject` / `course_number` / `crns` / `async_only` inputs.
 
