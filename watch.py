@@ -53,11 +53,17 @@ def notify(cfg, title, body, url):
     if not topic:
         sys.exit("FATAL: NTFY_TOPIC unset. Refusing to run blind.")
     try:
-        requests.post(f"https://ntfy.sh/{topic}", data=body.encode(),
-                      headers={"Title": title, "Priority": "urgent",
-                               "Tags": "school", "Click": url}, timeout=20)
+        r = requests.post(f"https://ntfy.sh/{topic}", data=body.encode(),
+                          headers={"Title": title, "Priority": "urgent",
+                                   "Tags": "school", "Click": url}, timeout=20)
     except Exception as e:
-        print(f"notify fail: {e}", file=sys.stderr)
+        # type name only: requests error text includes the URL, which holds the topic
+        print(f"notify fail: {type(e).__name__}", file=sys.stderr)
+        return False
+    if not 200 <= r.status_code < 300:
+        print(f"notify fail: HTTP {r.status_code}", file=sys.stderr)
+        return False
+    return True
 
 
 def reg_url(term, crn):
@@ -91,7 +97,7 @@ def one_pass(cfg, st):
         cfg = {**cfg, "watch": cfg["watch"] + [extra]}
     s = session(term)
     secs = fetch_all(s, term)
-    hits = 0
+    hits = failed = 0
     for t in cfg["watch"]:
         for sec in secs:
             if not matches(sec, t):
@@ -99,18 +105,22 @@ def one_pass(cfg, st):
             crn = sec.get("courseReferenceNumber")
             open_now = (sec.get("seatsAvailable") or 0) > 0
             was_open = st.get(crn, {}).get("open", False)
-            st[crn] = {"open": open_now, "seats": sec.get("seatsAvailable")}
+            delivered = True
             if open_now and not was_open:
                 hits += 1
                 label = f'{sec.get("subject")} {sec.get("courseNumber")}-{sec.get("sequenceNumber")}'
                 prof = ", ".join(f.get("displayName", "") for f in (sec.get("faculty") or []))
-                notify(cfg,
-                       f'SEAT: {label} ({t.get("label", "watch")})',
-                       f'{sec.get("courseTitle")}\nCRN {crn} | {sec.get("seatsAvailable")} open\n'
-                       f'{prof}\n{classify(sec)} | part {sec.get("partOfTerm")}',
-                       reg_url(term, crn))
+                delivered = notify(cfg,
+                                   f'SEAT: {label} ({t.get("label", "watch")})',
+                                   f'{sec.get("courseTitle")}\nCRN {crn} | {sec.get("seatsAvailable")} open\n'
+                                   f'{prof}\n{classify(sec)} | part {sec.get("partOfTerm")}',
+                                   reg_url(term, crn))
+                if not delivered:
+                    failed += 1
+            # undelivered alert stays open=False, so the next poll sees closed->open and retries
+            st[crn] = {"open": open_now and delivered, "seats": sec.get("seatsAvailable")}
     save_state(st)
-    print(f"{time.strftime('%H:%M:%S')} scanned {len(secs)} sections, {hits} new openings")
+    print(f"{time.strftime('%H:%M:%S')} scanned {len(secs)} sections, {hits} new openings, {failed} alerts failed")
     return hits
 
 

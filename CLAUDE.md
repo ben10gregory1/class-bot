@@ -49,8 +49,14 @@ Never run `watch.py` on the laptop alongside Actions — separate state = double
 **Stale-checkout dedupe (fixed 2026-10-04):** `actions/checkout` defaulted to the trigger-time
 SHA, so a run queued behind another loaded old `state.json` and re-alerted. Now checks out
 `ref: github.ref_name` (branch tip) and pushes with `git pull --rebase -X theirs` + 3 retries.
-Known gap, unfixed: `watch.py` records a CRN as open even if the ntfy POST failed, so a failed
-alert is not retried.
+
+**Failed-alert retry:** a CRN is only recorded `open: true` after ntfy returns 2xx. On a network
+error, timeout or non-2xx, `state.json` keeps `open: false` with the live seat count, so the next
+poll (same run or a later one, since the file is committed/checked out) sees closed → open and
+retries. If the seat closes first, the retry is dropped. `open` therefore means "open and alert
+delivered", not purely last-seen status. Failed sends log only the error type or HTTP status,
+because `requests` error text contains the URL and so the topic. Tests: `python -m unittest
+test_watch` (network mocked).
 
 
 ## Point sampling (inherent — do not "fix")
