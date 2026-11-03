@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { afterEach, test } from "node:test";
-import worker from "../src/index.js";
+import worker, { isDue } from "../src/index.js";
 
 const TOKEN = "fake-token-for-tests";
 const env = {
@@ -9,6 +9,8 @@ const env = {
   GITHUB_REPO: "class-bot",
   GITHUB_WORKFLOW: "watch.yml",
   GITHUB_REF: "main",
+  FAST_FROM: "2026-11-05T05:00:00Z",
+  FAST_UNTIL: "2026-11-08T05:00:00Z",
 };
 const realFetch = globalThis.fetch;
 const realLog = console.log;
@@ -39,6 +41,27 @@ test("POSTs one dispatch with no inputs to watch.yml on main", async () => {
   assert.equal(calls[0].init.method, "POST");
   assert.equal(calls[0].init.headers.Authorization, `Bearer ${TOKEN}`);
   assert.deepEqual(JSON.parse(calls[0].init.body), { ref: "main" });
+});
+
+test("outside the fast window only 10-min marks dispatch", () => {
+  assert.equal(isDue(Date.parse("2026-11-03T02:10:00Z"), env), true);
+  assert.equal(isDue(Date.parse("2026-11-03T02:15:00Z"), env), false);
+  assert.equal(isDue(Date.parse("2026-11-08T05:05:00Z"), env), false);
+});
+
+test("inside the fast window every 5-min tick dispatches", () => {
+  assert.equal(isDue(Date.parse("2026-11-05T05:05:00Z"), env), true);
+  assert.equal(isDue(Date.parse("2026-11-08T04:55:00Z"), env), true);
+});
+
+test("a skipped tick makes no network call", async () => {
+  const calls = mockFetch(200, "{}");
+  await worker.scheduled({ scheduledTime: Date.parse("2026-11-03T02:15:00Z") }, env);
+  assert.equal(calls.length, 0);
+});
+
+test("a missing or bad window falls back to 10-min marks", () => {
+  assert.equal(isDue(Date.parse("2026-11-05T06:05:00Z"), {}), false);
 });
 
 test("accepts 204, the status older API versions return", async () => {

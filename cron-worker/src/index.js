@@ -34,8 +34,15 @@ export async function dispatch(env) {
   console.log(`dispatch ok: HTTP ${res.status}`);
 }
 
+// Cron fires every 5 min. Only 10-min marks dispatch, except inside the FAST_FROM..FAST_UNTIL window.
+export function isDue(ms, env) {
+  if (new Date(ms).getUTCMinutes() % 10 === 0) return true;
+  return ms >= Date.parse(env.FAST_FROM) && ms < Date.parse(env.FAST_UNTIL);
+}
+
 export default {
   async scheduled(controller, env) {
+    if (controller.scheduledTime && !isDue(controller.scheduledTime, env)) return;
     await dispatch(env);
   },
 };

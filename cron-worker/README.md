@@ -1,7 +1,8 @@
 # cron-worker
 
-Cloudflare Worker that POSTs `workflow_dispatch` for `watch.yml` every 10 minutes, because
-GitHub's own `schedule:` is throttled to gaps of hours. Each dispatch is one `watch.py` pass.
+Cloudflare Worker that POSTs `workflow_dispatch` for `watch.yml` every 10 minutes (every 5 between
+`FAST_FROM` and `FAST_UNTIL` in `wrangler.toml`), because GitHub's own `schedule:` is throttled to
+gaps of hours. Each dispatch is one `watch.py` pass.
 No alerts, Banner calls, or state live here. It only pulls the trigger. Fits the Workers Free
 plan.
 

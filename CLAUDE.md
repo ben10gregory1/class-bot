@@ -51,10 +51,11 @@ Never run `watch.py` on the laptop alongside Actions — separate state = double
 ticks 01:10 and 01:20 UTC 11-03). Check real status with `gh run list --event workflow_dispatch`.
 Scheduled gaps over the last 40 runs: 130–621 min, median 300, so still throttled.
 
-- Trigger: Cloudflare Worker cron `*/10 * * * *` POSTs `workflow_dispatch` with no inputs, one
-  pass per tick. Token is a Wrangler secret (fine-grained, class-bot only, Actions read/write,
-  no expiration). 10 min rather than 5 to go easy on Banner; change one line in
-  `cron-worker/wrangler.toml` for a registration crunch.
+- Trigger: Cloudflare Worker cron `*/5 * * * *` POSTs `workflow_dispatch` with no inputs, one
+  pass per tick, but skips ticks off the 10-min marks to go easy on Banner. Every tick runs between
+  `FAST_FROM` and `FAST_UNTIL` in `cron-worker/wrangler.toml` (now 11-05 to 11-07 Eastern, around
+  Ben's 11-06 window); it drops back to 10 min by itself. Token is a Wrangler secret (fine-grained,
+  class-bot only, Actions read/write, no expiration).
 - Dispatch runs took a median 39 s, max 71 s (n=15, full-scan era), so they don't overlap.
 - A scheduled run takes ~5.5 min and blocks ticks while it runs. `concurrency: seat-watch`
   holds one pending run, and a newer tick cancels it, so an occasional "cancelled" run is

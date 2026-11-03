@@ -10,13 +10,17 @@ preview_urls = false
 
 [triggers]
 # To stop: set crons = [] and redeploy. Removing this block leaves the crons live.
-crons = ["*/10 * * * *"]
+# Fires every 5 min. src/index.js skips ticks off the 10-min marks outside FAST_FROM..FAST_UNTIL.
+crons = ["*/5 * * * *"]
 
 [vars]
 GITHUB_OWNER = "ben10gregory1"
 GITHUB_REPO = "class-bot"
 GITHUB_WORKFLOW = "watch.yml"
 GITHUB_REF = "main"
+# 5-min checks around a registration window, midnight to midnight Eastern. Change and redeploy.
+FAST_FROM = "2026-11-05T05:00:00Z"
+FAST_UNTIL = "2026-11-08T05:00:00Z"
 
 [observability]
 enabled = true
