@@ -53,7 +53,7 @@ Scheduled gaps over the last 40 runs: 130–621 min, median 300, so still thrott
 
 - Trigger: Cloudflare Worker cron `*/5 * * * *` POSTs `workflow_dispatch` with no inputs, one
   pass per tick, but skips ticks off the 10-min marks to go easy on Banner. Every tick runs between
-  `FAST_FROM` and `FAST_UNTIL` in `cron-worker/wrangler.toml` (now 11-05 to 11-07 Eastern, around
+  `FAST_FROM` and `FAST_UNTIL` in `cron-worker/wrangler.toml` (now 11-05 to 2027-01-15, extended 11-06 to keep 5-min checks until BLAW 205 opens; was 11-07, around
   Ben's 11-06 window); it drops back to 10 min by itself. Token is a Wrangler secret (fine-grained,
   class-bot only, Actions read/write, no expiration).
 - Dispatch runs took a median 39 s, max 71 s (n=15, full-scan era), so they don't overlap.
