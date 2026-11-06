@@ -34,7 +34,12 @@
       "subject": "BLAW",
       "courseNumber": "205",
       "crns": [
-        "20047"
+        "20047",
+        "20046",
+        "20500",
+        "22203",
+        "21588",
+        "23704"
       ]
     },
     {
@@ -63,7 +68,9 @@
   },
   "plans": {
     "minCredits": 15,
-    "registered": [],
+    "registered": [
+      "20282"
+    ],
     "blocked": [],
     "slots": [
       {
@@ -114,6 +121,18 @@
           {
             "crn": "20500",
             "why": "Same prof as Plan A, midday slot, few seats"
+          },
+          {
+            "crn": "20046",
+            "why": "Ansari-Andrews, same prof as Plan A, earlier MWF slot (0900)"
+          },
+          {
+            "crn": "21588",
+            "why": "Smith, MW 1400-1515, same prof as Plan B, clears LATN and MATH"
+          },
+          {
+            "crn": "23704",
+            "why": "TR 0925-1040, instructor TBA, clears everything, no waitlist"
           }
         ]
       },
