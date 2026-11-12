@@ -21,18 +21,11 @@ through, SOCY 105 landed over the COMM 215 alt. Now 15 cr (2026-10-04) — no cr
 remains. Only RELS 105 + SOCY 105 hit a named gen-ed requirement; the other 10 cr is pure
 122-count filler, zero major progress this term.
 
-## Watch list (config.json) — Spring 2027 plan (retargeted 2026-11-02)
+## Watch list (config.json) — Spring 2027, REGISTERED 2026-11-11
 
-Ben's picked Spring sections, 15 cr, not confirmed registered. Alerts fire on absent/closed ->
-open only: no alert when a section fills, and none for a section that stays open.
-
-| CRN | Course | Time | Prof |
-|---|---|---|---|
-| 20002 | ACCT 203-05 | TR 1215-1330 | Saboe |
-| 20995 | MATH 104-12 | MWF 1100-1150 | Jin |
-| 20047 | BLAW 205-03 | MWF 1000-1050 | Ansari-Andrews |
-| 20542 | MGMT 301-04 | MW 1730-1845 | Yarborough |
-| 20282 | LATN 102-01 | MWF 1300-1350 | McCune |
+Registered (15 cr): POLI 101-03 (21953), LATN 102-01 (20282), MATH 104-14 (20251), ACCT 203-10 (20819), MGMT 301-01 (20476).
+Waitlisted: BLAW 205-05 (20500, 0 cr). `watch[]` now only holds BLAW 205 (all 6 sections) and LATN 102.
+`plans.registered` locks the 5 CRNs above; the BLAW slot is the only open target. Alerts fire on absent/closed -> open only.
 
 `priority.chain` (rank.py bonus 6.0, unchanged) = ACCT 203, ACCT 204, ECON 200, ECON 201,
 MATH 104, MATH 250. Live Banner 2026-11-02: ECON 200 needs 3 cr of completed college math, so

@@ -14,22 +14,6 @@
   },
   "watch": [
     {
-      "label": "spring plan - ACCT 203 Saboe",
-      "subject": "ACCT",
-      "courseNumber": "203",
-      "crns": [
-        "20002"
-      ]
-    },
-    {
-      "label": "spring plan - MATH 104 Jin",
-      "subject": "MATH",
-      "courseNumber": "104",
-      "crns": [
-        "20995"
-      ]
-    },
-    {
       "label": "spring plan - BLAW 205 Ansari-Andrews",
       "subject": "BLAW",
       "courseNumber": "205",
@@ -40,14 +24,6 @@
         "22203",
         "21588",
         "23704"
-      ]
-    },
-    {
-      "label": "spring plan - MGMT 301 Yarborough",
-      "subject": "MGMT",
-      "courseNumber": "301",
-      "crns": [
-        "20542"
       ]
     },
     {
@@ -69,7 +45,11 @@
   "plans": {
     "minCredits": 15,
     "registered": [
-      "20282"
+      "20282",
+      "20819",
+      "20251",
+      "20476",
+      "21953"
     ],
     "blocked": [],
     "slots": [
