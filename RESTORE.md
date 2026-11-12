@@ -21,6 +21,13 @@ through, SOCY 105 landed over the COMM 215 alt. Now 15 cr (2026-10-04) — no cr
 remains. Only RELS 105 + SOCY 105 hit a named gen-ed requirement; the other 10 cr is pure
 122-count filler, zero major progress this term.
 
+## Spring 2027 registration (202720, updated 2026-11-12)
+
+Registered 15 cr: LATN 102-01 20282, MATH 104-14 20251 (Paris), ACCT 203-10 20819 (Saboe),
+MGMT 301-01 20476 (Cook), POLI 101-03 21953 (Wofford). **Waitlisted: BLAW 205-05 20500.**
+All five are in `plans.registered[]`. `watch[]` now holds only BLAW 205 (need a seat) plus two
+upgrade watches: MATH 104 Jin 20995 and MGMT 301 Yarborough 20542. The table below is the old pick list.
+
 ## Watch list (config.json) — Spring 2027 plan (retargeted 2026-11-02)
 
 Ben's picked Spring sections, 15 cr, not confirmed registered. Alerts fire on absent/closed ->

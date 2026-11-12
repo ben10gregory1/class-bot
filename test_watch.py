@@ -194,6 +194,27 @@ class ResolveTest(unittest.TestCase):
     def test_registered_section_holds_even_at_zero_seats(self):
         self.assertEqual(self.picks(pool(A1=0), registered=["A1"])[0]["ACCT 203"], "A1")
 
+    def test_registered_bench_counts_and_stops_bench_swaps(self):
+        # POLI registered at 0 seats, MATH out of options: POLI stays, no other bench pick
+        picks, credits = self.picks(pool(P1=0, M1=0, M2=0, M3=0), registered=["P1"])
+        self.assertEqual(picks["POLI 101"], "P1")
+        self.assertEqual(credits, 6)
+
+    def test_registered_bench_blocks_clashing_slot_rungs(self):
+        secs = [psec("A1", 5, begin="0800", end="0850"),
+                psec("M1", 5, "MATH 104", begin="1400", end="1450"),
+                psec("M2", 5, "MATH 104", begin="1500", end="1550"),
+                psec("P1", 0, "POLI 101", begin="1400", end="1450")]
+        self.assertEqual(self.picks(secs, registered=["P1"])[0]["MATH 104"], "M2")
+
+    def test_fourth_rung_and_beyond_does_not_crash(self):
+        cfg = {**PLANS, "slots": [{"course": "ACCT 203", "rungs": rungs("A1", "A2", "A3", "A4", "A5")}]}
+        secs = [psec(c, 0 if c != "A5" else 3, begin=h, end=h[:2] + "50")
+                for c, h in zip(["A1", "A2", "A3", "A4", "A5"], ["0800", "0900", "1000", "1100", "1200"])]
+        sent = []
+        plans.check(cfg, secs, {}, lambda t, b, p: sent.append(b) or True, ())
+        self.assertIn("A5", sent[0])
+
 
 class PlanAlertTest(unittest.TestCase):
     def setUp(self):

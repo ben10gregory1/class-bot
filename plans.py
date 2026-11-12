@@ -8,7 +8,7 @@ import argparse, itertools, json
 
 DAYS = (("monday", "M"), ("tuesday", "T"), ("wednesday", "W"), ("thursday", "R"),
         ("friday", "F"), ("saturday", "S"), ("sunday", "U"))
-PLAN = "ABC"
+PLAN = "ABCDEFGHIJ"
 
 
 def meeting_slots(sec):
@@ -65,6 +65,9 @@ def resolve(plans, by_crn):
     """Best schedule: most credits, earlier slots kept first, closest to Plan A, most seats."""
     regd = [by_crn[c] for c in plans.get("registered", []) if c in by_crn]
     windows = plans.get("blocked", [])
+    # A registered bench section is fixed: it counts toward credits and blocks clashes
+    slot_courses = {slot["course"] for slot in plans["slots"]}
+    fixed = [s for s in regd if course_of(s) not in slot_courses]
     options = []
     for slot in plans["slots"]:
         held = [s for s in regd if course_of(s) == slot["course"]]
@@ -78,7 +81,7 @@ def resolve(plans, by_crn):
 
     best, best_key = None, None
     for combo in itertools.product(*options):
-        chosen = [c[1] for c in combo if c]
+        chosen = [c[1] for c in combo if c] + fixed
         if any(clash(a, b) for a, b in itertools.combinations(chosen, 2)):
             continue
         key = (-sum(credits_of(s) for s in chosen),
@@ -94,10 +97,16 @@ def resolve(plans, by_crn):
                       "plan": None if not c else "reg" if not c[2] else PLAN[c[0]],
                       "crn": c[1]["courseReferenceNumber"] if c else None,
                       "why": c[2]["why"] if c and c[2] else ""})
-    chosen = [c[1] for c in best if c]
+    for s in fixed:
+        picks.append({"course": course_of(s), "plan": "reg",
+                      "crn": s["courseReferenceNumber"], "why": ""})
+    chosen = [c[1] for c in best if c] + fixed
     credits = sum(credits_of(s) for s in chosen)
+    done = {course_of(s) for s in fixed}
     # Bench only to stay at the credit floor, it replaces a slot that ran out of options
     for item in plans.get("bench", []):
+        if item["course"] in done:
+            continue
         if credits >= plans.get("minCredits", 0):
             break
         for r in item["rungs"]:
