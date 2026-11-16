@@ -1,9 +1,26 @@
 # RESTORE — class-bot state snapshot
 
-Watch term: **202720** (Spring 2027, since 2026-11-02). Current registration below is still Fall (202710).
+Watch term: **202720** (Spring 2027, since 2026-11-02).
 Regenerate anytime: `python rank.py` (ranking), `discover.py` (fresh section pull, `--term` defaults to 202720).
 
-## Registered — current (15 cr, updated 2026-10-04)
+## Registered — Spring 2027 (15 cr, confirmed from Banner schedule 2026-11-16)
+
+Classes 01/11/2027 – 05/04/2027, all in person.
+
+| CRN | Course | Days / time | Room | Instructor |
+|---|---|---|---|---|
+| 21953 | POLI 101-03 | TR 1215-1330 | Maybank 111 | Wofford |
+| 20282 | LATN 102-01 | MWF 1300-1350 | RSS 101 | McCune |
+| 20251 | MATH 104-14 | MWF 1200-1250 | Maybank 112 | Paris |
+| 20819 | ACCT 203-10 | TR 1600-1715 | Beatty 320 | Saboe |
+| 20476 | MGMT 301-01 | R 1800-2045 | Tate 207 | Cook |
+
+**BLAW 205 waitlist conflict (found 2026-11-16):** waitlisted on 20500 = MWF 1200-1250, same slot
+as MATH 104-14. A waitlist offer can't register without dropping MATH. Live Banner 11-16:
+20046 MWF 0900 (wl 13/20) and 22203 MW 1525 (wl 24/45) fit the schedule and have waitlist room;
+20500 and 21588 waitlists are full; 20047 and 23704 have no waitlist (seat alerts are the only path).
+
+## Registered — Fall 2026 (term 202710, ends ~12/05, updated 2026-10-04)
 
 | CRN | Course | Cr | Mode | Part of term |
 |---|---|---|---|---|
@@ -24,7 +41,7 @@ remains. Only RELS 105 + SOCY 105 hit a named gen-ed requirement; the other 10 c
 ## Watch list (config.json) — Spring 2027, REGISTERED 2026-11-11
 
 Registered (15 cr): POLI 101-03 (21953), LATN 102-01 (20282), MATH 104-14 (20251), ACCT 203-10 (20819), MGMT 301-01 (20476).
-Waitlisted: BLAW 205-05 (20500, 0 cr). `watch[]` now only holds BLAW 205 (all 6 sections) and LATN 102.
+Waitlisted: BLAW 205-05 (20500, 0 cr; conflicts with MATH 104, see top). `watch[]` holds only BLAW 205 (all 6 sections); LATN 102 dropped 2026-11-16 since 20282 is registered.
 `plans.registered` locks the 5 CRNs above; the BLAW slot is the only open target. Alerts fire on absent/closed -> open only.
 
 `priority.chain` (rank.py bonus 6.0, unchanged) = ACCT 203, ACCT 204, ECON 200, ECON 201,
@@ -51,7 +68,7 @@ After registering a section, add its CRN to `plans.registered[]`.
 
 ## Pending decisions
 
-- **Registration window opens 2026-11-06.** Register the Spring sections above manually in Banner then. Alert-only — the bot never registers.
+- **BLAW 205:** decide whether to move off the 20500 waitlist (MATH clash) onto 20046 or 22203. Check in Banner whether CofC allows two waitlists for one course. Alert-only — the bot never registers.
 - MATH 116 deferred out of the Spring plan to keep 15 cr; still owed for major calc + gen-ed math.
 - Superseded and closed (kept in git history, pre-d48e221): the 2026-08-21 MATH 250 add idea and
   the virtual-through-September in-person conflicts (PALM 118 / GEOL 240 / FINC 120). PALM 118 and
